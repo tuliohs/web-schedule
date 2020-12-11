@@ -8,6 +8,7 @@ import "assets/styles/tailwind.css";
 // layouts
 
 import Admin from "layouts/Admin.js";
+import Schedule from "layouts/Schedule.js";
 import Auth from "layouts/Auth.js";
 
 // views without layouts
@@ -20,6 +21,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       {/* add routes with layouts */}
+      <Route path="/myschedule" component={Schedule} />
       <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
