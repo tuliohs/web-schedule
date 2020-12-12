@@ -1,5 +1,5 @@
 para inserir uma pagina:
     criar a pagina em views
     adiciona-la no layout
-        adicionar o layout no views/index
-    adiciona no SlidBar
+        adicionar o layout no views/index caso ele não exista
+    adiciona no SlideBar
