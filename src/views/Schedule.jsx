@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
+import Axios from 'axios'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
@@ -50,7 +51,6 @@ export const defaultStepItems = [
 
 const CardContent = ({ id, title, description, revision }) => {
     return (
-
         <div className="w-full md:w-4/12 px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
@@ -82,15 +82,26 @@ const CardContent = ({ id, title, description, revision }) => {
 export default function Schedule() {
 
     const [showModal, setShowModal] = useState(false)
+    const [data, setData] = useState([])
     const actionModal = () => setShowModal(!showModal)
+    useEffect(() => {
+        const url = "http://45.90.108.173:9090/v1/categorySchedule"
+        Axios.get(url)
+            .then(c => {
+                console.log(c.data)
+                setData(c.data)
+            })
+            .catch(e => console.log("err", e))
+    }, [])
+
     return (
         <>
-            <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
-                {defaultStepItems.map(c => (
+            {!data ? <h1>Loading ...</h1> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
+                {data.map(c => (
                     <>
                         <div className="w-full text-center relative">
                             {/* Heading */}
-                            <h6 className="text-white  uppercase font-bold  bg-blue-600 ">{c.category}</h6>
+                            <h6 className="text-white  uppercase font-bold  bg-blue-600 ">{c.description}</h6>
                             {/* Divider */}
                             <hr className="my-6 md:min-w-full" />
                         </div>
@@ -98,7 +109,7 @@ export default function Schedule() {
                         <ModalSmall setShowModal={setShowModal} showModal={showModal} />
                     </>
                 ))}
-            </div>
+            </div>}
         </>
     );
 }
