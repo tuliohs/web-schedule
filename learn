@@ -3,3 +3,6 @@ para inserir uma pagina:
     adiciona-la no layout
         adicionar o layout no views/index caso ele não exista
     adiciona no SlideBar
+
+Star work in ubuntu
+"start": "PORT=6000 react-scripts start",

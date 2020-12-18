@@ -1,8 +1,8 @@
 {
-  "name": "notus-react",
+  "name": "schedule",
   "version": "1.0.0",
-  "description": "Notus React - A free Tailwind CSS and React UI Kit and Admin by Creative Tim.",
-  "repository": "https://github.com/creativetimofficial/notus-react",
+  "description": "Schedule Revision",
+  "repository": "https://github.com/tuliohs/web-schedule",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.14.0",
@@ -14,6 +14,7 @@
     "chart.js": "2.9.3",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
+    "https": "^1.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-google-maps": "9.4.5",

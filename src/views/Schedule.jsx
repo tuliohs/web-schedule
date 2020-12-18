@@ -1,12 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+import { newRevision } from './Revision'
+
 import 'components/Buttons/buttonHover.css'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
+import AlertDynamic from 'components/Notifications/AlertDynamic'
+
+//import https from 'https'
+//const axRejUnauth = Axios.create({
+//    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+//    //baseURL: "https://jsonplaceholder.typicode.com/",
+//    withCredentials: false,
+//    headers: {
+//        'Access-Control-Allow-Origin': '*',
+//        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+//    }
+//});
 
 const defaultDescr = " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type sp"
 export const defaultStepItems = [
@@ -49,7 +63,7 @@ export const defaultStepItems = [
 
 ]
 
-const CardContent = ({ id, title, description, revision }) => {
+const CardContent = ({ categoryId, item, revision }) => {
     return (
         <div className="w-full md:w-4/12 px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -62,13 +76,13 @@ const CardContent = ({ id, title, description, revision }) => {
                             </div></div>
 
                         <Link className="relative w-auto pl-4 flex-initial"
-                            to={{ pathname: "revision", state: { id: id, description: description, title: title, } }}
+                            to={{ pathname: "revision", state: { item: item, categoryId: categoryId } }}
                         >
                             < ExitToAppIcon />
                         </Link>
                     </div>
-                    <h6 className="text-xl font-semibold">{title}</h6>
-                    <p className="mt-2 mb-4 text-gray-600">{description}</p>
+                    <h6 className="text-xl font-semibold">{item?.title}</h6>
+                    <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                     <div className="divhoverbutton">
                         <a className="ahoverbutton" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
@@ -81,11 +95,14 @@ const CardContent = ({ id, title, description, revision }) => {
 
 export default function Schedule() {
 
-    const [showModal, setShowModal] = useState(false)
     const [data, setData] = useState([])
-    const actionModal = () => setShowModal(!showModal)
+    const [showModal, setShowModal] = useState(false)
+    const [revisonNote, setRevisionNote] = useState(null)
+    const [curr, setCurr] = useState({})
+    const atual = useRef(null)
+
     useEffect(() => {
-        const url = "http://45.90.108.173:9090/v1/categorySchedule"
+        const url = "http://localhost:9090/v1/categorySchedule"
         Axios.get(url)
             .then(c => {
                 console.log(c.data)
@@ -97,19 +114,33 @@ export default function Schedule() {
     return (
         <>
             {!data ? <h1>Loading ...</h1> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
+                <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote} setText={setRevisionNote}
+                    action={() => {
+                        newRevision({ curr: curr, revisonNote: revisonNote })
+                        setShowModal(false)
+                    }} />
                 {data.map(c => (
                     <>
-                        <div className="w-full text-center relative">
+                        <div className="w-full text-center relative" key={c._id}>
                             {/* Heading */}
                             <h6 className="text-white  uppercase font-bold  bg-blue-600 ">{c.description}</h6>
                             {/* Divider */}
                             <hr className="my-6 md:min-w-full" />
                         </div>
-                        {c.items.map(x => <CardContent id={x.id} title={x.title} description={x.description} revision={actionModal} />)}
-                        <ModalSmall setShowModal={setShowModal} showModal={showModal} />
+                        {c.items.map(x => (
+                            <>
+                                <CardContent item={x} categoryId={c._id} revision={() => {
+                                    setCurr({ categoryId: c._id, itemId: x._id })
+                                    setShowModal(true)
+                                }
+                                } />
+                            </>
+                        ))}
+
                     </>
                 ))}
             </div>}
+            <AlertDynamic showAlert={true} />
         </>
     );
 }

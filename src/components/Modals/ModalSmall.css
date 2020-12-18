@@ -1,0 +1,15 @@
+.ajust{
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(160,160,160,0.5)
+}
+.ajustb{
+    max-width: 24rem;
+    min-width: 24rem;
+
+}
+.ajustc{
+    padding: 1.5rem;
+}
