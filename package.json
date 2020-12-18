@@ -16,6 +16,7 @@
     "gulp-append-prepend": "1.0.8",
     "https": "^1.0.0",
     "react": "16.13.1",
+    "react-datetime-picker": "^3.0.4",
     "react-dom": "16.13.1",
     "react-google-maps": "9.4.5",
     "react-router": "5.2.0",

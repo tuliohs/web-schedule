@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useLocation } from 'react-router-dom'
 import Axios from 'axios'
 
+
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
+import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
@@ -27,55 +29,25 @@ const CardContent = ({ title, description, revision }) => {
         </div>)
 }
 
-const itemRevision = [
-    {
-        idSchedule: 1,
-        revisions: [
-            { date: 'junho 2020', },
-            { date: 'junho 2020', },
-            { date: 'junho 2020', },
-            { date: 'junho 2020', },
-            { date: 'junho 2020', },
-            { date: 'junho 2020', },
-            { date: 'junho 2020', }],
-    },
-    {
-        idSchedule: 3,
-        revisions: [
-            { date: 'junho 201', },
-            { date: 'junho 201', },
-            { date: 'junho 2021', },]
-    },
-    {
-        idSchedule: 4,
-        revisions: [
-            { date: 'junho 2022', },
-            { date: 'junho 2022', },
-            { date: 'junho 2022', },
-            { date: 'junho 2022', }]
-    }
-]
-
-export function TimeLine({ id }) {
+export function TimeLine({ itemRevision }) {
+    console.log(itemRevision)
     return (
         <VerticalTimeline>
-            {itemRevision
-                .filter(c => id ? c.idSchedule == id : c.idSchedule == 3)
-                .map(a =>
-                    a.revisions.map(c => (
-                        <VerticalTimelineElement
-                            className="vertical-timeline-element--work"
-                            //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }  }
-                            contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                            date={c.date}
-                            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                        //icon={<WorkIcon />}
-                        >
-                            <h3 className="vertical-timeline-element-title">Creative Director</h3>
-                            <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
-                            <p>Creative Direction, User Experience, Visual Design, Project Management, Team Leading</p>
-                        </VerticalTimelineElement>
-                    )))}
+            {itemRevision.map(c =>
+                <VerticalTimelineElement
+                    className="vertical-timeline-element--work"
+                    //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }  }
+                    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                    date={c.revisionDate}
+                    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                    icon={<OfflineBoltIcon />}
+                >
+                    <h3 className="vertical-timeline-element-title">Creative Director</h3>
+                    <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
+                    <p>{c.note}</p>
+                </VerticalTimelineElement>
+            )}
+            {/*last element for complementary content*/}
             <VerticalTimelineElement
                 iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
             //icon={<StarIcon />}
@@ -91,7 +63,6 @@ export function EmptyRevision() {
         </div>
     )
 }
-
 
 export const newRevision = async ({ curr, revisonNote }) => {
     console.log('cursor', curr)
@@ -115,17 +86,30 @@ export const newRevision = async ({ curr, revisonNote }) => {
 
 export default function Revision() {
     let location = useLocation();
+    const [data, setData] = useState([{}])
     const [showModal, setShowModal] = useState(false)
     const [revisonNote, setRevisionNote] = useState(null)
     const [curr, setCurr] = useState({})
+
+    React.useEffect(() => {
+        console.log(location.state)
+        if (!location.state) return
+        const url = `http://localhost:9090/v1/categorySchedule/review/${location.state?.categoryId}/${location.state?.item._id}`
+        Axios.get(url)
+            .then(c => {
+                console.log(c.data)
+                setData(c.data)
+            })
+            .catch(e => console.log("err", e))
+    }, [])
 
     return (
         <>
             <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 {/*Modal para criar uma nova revisão*/}
                 <ModalSmall title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote} setText={setRevisionNote}
-                    action={() => {
-                        newRevision({ curr: curr, revisonNote: revisonNote })
+                    action={async () => {
+                        await newRevision({ curr: curr, revisonNote: revisonNote })
                         setShowModal(false)
                     }} />
                 <CardContent revision={() => {
@@ -134,9 +118,9 @@ export default function Revision() {
                     setShowModal(true)
                 }} title={location.state?.item.title} description={location.state?.item.description} />
                 {
-                    location.state?.id ?
+                    !data ?
                         <EmptyRevision /> :
-                        <TimeLine id={location.state?.id} />
+                        <TimeLine itemRevision={data} />
                 }
 
             </div>

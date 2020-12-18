@@ -97,6 +97,8 @@ export default function Schedule() {
 
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState(null);
     const [revisonNote, setRevisionNote] = useState(null)
     const [curr, setCurr] = useState({})
     const atual = useRef(null)
@@ -115,9 +117,11 @@ export default function Schedule() {
         <>
             {!data ? <h1>Loading ...</h1> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote} setText={setRevisionNote}
-                    action={() => {
-                        newRevision({ curr: curr, revisonNote: revisonNote })
+                    action={async () => {
+                        await newRevision({ curr: curr, revisonNote: revisonNote })
+                        setMessage('mensagem')
                         setShowModal(false)
+                        setShowAlert(true)
                     }} />
                 {data.map(c => (
                     <>
@@ -132,15 +136,14 @@ export default function Schedule() {
                                 <CardContent item={x} categoryId={c._id} revision={() => {
                                     setCurr({ categoryId: c._id, itemId: x._id })
                                     setShowModal(true)
-                                }
-                                } />
+                                }} />
                             </>
                         ))}
 
                     </>
                 ))}
+                <AlertDynamic showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
             </div>}
-            <AlertDynamic showAlert={true} />
         </>
     );
 }

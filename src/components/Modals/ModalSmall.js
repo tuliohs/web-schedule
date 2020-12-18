@@ -41,6 +41,9 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto ajustc">
                                     <div className="mb-3 pt-0">
+                                        <input type="datetime" placeholder="Insert one note about your revision"
+                                            onChange={e => setText(e.target.value)}
+                                            className="px-3 py-4 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline w-full" />
                                         <textarea type="text" placeholder="Insert one note about your revision"
                                             value={text}
                                             onChange={e => setText(e.target.value)}

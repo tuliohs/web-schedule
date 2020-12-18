@@ -4,21 +4,26 @@
 </div>
 ----------------------------------------------------
 */
+.divhoverbutton{
+  justify-content:center;
+  display: flex
 
+  }
 
   
   .ahoverbutton{
     display: block;
-    /*width: 200px;
-    height: 40px;*/
-    line-height: 40px;
-    font-size: 18px;
+    width: 200px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
     font-family: sans-serif;
     text-decoration: none;
     color: #333;
     border: 2px solid #333;
     letter-spacing: 2px;
     text-align: center;
+    justify-content: center;
     position: relative;
     transition: all .35s;
   }
