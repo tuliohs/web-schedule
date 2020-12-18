@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { useLocation } from 'react-router-dom'
-import Axios from 'axios'
-
-
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-import 'react-vertical-timeline-component/style.min.css';
-import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
+import { obterRevisionsId, newRevision } from 'api/mySchedule'
 
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
+import TimeLine from './RevisionTimeLine'
 
 const defaultDescr = " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type sp"
 export const currentItem = { id: 3, title: 'Greetings (cumprimentos).', description: defaultDescr, priority: 'little' }
@@ -23,38 +19,12 @@ const CardContent = ({ title, description, revision }) => {
                 <h6 className="text-xl font-semibold">{title}</h6>
                 <p className="mt-2 mb-4 text-gray-600">{description}</p>
                 <div className="divhoverbutton" style={{ width: "20%" }}>
-                    <a className="ahoverbutton" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
+                    <a className="ahoverbutton" onClick={revision}>
+                        <span className="spanhoverbutton">New Revision</span></a>
                 </div>
             </div>
         </div>)
 }
-
-export function TimeLine({ itemRevision }) {
-    console.log(itemRevision)
-    return (
-        <VerticalTimeline>
-            {itemRevision.map(c =>
-                <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
-                    //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }  }
-                    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                    date={c.revisionDate}
-                    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                    icon={<OfflineBoltIcon />}
-                >
-                    <h3 className="vertical-timeline-element-title">Creative Director</h3>
-                    <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
-                    <p>{c.note}</p>
-                </VerticalTimelineElement>
-            )}
-            {/*last element for complementary content*/}
-            <VerticalTimelineElement
-                iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
-            //icon={<StarIcon />}
-            />
-        </VerticalTimeline>)
-}
-
 
 export function EmptyRevision() {
     return (
@@ -62,26 +32,6 @@ export function EmptyRevision() {
             <h6 className="text-xl font-semibold">The history of your revisions will appear here</h6>
         </div>
     )
-}
-
-export const newRevision = async ({ curr, revisonNote }) => {
-    console.log('cursor', curr)
-    const url = "http://localhost:9090/v1/categorySchedule/review"
-    await Axios.put(url, {
-        filter: {
-            categoryId: curr.categoryId,
-            itemId: curr.itemId
-        },
-        content: {
-            note: revisonNote,
-            revisionDate: "01-01-2021"
-        }
-    })
-        .then(c => {
-            console.log(c.data)
-            //setData(c.data)
-        })
-        .catch(e => console.log("err", e))
 }
 
 export default function Revision() {
@@ -92,16 +42,17 @@ export default function Revision() {
     const [curr, setCurr] = useState({})
 
     React.useEffect(() => {
-        console.log(location.state)
-        if (!location.state) return
-        const url = `http://localhost:9090/v1/categorySchedule/review/${location.state?.categoryId}/${location.state?.item._id}`
-        Axios.get(url)
-            .then(c => {
-                console.log(c.data)
-                setData(c.data)
-            })
-            .catch(e => console.log("err", e))
-    }, [])
+        const aa = async () => {
+            if (!location.state) return
+            await obterRevisionsId(location)
+                .then(c => {
+                    console.log(c.data)
+                    setData(c.data)
+                })
+                .catch(e => console.log("err", e))
+        }
+        aa()
+    }, [location])
 
     return (
         <>
@@ -122,7 +73,6 @@ export default function Revision() {
                         <EmptyRevision /> :
                         <TimeLine itemRevision={data} />
                 }
-
             </div>
         </>
     );

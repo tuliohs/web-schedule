@@ -8,7 +8,7 @@ const AlertDynamic = ({ showAlert, setShowAlert, message, seconds = 5 }) => {
             setShowAlert(false);
         }, seconds * 1000); //Substitui componentDidAmount
         return () => clearInterval(intervalo); //Substitui componentWillUnmount
-    }, []);
+    }, [seconds, setShowAlert]);
     return (
         <>
             {showAlert ? (

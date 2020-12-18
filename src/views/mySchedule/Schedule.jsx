@@ -1,26 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from 'react-router-dom'
-import Axios from 'axios'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import { newRevision } from './Revision'
+import { newRevision, obterScheduleItems } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import AlertDynamic from 'components/Notifications/AlertDynamic'
-
-//import https from 'https'
-//const axRejUnauth = Axios.create({
-//    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-//    //baseURL: "https://jsonplaceholder.typicode.com/",
-//    withCredentials: false,
-//    headers: {
-//        'Access-Control-Allow-Origin': '*',
-//        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-//    }
-//});
 
 const defaultDescr = " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type sp"
 export const defaultStepItems = [
@@ -69,7 +57,6 @@ const CardContent = ({ categoryId, item, revision }) => {
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                     <div className="flex">
-
                         <div style={{ width: "80%", marginLeft: "10%" }}>
                             <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                                 <i className="fas fa-retweet"></i>
@@ -104,13 +91,8 @@ export default function Schedule() {
     const atual = useRef(null)
 
     useEffect(() => {
-        const url = "http://localhost:9090/v1/categorySchedule"
-        Axios.get(url)
-            .then(c => {
-                console.log(c.data)
-                setData(c.data)
-            })
-            .catch(e => console.log("err", e))
+        const aa = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => console.log("err", e))
+        aa()
     }, [])
 
     return (

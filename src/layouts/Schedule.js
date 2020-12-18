@@ -10,8 +10,8 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
 
-import Schedule from 'views/Schedule'
-import Revision from 'views/Revision'
+import Schedule from 'views/mySchedule/Schedule'
+import Revision from 'views/mySchedule/Revision'
 
 export default function Admin() {
     return (

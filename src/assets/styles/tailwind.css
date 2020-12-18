@@ -1488,6 +1488,10 @@ video {
   margin: 1rem;
 }
 
+.m-8 {
+  margin: 1rem;
+}
+
 .-m-16 {
   margin: -4rem;
 }

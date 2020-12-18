@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+
+import DateTimePicker from 'react-datetime-picker';
 import "./ModalSmall.css"
+import "./DatePicker.less"
 
 export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action }) {
+    const [value, onChange] = useState(new Date());
+
+
     //const [dados, setDados] = useState([])
     //useEffect(() => {
 
@@ -41,9 +47,32 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto ajustc">
                                     <div className="mb-3 pt-0">
-                                        <input type="datetime" placeholder="Insert one note about your revision"
-                                            onChange={e => setText(e.target.value)}
-                                            className="px-3 py-4 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline w-full" />
+                                        <div className="flex items-center  justify-between m-24 pb-16"
+                                            style={{ margin: "5%" }}
+                                        >
+                                            <span className="font-semibold text-xl ml-4">Date:</span>
+
+                                            <div className="Sample__container">
+                                                <main className="Sample__container__content">
+                                                    <DateTimePicker
+                                                        amPmAriaLabel="Select AM/PM"
+                                                        calendarAriaLabel="Toggle calendar"
+                                                        clearAriaLabel="Clear value"
+                                                        dayAriaLabel="Day"
+                                                        hourAriaLabel="Hour"
+                                                        maxDetail="second"
+                                                        minuteAriaLabel="Minute"
+                                                        monthAriaLabel="Month"
+                                                        nativeInputAriaLabel="Date and time"
+                                                        onChange={onChange}
+                                                        secondAriaLabel="Second"
+                                                        value={value}
+                                                        yearAriaLabel="Year"
+                                                    />
+                                                </main>
+                                            </div>
+                                        </div>
+
                                         <textarea type="text" placeholder="Insert one note about your revision"
                                             value={text}
                                             onChange={e => setText(e.target.value)}
@@ -62,7 +91,7 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                     >
                                         Close
                       </button>
-                                    {/*{buttonSave}*/}
+                                    {/*buttonSave*/}
                                     <button
                                         className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
