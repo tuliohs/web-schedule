@@ -13,7 +13,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Schedule from 'views/mySchedule/Schedule'
 import Revision from 'views/mySchedule/Revision'
 
-export default function MySchedule() {
+export default function Customization() {
     return (
         <>
             <Sidebar />
@@ -23,9 +23,9 @@ export default function MySchedule() {
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
-                        <Route path="/myschedule/schedule" exact component={Schedule} />
-                        <Route path="/myschedule/revision" exact component={Revision} />
-                        <Redirect from="/myschedule" to="/myschedule/schedule" />
+                        <Route path="/customization/schedule" exact component={Schedule} />
+                        <Route path="/customization/revision" exact component={Revision} />
+                        <Redirect from="/customization" to="/customization/schedule" />
                     </Switch>
                     <FooterAdmin />
                 </div>

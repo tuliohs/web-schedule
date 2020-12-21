@@ -1,21 +1,12 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import DateTimePicker from 'react-datetime-picker';
 import "./ModalSmall.css"
 import "./DatePicker.less"
 
-export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action }) {
+export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action, refer }) {
+
     const [value, onChange] = useState(new Date());
-
-
-    //const [dados, setDados] = useState([])
-    //useEffect(() => {
-
-    //    setDados([dados, { ...data }])
-    //    console.log('data', dados)
-
-    //    console.log('useEfect')
-    //}, [])
     return (
         <>
             {showModal ? (
@@ -51,7 +42,6 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                             style={{ margin: "5%" }}
                                         >
                                             <span className="font-semibold text-xl ml-4">Date:</span>
-
                                             <div className="Sample__container">
                                                 <main className="Sample__container__content">
                                                     <DateTimePicker
@@ -73,8 +63,9 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                             </div>
                                         </div>
 
-                                        <textarea type="text" placeholder="Insert one note about your revision"
+                                        <textarea autoFocus={true} type="text" placeholder="Insert one note about your revision"
                                             value={text}
+                                            //ref={refField}
                                             onChange={e => setText(e.target.value)}
                                             className="px-3 py-4 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline w-full" />
                                     </div>
