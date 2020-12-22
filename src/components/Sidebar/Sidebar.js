@@ -133,13 +133,13 @@ export default function Sidebar() {
 
             </ul>
 
-            {/*---------------------------------CUSTOMIZATION-------------------------------------*/}
+            {/*---------------------------------CUSTOMIZE-------------------------------------*/}
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Customization
+              Customize
             </h6>
             {/* Navigation */}
 
@@ -148,21 +148,21 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/customization/schedule") !== -1
+                    (window.location.href.indexOf("/customize/topic") !== -1
                       ? "text-blue-500 hover:text-blue-600"
                       : "text-gray-800 hover:text-gray-600")
                   }
-                  to="/customization/schedule"
+                  to="/customize/topic"
                 >
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/customization/schedule") !== -1
+                      (window.location.href.indexOf("/customize/topic") !== -1
                         ? "opacity-75"
                         : "text-gray-400")
                     }
                   ></i>{" "}
-                  Schedule
+                  Topics
                 </Link>
               </li>
 
@@ -170,16 +170,16 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/customization/revision") !== -1
+                    (window.location.href.indexOf("/customize/revision") !== -1
                       ? "text-blue-500 hover:text-blue-600"
                       : "text-gray-800 hover:text-gray-600")
                   }
-                  to="/customization/revision"
+                  to="/customize/revision"
                 >
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/customization/revision") !== -1
+                      (window.location.href.indexOf("/customize/revision") !== -1
                         ? "opacity-75"
                         : "text-gray-400")
                     }

@@ -10,10 +10,10 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
 
-import Schedule from 'views/mySchedule/Schedule'
+import Topic from 'views/customize/Topic'
 import Revision from 'views/mySchedule/Revision'
 
-export default function Customization() {
+export default function Customize() {
     return (
         <>
             <Sidebar />
@@ -23,9 +23,9 @@ export default function Customization() {
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
-                        <Route path="/customization/schedule" exact component={Schedule} />
-                        <Route path="/customization/revision" exact component={Revision} />
-                        <Redirect from="/customization" to="/customization/schedule" />
+                        <Route path="/customize/topic" exact component={Topic} />
+                        <Route path="/customize/revision" exact component={Revision} />
+                        <Redirect from="/customize" to="/customize/topic" />
                     </Switch>
                     <FooterAdmin />
                 </div>

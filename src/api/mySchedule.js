@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { url } from 'constants/config/url'
+import { URL } from 'constants/config/url'
 //import https from 'https'
 //const axRejUnauth = Axios.create({
 //    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -13,7 +13,7 @@ import { url } from 'constants/config/url'
 
 export const newRevision = async ({ curr, revisonNote }) => {
     //console.log('cursor', curr)
-    await Axios.put(url.REVIEW, {
+    await Axios.put(URL.REVIEW, {
         filter: {
             categoryId: curr.categoryId,
             itemId: curr.itemId
@@ -26,6 +26,8 @@ export const newRevision = async ({ curr, revisonNote }) => {
         .then(c => { console.log(c.data) })
         .catch(e => console.log("err", e))
 }
-export const obterRevisionsId = async (location) => { return await Axios.get(`${url.REVIEW}/${location.state?.categoryId}/${location.state?.item._id}`) }
+export const obterRevisionsId = async (location) => { return await Axios.get(`${URL.REVIEW}/${location.state?.categoryId}/${location.state?.item._id}`) }
 
-export const obterScheduleItems = async () => { return await Axios.get(url.MYSCHEDULE) }
+export const obterScheduleItems = async () => { return await Axios.get(URL.MYSCHEDULE) }
+
+export const obterTemas = async () => { return await Axios.get(URL.TOPIC) }

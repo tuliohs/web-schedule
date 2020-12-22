@@ -10,47 +10,6 @@ import 'components/Buttons/buttonHover.css'
 import ModalSmall from 'components/Modals/ModalSmall'
 import AlertDynamic from 'components/Notifications/AlertDynamic'
 
-const defaultDescr = " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type sp"
-export const defaultStepItems = [
-    {
-        idCategory: 1,
-        category: "Level One",
-        items: [
-            { id: 1, title: 'Personal pronouns', description: defaultDescr, priority: 'little' },
-            { id: 2, title: 'This, that, these e those demonstrative pronouns.', description: defaultDescr, priority: 'little' },
-            { id: 3, title: 'Greetings (cumprimentos).', description: defaultDescr, priority: 'little' },
-        ]
-    },
-    {
-        idCategory: 2,
-        category: "Level Two",
-        items: [
-            { id: 4, title: 'Personal pronouns', description: defaultDescr, priority: 'little' },
-            { id: 5, title: 'This, that, these e those demonstrative pronouns.', description: defaultDescr, priority: 'little' },
-            { id: 6, title: 'Greetings (cumprimentos).', description: defaultDescr, priority: 'little' },
-            { id: 7, title: 'Verbo to be', description: defaultDescr, priority: 'little' },
-            { id: 8, title: 'Adjetivos: Comuns e Demonstrativos', description: defaultDescr, priority: 'little' },
-            { id: 9, title: 'Advérbios de Frequência', description: defaultDescr, priority: 'little' },
-            { id: 10, title: 'Comparativo e Superlativo', description: defaultDescr, priority: 'little' },
-            { id: 11, title: '‘To be going to’ – frases básicas', description: defaultDescr, priority: 'little' },
-            { id: 12, title: 'Quantificadores: ‘How much’, ‘how many’ e ‘very’ – frases básicas', description: defaultDescr, priority: 'little' },
-            { id: 14, title: 'Substantivos Incontáveis mais Comuns', description: defaultDescr, priority: 'little' },
-        ]
-    },
-    {
-        idCategory: 3,
-        category: "Level Three",
-        items: [
-            { id: 14, title: 'Personal pronouns', description: defaultDescr, priority: 'little' },
-            { id: 15, title: 'This, that, these e those demonstrative pronouns.', description: defaultDescr, priority: 'little' },
-            { id: 16, title: 'Greetings (cumprimentos).', description: defaultDescr, priority: 'little' },
-            { id: 17, title: 'Verbo to be', description: defaultDescr, priority: 'little' },
-            { id: 18, title: 'Adjetivos: Comuns e Demonstrativos', description: defaultDescr, priority: 'little' },
-        ]
-    }
-
-]
-
 const CardContent = ({ categoryId, item, revision }) => {
     return (
         <div className="w-full md:w-4/12 px-4 text-center">

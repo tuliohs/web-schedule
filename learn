@@ -6,3 +6,6 @@ para inserir uma pagina:
 
 Star work in ubuntu
 "start": "PORT=6000 react-scripts start",
+
+
+usar Create ref ao inves de UseRef
