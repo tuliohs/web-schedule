@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useState } from "react";
 
-import { obterScheduleItems, obterTemas } from 'api/mySchedule'
+import { obterScheduleItems, obterTemas, addItem, removeItem } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
 // components
@@ -19,30 +19,57 @@ export default function Topic() {
 
     const [currentCat, setCurrentCat] = useState(null)
 
+    const [itemCurrentAction, setItemCurrentAction] = useState({})
+
+
     useEffect(() => {
-        const aa = async () => await obterScheduleItems().then(c => {
+        const getDados = async () => await obterScheduleItems().then(c => {
+            //setTabdata({})
             setData(c.data)
         }).catch(e => console.log("err", e))
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
-        aa()
+        getDados()
         getTopics()
     }, [])
 
-    useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default
+    useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
+        if (currentTopic) return
         const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
         a()
     }, [dados])
 
     useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
+        if (currentCat) return
         const a = async () => { setCurrentCat(dados.filter(x => x.topic._id === currentTopic).find(x => x !== undefined)?._id) }
         a()
-    }, [currentTopic])
+    }, [currentTopic, dados])
 
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela
         const a = async () => { setTabdata(dados.filter(x => x._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
         a()
-    }, [currentCat, currentTopic])
+    }, [currentCat, currentTopic, dados])
+
+    const addItemHandler = async (e) => {
+        await addItem({ filter: { categoryId: currentCat }, content: { title: e.title, description: e.description } })
+            .then(() => {
+                const getDados = async () => await obterScheduleItems().then(c => {
+                    //setTabdata({})
+                    setData(c.data)
+                }).catch(e => console.log("err", e))
+                getDados()
+            })
+    }
+    const removeItemHandler = async (e) => {
+        await removeItem({ categoryId: currentCat, itemId: itemCurrentAction._id })
+            .then(() => {
+                const getDados = async () => await obterScheduleItems().then(c => {
+                    setData(c.data)
+                }).catch(e => console.log("err", e))
+                getDados()
+            })
+            .catch(e => console.log("err", e))
+    }
 
     return (
         <>
@@ -53,7 +80,10 @@ export default function Topic() {
                 </div>
                 <div className="w-full mb-12 px-4">
                     <div>
-                        {!tabdata ? null : <TableEdit title="Schedule Items" data={Object.values(tabdata[0] || {})} />}
+                        {!tabdata ? null : <TableEdit addItemHandler={addItemHandler}
+                            removeItemHandler={removeItemHandler}
+                            setItemCurrentAction={setItemCurrentAction}
+                            title="Items" data={Object.values(tabdata[0] || {})} />}
                     </div>
                 </div>
             </div>}

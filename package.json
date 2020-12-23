@@ -15,7 +15,6 @@
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
     "https": "^1.0.0",
-    "namor": "^2.0.2",
     "react": "16.13.1",
     "react-datetime-picker": "^3.0.4",
     "react-dom": "16.13.1",

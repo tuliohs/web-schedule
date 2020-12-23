@@ -31,3 +31,25 @@ export const obterRevisionsId = async (location) => { return await Axios.get(`${
 export const obterScheduleItems = async () => { return await Axios.get(URL.MYSCHEDULE) }
 
 export const obterTemas = async () => { return await Axios.get(URL.TOPIC) }
+
+export const addItem = async ({ filter, content }) => {
+    //console.log('cursor', curr)
+    await Axios.post(URL.ITEM, {
+        filter: {
+            categoryId: filter.categoryId,
+            //itemId: curr.itemId
+        },
+        content: {
+            title: content.title,
+            description: content.description
+        }
+    })
+        .then(c => { console.log(c.data) })
+        .catch(e => console.log("err", e))
+}
+export const removeItem = async ({ categoryId, itemId }) => {
+    //console.log('cursor', curr)
+    await Axios.delete(`${URL.ITEM}/${categoryId}/${itemId}`)
+        .then(c => { console.log(c.data) })
+        .catch(e => console.log("err", e))
+}
