@@ -29,6 +29,8 @@ const CardContent = ({ categoryId, item, revision }) => {
                     </div>
                     <h6 className="text-xl font-semibold">{item?.title}</h6>
                     <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
+                    <p className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4">{item?.detail?.state}</p>
+                    {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">{`Last Revision in ${item.detail.lastDateReview}`}</p>}
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                     <div className="divhoverbutton">
                         <a className="ahoverbutton" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
@@ -45,7 +47,10 @@ export default function Schedule() {
     const [showModal, setShowModal] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
     const [message, setMessage] = useState(null);
+
+    const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState(null)
+
     const [curr, setCurr] = useState({})
     const atual = useRef(null)
 
@@ -57,9 +62,10 @@ export default function Schedule() {
     return (
         <>
             {!data ? <h1>Loading ...</h1> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
-                <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote} setText={setRevisionNote}
+                <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal}
+                    text={revisonNote} setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
                     action={async () => {
-                        await newRevision({ curr: curr, revisonNote: revisonNote })
+                        await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
                         setMessage('mensagem')
                         setShowModal(false)
                         setShowAlert(true)

@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useState } from "react";
 
-import { obterScheduleItems, obterTemas, addItem, removeItem } from 'api/mySchedule'
+import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
 // components
@@ -20,6 +20,8 @@ export default function Topic() {
     const [currentCat, setCurrentCat] = useState(null)
 
     const [itemCurrentAction, setItemCurrentAction] = useState({})
+
+    const [itemChange, setItemChange] = useState({})
 
 
     useEffect(() => {
@@ -71,6 +73,16 @@ export default function Topic() {
             .catch(e => console.log("err", e))
     }
 
+    const changeItemHandler = async ({ columnId, value, }) => {
+        let itemSend = itemCurrentAction
+        itemSend[columnId] = value
+        const filter = { categoryId: currentCat, itemId: itemCurrentAction._id }
+        const content = itemSend
+        await changeItem({ filter: filter, content: content })
+            .then(e => console.log(e))
+            .catch(e => console.log("err", e))
+    }
+
     return (
         <>
             {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
@@ -83,6 +95,7 @@ export default function Topic() {
                         {!tabdata ? null : <TableEdit addItemHandler={addItemHandler}
                             removeItemHandler={removeItemHandler}
                             setItemCurrentAction={setItemCurrentAction}
+                            changeItemHandler={changeItemHandler}
                             title="Items" data={Object.values(tabdata[0] || {})} />}
                     </div>
                 </div>

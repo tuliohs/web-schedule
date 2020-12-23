@@ -6,9 +6,6 @@ import { obterRevisionsId, newRevision } from 'api/mySchedule'
 import ModalSmall from 'components/Modals/ModalSmall'
 import TimeLine from './RevisionTimeLine'
 
-const defaultDescr = " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type sp"
-export const currentItem = { id: 3, title: 'Greetings (cumprimentos).', description: defaultDescr, priority: 'little' }
-
 const CardContent = ({ title, description, revision }) => {
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -37,11 +34,13 @@ export function EmptyRevision() {
 export default function Revision() {
     let location = useLocation();
     const focusTextArea = useRef(null)
-    const [isEditing, setEditing] = useState(false); //verific if field is editable
 
     const [data, setData] = useState([{}])
     const [showModal, setShowModal] = useState(false)
+
+    const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState(null)
+
     const [curr, setCurr] = useState({})
     const [isSend, setIsSend] = useState(false)
 
@@ -75,10 +74,11 @@ export default function Revision() {
         <>
             <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 {/*Modal para criar uma nova revisão*/}
-                <ModalSmall title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote} setText={setRevisionNote}
+                <ModalSmall title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote}
+                    setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
                     refer={focusTextArea}
                     action={async () => {
-                        await newRevision({ curr: curr, revisonNote: revisonNote })
+                        await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
                         await sendRequest()
                         setShowModal(false)
                         setRevisionNote(null)

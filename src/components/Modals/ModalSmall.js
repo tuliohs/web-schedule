@@ -4,9 +4,8 @@ import DateTimePicker from 'react-datetime-picker';
 import "./ModalSmall.css"
 import "./DatePicker.less"
 
-export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action, refer }) {
+export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action, revisionDate, setRevisionDate }) {
 
-    const [value, onChange] = useState(new Date());
     return (
         <>
             {showModal ? (
@@ -54,9 +53,9 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                                         minuteAriaLabel="Minute"
                                                         monthAriaLabel="Month"
                                                         nativeInputAriaLabel="Date and time"
-                                                        onChange={onChange}
+                                                        onChange={setRevisionDate}
                                                         secondAriaLabel="Second"
-                                                        value={value}
+                                                        value={revisionDate}
                                                         yearAriaLabel="Year"
                                                     />
                                                 </main>

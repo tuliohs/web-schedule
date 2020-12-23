@@ -12,6 +12,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 import Schedule from 'views/mySchedule/Schedule'
 import Revision from 'views/mySchedule/Revision'
+import Next from 'views/mySchedule/Next'
 
 export default function MySchedule() {
     return (
@@ -25,6 +26,7 @@ export default function MySchedule() {
                     <Switch>
                         <Route path="/myschedule/schedule" exact component={Schedule} />
                         <Route path="/myschedule/revision" exact component={Revision} />
+                        <Route path="/myschedule/next" exact component={Next} />
                         <Redirect from="/myschedule" to="/myschedule/schedule" />
                     </Switch>
                     <FooterAdmin />

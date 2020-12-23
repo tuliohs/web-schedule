@@ -11,8 +11,7 @@ import { URL } from 'constants/config/url'
 //    }
 //});
 
-export const newRevision = async ({ curr, revisonNote }) => {
-    //console.log('cursor', curr)
+export const newRevision = async ({ curr, revisonNote, revisionDate }) => {
     await Axios.put(URL.REVIEW, {
         filter: {
             categoryId: curr.categoryId,
@@ -20,7 +19,7 @@ export const newRevision = async ({ curr, revisonNote }) => {
         },
         content: {
             note: revisonNote,
-            revisionDate: "01-01-2021"
+            revisionDate: revisionDate
         }
     })
         .then(c => { console.log(c.data) })
@@ -50,6 +49,15 @@ export const addItem = async ({ filter, content }) => {
 export const removeItem = async ({ categoryId, itemId }) => {
     //console.log('cursor', curr)
     await Axios.delete(`${URL.ITEM}/${categoryId}/${itemId}`)
+        .then(c => { console.log(c.data) })
+        .catch(e => console.log("err", e))
+}
+export const changeItem = async ({ filter, content }) => {
+    //console.log('cursor', curr)
+    await Axios.put(URL.ITEM, {
+        filter: filter,
+        content: content
+    })
         .then(c => { console.log(c.data) })
         .catch(e => console.log("err", e))
 }

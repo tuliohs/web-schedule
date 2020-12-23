@@ -13,7 +13,7 @@ export default function TimeLine({ itemRevision }) {
                     className="vertical-timeline-element--work"
                     //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }  }
                     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                    date={c.revisionDate}
+                    date={new Date(c.revisionDate).toString()}
                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                     icon={<OfflineBoltIcon />}
                 >
