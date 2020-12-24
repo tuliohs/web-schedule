@@ -6,4 +6,5 @@ export const URL = {
     REVIEW: `${base}/v1/categorySchedule/review`,
     TOPIC: `${base}/v1/topic`,
     ITEM: `${base}/v1/categorySchedule/item`,
+    SCHEDULE: `${base}/v1/schedule`
 }

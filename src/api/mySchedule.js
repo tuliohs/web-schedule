@@ -12,6 +12,7 @@ import { URL } from 'constants/config/url'
 //});
 
 export const newRevision = async ({ curr, revisonNote, revisionDate }) => {
+    console.log('n', curr, revisonNote, revisionDate)
     await Axios.put(URL.REVIEW, {
         filter: {
             categoryId: curr.categoryId,
@@ -57,6 +58,18 @@ export const changeItem = async ({ filter, content }) => {
     await Axios.put(URL.ITEM, {
         filter: filter,
         content: content
+    })
+        .then(c => { console.log(c.data) })
+        .catch(e => console.log("err", e))
+}
+
+export const obterNextSchedule = async () => { return await Axios.get(URL.SCHEDULE) }
+
+export const newCategory = async ({ title, description }) => {
+    console.log(title, description)
+    await Axios.post(URL.MYSCHEDULE, {
+        title: title,
+        description: description
     })
         .then(c => { console.log(c.data) })
         .catch(e => console.log("err", e))
