@@ -10,8 +10,10 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
 
-import Topic from 'views/customize/Topic'
+import Topic from 'views/customize/Topic/Topic'
 import Revision from 'views/mySchedule/Revision'
+import ItemsScreen from 'views/customize/ItemsScreen'
+import Category from 'views/customize/Category'
 
 export default function Customize() {
     return (
@@ -25,7 +27,10 @@ export default function Customize() {
                     <Switch>
                         <Route path="/customize/topic" exact component={Topic} />
                         <Route path="/customize/revision" exact component={Revision} />
-                        <Redirect from="/customize" to="/customize/topic" />
+                        <Route path="/customize/item" exact component={ItemsScreen} />
+                        <Route path="/customize/category" exact component={Category} />
+                        {/*Excluido  porque  não estava peritindo o rediecionamento*/}
+                        {/*<Redirect from="/customize" to="/customize/topic" />*/}
                     </Switch>
                     <FooterAdmin />
                 </div>

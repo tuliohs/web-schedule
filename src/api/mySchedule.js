@@ -65,12 +65,27 @@ export const changeItem = async ({ filter, content }) => {
 
 export const obterNextSchedule = async () => { return await Axios.get(URL.SCHEDULE) }
 
-export const newCategory = async ({ title, description }) => {
-    console.log(title, description)
+export const newCategory = async ({ title, description, topicId }) => {
     await Axios.post(URL.MYSCHEDULE, {
         title: title,
-        description: description
+        description: description,
+        topicId: topicId
     })
         .then(c => { console.log(c.data) })
+        .catch(e => console.log("err", e))
+}
+
+export const newTopic = async ({ title, description }) => {
+    await Axios.post(URL.TOPIC, {
+        title: title,
+        description: description,
+    })
+        .then(c => { console.log(c.data) })
+        .catch(e => console.log("err", e))
+}
+
+export const removeTopicId = async ({ topicId }) => {
+    await Axios.delete(URL.TOPIC + '/' + topicId)
+        .then(c => { console.log('remove', c.data) })
         .catch(e => console.log("err", e))
 }

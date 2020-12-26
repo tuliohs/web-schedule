@@ -1,4 +1,5 @@
 const base = "http://localhost:9090"
+//const base = 'http://45.90.108.173:9090'
 
 export const URL = {
     BASE: base,

@@ -7,8 +7,9 @@ import 'components/Buttons/buttonHover.css'
 import TableEdit from "views/customize/TableEdit";
 import Dropdown from "views/customize/Dropdown";
 import AddUserItem from './AddItemDialog'
+import StepMenu from './StepMenu'
 
-export default function Topic() {
+export default function ItemsScreen() {
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
@@ -54,7 +55,7 @@ export default function Topic() {
     }, [currentCat, currentTopic, dados])
 
     const addcatHandler = async (e) => {
-        await newCategory({ title: e.title, description: e.description })
+        await newCategory({ title: e.title, description: e.description, topicId: currentTopic })
             .then(() => {
                 //const getDados = async () => await obterScheduleItems().then(c => {
                 //    //setTabdata({})
@@ -98,6 +99,7 @@ export default function Topic() {
     const grau = 500
     return (
         <>
+            <StepMenu defaultStepNum={2} />
             {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <div style={{ flex: 1, flexDirection: 'row', margin: 30, display: 'flex' }} >
                     <Dropdown name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
