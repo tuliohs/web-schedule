@@ -13,6 +13,9 @@ import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 
+import { newCategory } from 'api/mySchedule'
+
+
 const initialItem = {
     title: '',
     description: '',
@@ -21,10 +24,8 @@ const initialItem = {
     subRows: undefined,
 }
 
-const AddItemDialog = props => {
+const AddItemDialog = (addItemHandler, currentTopic, setCurrentTopic) => {
     const [itemSc, setItemSc] = useState(initialItem)
-
-    const { addItemHandler } = props
     const [open, setOpen] = React.useState(false)
 
     const [switchState, setSwitchState] = React.useState({
@@ -40,13 +41,26 @@ const AddItemDialog = props => {
     const handleClose = () => setOpen(false)
 
     const handleAdd = event => {
-        addItemHandler(itemSc)
+        //addItemHandler(itemSc)
         setItemSc(initialItem)
         setOpen(false)
     }
 
     const handleChange = name => ({ target: { value } }) => {
         setItemSc({ ...itemSc, [name]: value })
+    }
+
+
+    const addcatHandler = async () => {
+        console.log('req data', { title: itemSc.title, description: itemSc.description, topicId: currentTopic })
+        await newCategory({ title: itemSc.title, description: itemSc.description, topicId: currentTopic?._id })
+            .then(() => {
+                //const getDados = async () => await obterScheduleItems().then(c => {
+                //    //setTabdata({})
+                //    setData(c.data)
+                //}).catch(e => console.log("err", e))
+                //getDados()
+            })
     }
 
     return (
@@ -110,7 +124,7 @@ const AddItemDialog = props => {
                     <Button onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={handleAdd} color="primary">
+                    <Button onClick={() => addcatHandler({})} color="primary">
                         Add
           </Button>
                 </DialogActions>

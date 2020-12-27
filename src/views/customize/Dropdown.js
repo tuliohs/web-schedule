@@ -52,7 +52,8 @@ const Dropdown = ({ name, items, state, setState, refer }) => {
                                 ref={refer}
                                 value={c.id}
                                 onClick={e => {
-                                    setState(e.currentTarget.value)
+                                    console.log(e.currentTarget.value)
+                                    setState(c.id)
                                     closeDropdownPopover()
                                 }}
 

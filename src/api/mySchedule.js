@@ -75,10 +75,11 @@ export const newCategory = async ({ title, description, topicId }) => {
         .catch(e => console.log("err", e))
 }
 
-export const newTopic = async ({ title, description }) => {
+export const newTopic = async ({ item, image }) => {
     await Axios.post(URL.TOPIC, {
-        title: title,
-        description: description,
+        title: item.title,
+        description: item.description,
+        image: image
     })
         .then(c => { console.log(c.data) })
         .catch(e => console.log("err", e))

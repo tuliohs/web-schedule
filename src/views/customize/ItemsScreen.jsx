@@ -38,30 +38,33 @@ export default function ItemsScreen() {
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
         if (currentTopic) return
-        const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
+        const a = async () => { setCurrentTopic(topic[0]?._id) }
+        //const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
         a()
-    }, [dados])
+    }, [topic])
 
     useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
         if (currentCat) return
+        console.log('aaaaa')
         const a = async () => { setCurrentCat(dados.filter(x => x.topic._id === currentTopic).find(x => x !== undefined)?._id) }
         a()
     }, [currentTopic, dados])
 
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela
+        console.log('filtrar a tabela')
         const a = async () => { setTabdata(dados.filter(x => x._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
         a()
     }, [currentCat, currentTopic, dados])
 
     const addcatHandler = async (e) => {
-        await newCategory({ title: e.title, description: e.description, topicId: currentTopic })
+        await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
             .then(() => {
-                //const getDados = async () => await obterScheduleItems().then(c => {
-                //    //setTabdata({})
-                //    setData(c.data)
-                //}).catch(e => console.log("err", e))
-                //getDados()
+                const getDados = async () => await obterScheduleItems().then(c => {
+                    //setTabdata({})
+                    setData(c.data)
+                }).catch(e => console.log("err", e))
+                getDados()
             })
     }
     const addItemHandler = async (e) => {
@@ -103,7 +106,7 @@ export default function ItemsScreen() {
             {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <div style={{ flex: 1, flexDirection: 'row', margin: 30, display: 'flex' }} >
                     <Dropdown name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
-                    <Dropdown name='Category' state={currentCat} refer={valor} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />
+                    <Dropdown name='Category' state={currentCat} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />
                     {/*---------BUTTON ADD CATEGORY*/}
 
                     <div style={{ marginLeft: 'auto', marginRight: '15px' }} className="relative inline-flex align-middle m-2">
@@ -111,7 +114,6 @@ export default function ItemsScreen() {
                             className={`text-white font-bold uppercase text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
                             type="button"
                             style={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                            onClick={addcatHandler}
                         >
                             <i className="fas px-6"> <AddUserItem addItemHandler={addcatHandler} />  </i>
 

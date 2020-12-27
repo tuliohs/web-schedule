@@ -13,7 +13,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Topic from 'views/customize/Topic/Topic'
 import Revision from 'views/mySchedule/Revision'
 import ItemsScreen from 'views/customize/ItemsScreen'
-import Category from 'views/customize/Category'
+import Category from 'views/customize/Category/Category'
 
 export default function Customize() {
     return (
