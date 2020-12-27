@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from 'react-router-dom'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-import { newRevision, obterScheduleItems } from 'api/mySchedule'
+import moment from 'moment'
+import { newRevision, obterScheduleItems, obterTemas } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import AlertDynamic from 'components/Notifications/AlertDynamic'
+import DropdownButton from 'components/Dropdowns/DropdownButton'
 
 const CardContent = ({ categoryId, item, revision }) => {
     return (
@@ -30,7 +31,7 @@ const CardContent = ({ categoryId, item, revision }) => {
                     <h6 className="text-xl font-semibold">{item?.title}</h6>
                     <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
                     <p className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4">{item?.detail?.state}</p>
-                    {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">{`Last Revision in ${item.detail.lastDateReview}`}</p>}
+                    {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">Last Revision in <b>{moment(item.detail.lastDateReview).format('DD/MM/YYYY HH:mm')}</b></p>}
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                     <div className="divhoverbutton">
                         <a className="ahoverbutton" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
@@ -40,24 +41,35 @@ const CardContent = ({ categoryId, item, revision }) => {
         </div>
     )
 }
-
+const defaultMessage = { type: 'sucess', text: 'sucess' }
 export default function Schedule() {
 
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
-    const [message, setMessage] = useState(null);
+    const [message, setMessage] = useState(defaultMessage);
+    const [topic, setTopic] = useState([])
 
     const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState(null)
 
     const [curr, setCurr] = useState({})
+    const [currentTopic, setCurrentTopic] = useState(null)
     const atual = useRef(null)
 
     useEffect(() => {
-        const aa = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => console.log("err", e))
-        aa()
+        const getItems = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => console.log("err", e))
+        getItems()
+        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+        getTopics()
     }, [])
+
+    useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
+        if (currentTopic) return
+        const a = async () => { setCurrentTopic(topic[0]?._id) }
+        //const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
+        a()
+    }, [topic])
 
     return (
         <>
@@ -66,29 +78,35 @@ export default function Schedule() {
                     text={revisonNote} setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
                     action={async () => {
                         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
-                        setMessage('mensagem')
+                            .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
+                            .catch(e => console.log("err", e))
                         setShowModal(false)
                         setShowAlert(true)
                     }} />
-                {data.map(c => (
-                    <>
-                        <div className="w-full text-center relative" key={c._id}>
-                            {/* Heading */}
-                            <h6 className="text-white  uppercase font-bold  bg-blue-600 ">{c.description}</h6>
-                            {/* Divider */}
-                            <hr className="my-6 md:min-w-full" />
-                        </div>
-                        {c.items.map(x => (
-                            <>
-                                <CardContent item={x} categoryId={c._id} revision={() => {
-                                    setCurr({ categoryId: c._id, itemId: x._id })
-                                    setShowModal(true)
-                                }} />
-                            </>
-                        ))}
+                <div className="w-full">
+                    <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
 
-                    </>
-                ))}
+                </div>
+                {data.filter(a => a?.topic?._id === currentTopic)
+                    .map(c => (
+                        <>
+                            <div className="w-full text-center relative" key={c._id}>
+                                {/* Heading */}
+                                <h6 className="text-white  uppercase font-bold  bg-blue-600 ">{c.description}</h6>
+                                {/* Divider */}
+                                <hr className="my-6 md:min-w-full" />
+                            </div>
+                            {c.items.map(x => (
+                                <>
+                                    <CardContent item={x} categoryId={c._id} revision={() => {
+                                        setCurr({ categoryId: c._id, itemId: x._id })
+                                        setShowModal(true)
+                                    }} />
+                                </>
+                            ))}
+
+                        </>
+                    ))}
                 <AlertDynamic showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
             </div>}
         </>

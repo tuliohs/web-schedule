@@ -5,7 +5,7 @@ import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, newCat
 import 'components/Buttons/buttonHover.css'
 // components
 import TableEdit from "views/customize/TableEdit";
-import Dropdown from "views/customize/Dropdown";
+import DropdownButton from "components/Dropdowns/DropdownButton";
 import AddUserItem from './AddItemDialog'
 import StepMenu from './StepMenu'
 
@@ -16,6 +16,7 @@ export default function ItemsScreen() {
     const [currentTopic, setCurrentTopic] = useState(null)
 
     const valor = createRef()
+    const [topic_category, setTopic_category] = useState(null)
 
     const [tabdata, setTabdata] = useState()
 
@@ -23,16 +24,15 @@ export default function ItemsScreen() {
 
     const [itemCurrentAction, setItemCurrentAction] = useState({})
 
-    const [itemChange, setItemChange] = useState({})
-
 
     useEffect(() => {
         const getDados = async () => await obterScheduleItems().then(c => {
             //setTabdata({})
             setData(c.data)
         }).catch(e => console.log("err", e))
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
         getDados()
+
+        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
         getTopics()
     }, [])
 
@@ -43,19 +43,24 @@ export default function ItemsScreen() {
         a()
     }, [topic])
 
-    useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
-        if (currentCat) return
-        console.log('aaaaa')
+    useEffect(() => {//''''SEMPRE'''' quando o tema for alterado => selecionar a primeira categoria como default
+        //if (currentCat) return
         const a = async () => { setCurrentCat(dados.filter(x => x.topic._id === currentTopic).find(x => x !== undefined)?._id) }
         a()
     }, [currentTopic, dados])
 
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela
-        console.log('filtrar a tabela')
         const a = async () => { setTabdata(dados.filter(x => x._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
         a()
     }, [currentCat, currentTopic, dados])
+
+
+    useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
+        const _topic = topic.filter(a => a._id === currentTopic)[0]?.description
+        const topic_cat = _topic + ' > ' + dados.filter(a => a._id === currentCat)[0]?.description
+        setTopic_category(topic_cat)
+    }, [currentTopic, dados])
 
     const addcatHandler = async (e) => {
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
@@ -100,16 +105,22 @@ export default function ItemsScreen() {
 
     const color = 'teal-'
     const grau = 500
+
     return (
         <>
             <StepMenu defaultStepNum={2} />
-            {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
-                <div style={{ flex: 1, flexDirection: 'row', margin: 30, display: 'flex' }} >
-                    <Dropdown name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
-                    <Dropdown name='Category' state={currentCat} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />
-                    {/*---------BUTTON ADD CATEGORY*/}
+            {!dados ? null : <div className="flex flex-wrap justify-center">
+                <div className="flex justify-between flex-row flex-1 m-4 aling-center text-center items-center" >
+                    <div>
+                        <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
+                        <DropdownButton name='Category' state={currentCat} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />
+                    </div>
 
-                    <div style={{ marginLeft: 'auto', marginRight: '15px' }} className="relative inline-flex align-middle m-2">
+                    <span className=" text-gray-800 flex ml-6 text-2xl font-bold">
+                        {topic_category}
+                    </span>
+                    {/*---------BUTTON ADD CATEGORY*/}
+                    <div className="relative inline-flex align-middle m-2">
                         <button
                             className={`text-white font-bold uppercase text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
                             type="button"

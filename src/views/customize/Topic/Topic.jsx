@@ -1,7 +1,6 @@
 import React, { createRef, useEffect, useState } from "react";
 
 import { newTopic, removeTopicId, obterTemas, addItem, removeItem, changeItem, newCategory } from 'api/mySchedule'
-import { Link } from 'react-router-dom'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -46,30 +45,16 @@ const CardContent = ({ item, revision, removeHandler }) => {
     )
 }
 
-
 export default function Topic() {
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
-    const [currentTopic, setCurrentTopic] = useState(null)
-
-    const valor = createRef()
 
     useEffect(() => {
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
         getTopics()
     }, [])
 
-    const addcatHandler = async (e) => {
-        await newCategory({ title: e.title, description: e.description, topicId: currentTopic })
-            .then(() => {
-                //const getDados = async () => await obterScheduleItems().then(c => {
-                //    //setTabdata({})
-                //    setData(c.data)
-                //}).catch(e => console.log("err", e))
-                //getDados()
-            })
-    }
     const addTopicHandler = async ({ item, image }) => {
         await newTopic({ item: item, image: image })
             .then(() => {
@@ -98,7 +83,6 @@ export default function Topic() {
                         className={`text-white font-bold uppercase text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
                         type="button"
                         style={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                        onClick={addcatHandler}
                     >
                         <i className="fas px-6"> <AddUserItem addItemHandler={addTopicHandler} />  </i>
                             Add Topic

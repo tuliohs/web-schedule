@@ -7,7 +7,7 @@ import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, newCat
 
 import 'components/Buttons/buttonHover.css'
 // components
-import Dropdown from "views/customize/Dropdown";
+import DropdownButton from "components/Dropdowns/DropdownButton";
 import AddItemDialog from '../AddItemDialog'
 import StepMenu from '../StepMenu'
 
@@ -54,8 +54,6 @@ export default function Category() {
 
     const [currentCat, setCurrentCat] = useState(null)
 
-    const [itemChange, setItemChange] = useState({})
-
     const addcatHandler = async (e) => {
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
             .then(() => {
@@ -101,12 +99,15 @@ export default function Category() {
         <>
             <StepMenu defaultStepNum={1} />
             {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
-                <div style={{ flex: 1, flexDirection: 'row', margin: 30, display: 'flex' }} >
-                    <Dropdown name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
-                    {/*<Dropdown name='Category' state={currentCat} refer={valor} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />*/}
-                    {/*---------BUTTON ADD CATEGORY*/}
+                <div className="flex items-center text-center content-center flex-row justify-between flex-1 m-4"  >
+                    <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
+                    {/*<DropdownButton  name='Category' state={currentCat} refer={valor} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />*/}
 
-                    <div style={{ marginLeft: 'auto', marginRight: '15px' }} className="relative inline-flex align-middle m-2">
+                    <span className=" text-gray-800 flex ml-6 text-2xl font-bold">
+                        {topic.filter(a => a._id === currentTopic)[0]?.description}
+                    </span>
+                    {/*---------BUTTON ADD CATEGORY--------------*/}
+                    <div className="relative inline-flex align-middle m-2">
                         <button
                             className={`text-white font-bold uppercase text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
                             type="button"
@@ -119,7 +120,7 @@ export default function Category() {
                         </button>
                     </div>
                 </div>
-                <div className="w-full mb-12 px-4">
+                <div className="w-full mb-12 px-4 flex flex-wrap justify-center" >
                     {dados.filter(w => w.topic._id === currentTopic).map(c => (
                         <CardContent
                             item={c}

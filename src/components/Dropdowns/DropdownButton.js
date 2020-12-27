@@ -25,10 +25,10 @@ const Dropdown = ({ name, items, state, setState, refer }) => {
                 <div className="w-full sm:w-6/12 md:w-4/12 px-4">*/}
             <div className="relative inline-flex align-middle m-2">
                 <button
-                    className={`${items.length === 0 ? 'opacity-50' : ''} text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
+                    className={`${items?.length === 0 ? 'opacity-50' : ''} text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
                     type="button"
                     ref={btnDropdownRef}
-                    disabled={items.length === 0}
+                    disabled={items?.length === 0}
                     onClick={() => {
                         dropdownPopoverShow
                             ? closeDropdownPopover()
@@ -44,7 +44,7 @@ const Dropdown = ({ name, items, state, setState, refer }) => {
                     className={`${dropdownPopoverShow ? 'block ' : 'hidden '}bg-${color + grau} text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48`}
                 >
                     {
-                        items.map(c => (
+                        items?.map(c => (
                             <option
                                 className={`text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent 
                                         ${c.id == state ? 'text-white' : ''}`}

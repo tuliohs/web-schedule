@@ -12,8 +12,7 @@ import { URL } from 'constants/config/url'
 //});
 
 export const newRevision = async ({ curr, revisonNote, revisionDate }) => {
-    console.log('n', curr, revisonNote, revisionDate)
-    await Axios.put(URL.REVIEW, {
+    return await Axios.put(URL.REVIEW, {
         filter: {
             categoryId: curr.categoryId,
             itemId: curr.itemId
@@ -23,8 +22,6 @@ export const newRevision = async ({ curr, revisonNote, revisionDate }) => {
             revisionDate: revisionDate
         }
     })
-        .then(c => { console.log(c.data) })
-        .catch(e => console.log("err", e))
 }
 export const obterRevisionsId = async (location) => { return await Axios.get(`${URL.REVIEW}/${location.state?.categoryId}/${location.state?.item._id}`) }
 
@@ -34,7 +31,7 @@ export const obterTemas = async () => { return await Axios.get(URL.TOPIC) }
 
 export const addItem = async ({ filter, content }) => {
     //console.log('cursor', curr)
-    await Axios.post(URL.ITEM, {
+    return await Axios.post(URL.ITEM, {
         filter: {
             categoryId: filter.categoryId,
             //itemId: curr.itemId
@@ -49,13 +46,13 @@ export const addItem = async ({ filter, content }) => {
 }
 export const removeItem = async ({ categoryId, itemId }) => {
     //console.log('cursor', curr)
-    await Axios.delete(`${URL.ITEM}/${categoryId}/${itemId}`)
+    return await Axios.delete(`${URL.ITEM}/${categoryId}/${itemId}`)
         .then(c => { console.log(c.data) })
         .catch(e => console.log("err", e))
 }
 export const changeItem = async ({ filter, content }) => {
     //console.log('cursor', curr)
-    await Axios.put(URL.ITEM, {
+    return await Axios.put(URL.ITEM, {
         filter: filter,
         content: content
     })
@@ -66,7 +63,7 @@ export const changeItem = async ({ filter, content }) => {
 export const obterNextSchedule = async () => { return await Axios.get(URL.SCHEDULE) }
 
 export const newCategory = async ({ title, description, topicId }) => {
-    await Axios.post(URL.MYSCHEDULE, {
+    return await Axios.post(URL.MYSCHEDULE, {
         title: title,
         description: description,
         topicId: topicId
@@ -76,7 +73,7 @@ export const newCategory = async ({ title, description, topicId }) => {
 }
 
 export const newTopic = async ({ item, image }) => {
-    await Axios.post(URL.TOPIC, {
+    return await Axios.post(URL.TOPIC, {
         title: item.title,
         description: item.description,
         image: image
@@ -86,7 +83,7 @@ export const newTopic = async ({ item, image }) => {
 }
 
 export const removeTopicId = async ({ topicId }) => {
-    await Axios.delete(URL.TOPIC + '/' + topicId)
+    return await Axios.delete(URL.TOPIC + '/' + topicId)
         .then(c => { console.log('remove', c.data) })
         .catch(e => console.log("err", e))
 }
