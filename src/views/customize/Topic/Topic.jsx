@@ -1,10 +1,11 @@
-import React, { createRef, useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
-import { newTopic, removeTopicId, obterTemas, addItem, removeItem, changeItem, newCategory } from 'api/mySchedule'
+import { newTopic, removeTopicId, obterTemas } from 'api/mySchedule'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import 'components/Buttons/buttonHover.css'
+import DefaultContext from 'constants/data/DefaultContext'
 // components
 import AddUserItem from './AddItemDialog'
 import StepMenu from '../StepMenu'
@@ -30,7 +31,7 @@ const CardContent = ({ item, revision, removeHandler }) => {
                             {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">{`Last Revision in ${item.detail.lastDateReview}`}</p>}
                             {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                             <div className="divhoverbutton">
-                                <a className="ahoverbutton" onClick={revision}><span className="spanhoverbutton">Show Category</span></a>
+                                <a className="ahoverbutton" href="#/" onClick={revision}><span className="spanhoverbutton">Show Category</span></a>
                             </div>
                         </div>
                         <div style={{ width: '10%' }}>
@@ -44,11 +45,12 @@ const CardContent = ({ item, revision, removeHandler }) => {
         </div>
     )
 }
-
 export default function Topic() {
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
+
+    const { setMessage, setShowAlert } = useContext(DefaultContext);
 
     useEffect(() => {
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
@@ -57,10 +59,13 @@ export default function Topic() {
 
     const addTopicHandler = async ({ item, image }) => {
         await newTopic({ item: item, image: image })
-            .then(() => {
+            .then(res => {
+                setMessage({ type: 'sucess', text: res?.data?.message })
                 const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
                 getTopics()
             })
+            .catch(e => setMessage({ type: 'danger', text: e }))
+        setShowAlert(true)
     }
 
     const removeTopicHandler = async (id) => {

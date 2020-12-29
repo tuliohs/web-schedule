@@ -41,14 +41,10 @@ export const addItem = async ({ filter, content }) => {
             description: content.description
         }
     })
-        .then(c => { console.log(c.data) })
-        .catch(e => console.log("err", e))
 }
 export const removeItem = async ({ categoryId, itemId }) => {
     //console.log('cursor', curr)
     return await Axios.delete(`${URL.ITEM}/${categoryId}/${itemId}`)
-        .then(c => { console.log(c.data) })
-        .catch(e => console.log("err", e))
 }
 export const changeItem = async ({ filter, content }) => {
     //console.log('cursor', curr)
@@ -56,8 +52,6 @@ export const changeItem = async ({ filter, content }) => {
         filter: filter,
         content: content
     })
-        .then(c => { console.log(c.data) })
-        .catch(e => console.log("err", e))
 }
 
 export const obterNextSchedule = async () => { return await Axios.get(URL.SCHEDULE) }
@@ -68,8 +62,6 @@ export const newCategory = async ({ title, description, topicId }) => {
         description: description,
         topicId: topicId
     })
-        .then(c => { console.log(c.data) })
-        .catch(e => console.log("err", e))
 }
 
 export const newTopic = async ({ item, image }) => {
@@ -78,12 +70,11 @@ export const newTopic = async ({ item, image }) => {
         description: item.description,
         image: image
     })
-        .then(c => { console.log(c.data) })
-        .catch(e => console.log("err", e))
 }
 
 export const removeTopicId = async ({ topicId }) => {
     return await Axios.delete(URL.TOPIC + '/' + topicId)
-        .then(c => { console.log('remove', c.data) })
-        .catch(e => console.log("err", e))
 }
+
+
+export const obterAllRevision = async () => { return await Axios.get(URL.REVIEW) }

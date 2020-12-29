@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
+//Comentization Slide Bar
+import ItemBar from 'components/Sidebar/LeftBar/ItemBar'
+
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
@@ -76,7 +79,6 @@ export default function Sidebar() {
             </form>
 
             {/*---------------------------------MY SCHEDULE-------------------------------------*/}
-
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
@@ -84,75 +86,11 @@ export default function Sidebar() {
               My Schedule
             </h6>
             {/* Navigation */}
-
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/myschedule/schedule") !== -1
-                      ? "text-blue-500 hover:text-blue-600"
-                      : "text-gray-800 hover:text-gray-600")
-                  }
-                  to="/myschedule/schedule"
-                >
-                  <i
-                    className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/myschedule/schedule") !== -1
-                        ? "opacity-75"
-                        : "text-gray-400")
-                    }
-                  ></i>{" "}
-                  Schedule
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/myschedule/next") !== -1
-                      ? "text-blue-500 hover:text-blue-600"
-                      : "text-gray-800 hover:text-gray-600")
-                  }
-                  to="/myschedule/next"
-                >
-                  <i
-                    className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/myschedule/next") !== -1
-                        ? "opacity-75"
-                        : "text-gray-400")
-                    }
-                  ></i>{" "}
-                  Next
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/myschedule/revision") !== -1
-                      ? "text-blue-500 hover:text-blue-600"
-                      : "text-gray-800 hover:text-gray-600")
-                  }
-                  to="/myschedule/revision"
-                >
-                  <i
-                    className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/myschedule/revision") !== -1
-                        ? "opacity-75"
-                        : "text-gray-400")
-                    }
-                  ></i>{" "}
-                  Revision
-                </Link>
-              </li>
-
-
+              <ItemBar path="/myschedule/schedule" name="Schedule" />
+              <ItemBar path="/myschedule/next" name="Next" />
+              <ItemBar path="/myschedule/revision" name="Revision" />
+              <ItemBar path="/myschedule/statistics" name="Statistics" />
             </ul>
 
             {/*---------------------------------CUSTOMIZE-------------------------------------*/}

@@ -1,8 +1,9 @@
-import React, { createRef, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, newCategory } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
+import DefaultContext from 'constants/data/DefaultContext'
 // components
 import TableEdit from "views/customize/TableEdit";
 import DropdownButton from "components/Dropdowns/DropdownButton";
@@ -15,24 +16,19 @@ export default function ItemsScreen() {
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
 
-    const valor = createRef()
-    const [topic_category, setTopic_category] = useState(null)
+    const { setMessage, setShowAlert } = useContext(DefaultContext);
 
     const [tabdata, setTabdata] = useState()
-
     const [currentCat, setCurrentCat] = useState(null)
-
     const [itemCurrentAction, setItemCurrentAction] = useState({})
-
 
     useEffect(() => {
         const getDados = async () => await obterScheduleItems().then(c => {
             //setTabdata({})
             setData(c.data)
         }).catch(e => console.log("err", e))
-        getDados()
-
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+        getDados()
         getTopics()
     }, [])
 
@@ -43,7 +39,7 @@ export default function ItemsScreen() {
         a()
     }, [topic])
 
-    useEffect(() => {//''''SEMPRE'''' quando o tema for alterado => selecionar a primeira categoria como default
+    useEffect(() => {//'''SEMPRE''''  quando o tema for alterado => selecionar a primeira categoria como default
         //if (currentCat) return
         const a = async () => { setCurrentCat(dados.filter(x => x.topic._id === currentTopic).find(x => x !== undefined)?._id) }
         a()
@@ -55,22 +51,19 @@ export default function ItemsScreen() {
         a()
     }, [currentCat, currentTopic, dados])
 
-
-    useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
-        const _topic = topic.filter(a => a._id === currentTopic)[0]?.description
-        const topic_cat = _topic + ' > ' + dados.filter(a => a._id === currentCat)[0]?.description
-        setTopic_category(topic_cat)
-    }, [currentTopic, dados])
-
     const addcatHandler = async (e) => {
+
+        //setShowAlert(true)
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
-            .then(() => {
+            .then(res => {
+                setMessage({ type: 'sucess', text: res?.data?.message })
                 const getDados = async () => await obterScheduleItems().then(c => {
                     //setTabdata({})
                     setData(c.data)
                 }).catch(e => console.log("err", e))
                 getDados()
-            })
+            }).catch(er => setMessage({ type: 'danger', text: er?.toString() }))
+        setShowAlert(true)
     }
     const addItemHandler = async (e) => {
         await addItem({ filter: { categoryId: currentCat }, content: { title: e.title, description: e.description } })
@@ -92,7 +85,6 @@ export default function ItemsScreen() {
             })
             .catch(e => console.log("err", e))
     }
-
     const changeItemHandler = async ({ columnId, value, }) => {
         let itemSend = itemCurrentAction
         itemSend[columnId] = value
@@ -105,7 +97,9 @@ export default function ItemsScreen() {
 
     const color = 'teal-'
     const grau = 500
-
+    const _topic = topic.filter(a => a._id === currentTopic)[0]?.description
+    const _category = dados.filter(a => a._id === currentCat)[0]?.description ?? '...'
+    const topic_category = _topic + ' > ' + _category
     return (
         <>
             <StepMenu defaultStepNum={2} />

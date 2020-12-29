@@ -47,7 +47,7 @@ const Dropdown = ({ name, items, state, setState, refer }) => {
                         items?.map(c => (
                             <option
                                 className={`text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent 
-                                        ${c.id == state ? 'text-white' : ''}`}
+                                        ${c.id === state ? 'text-white' : ''}`}
                                 key={c.id}
                                 ref={refer}
                                 value={c.id}

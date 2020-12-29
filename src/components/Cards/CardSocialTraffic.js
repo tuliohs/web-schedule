@@ -3,17 +3,18 @@ import React from "react";
 // components
 
 export default function CardSocialTraffic() {
+  const relativeProp = ""
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+      <div className={relativeProp + " flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"}>
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+            <div className={relativeProp + " w-full px-4 max-w-full flex-grow flex-1"}>
               <h3 className="font-semibold text-base text-gray-800">
                 Social traffic
               </h3>
             </div>
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+            <div className={relativeProp + " w-full px-4 max-w-full flex-grow flex-1 text-right"}>
               <button
                 className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -48,7 +49,7 @@ export default function CardSocialTraffic() {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   <div className="flex items-center">
                     <span className="mr-2">60%</span>
-                    <div className="relative w-full">
+                    <div className={relativeProp + " w-full"}>
                       <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
                         <div
                           style={{ width: "60%" }}
@@ -69,7 +70,7 @@ export default function CardSocialTraffic() {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   <div className="flex items-center">
                     <span className="mr-2">70%</span>
-                    <div className="relative w-full">
+                    <div className={relativeProp + " w-full"}>
                       <div className="overflow-hidden h-2 text-xs flex rounded bg-green-200">
                         <div
                           style={{ width: "70%" }}
@@ -90,7 +91,7 @@ export default function CardSocialTraffic() {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   <div className="flex items-center">
                     <span className="mr-2">80%</span>
-                    <div className="relative w-full">
+                    <div className={relativeProp + " w-full"}>
                       <div className="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
                         <div
                           style={{ width: "80%" }}
@@ -111,7 +112,7 @@ export default function CardSocialTraffic() {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   <div className="flex items-center">
                     <span className="mr-2">75%</span>
-                    <div className="relative w-full">
+                    <div className={relativeProp + " w-full"}>
                       <div className="overflow-hidden h-2 text-xs flex rounded bg-blue-200">
                         <div
                           style={{ width: "75%" }}
@@ -132,7 +133,7 @@ export default function CardSocialTraffic() {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   <div className="flex items-center">
                     <span className="mr-2">30%</span>
-                    <div className="relative w-full">
+                    <div className={relativeProp + " w-full"}>
                       <div className="overflow-hidden h-2 text-xs flex rounded bg-orange-200">
                         <div
                           style={{ width: "30%" }}

@@ -10,9 +10,9 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import StepConnector from '@material-ui/core/StepConnector';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { StepButton } from '@material-ui/core';
+//import Button from '@material-ui/core/Button';
+//import Typography from '@material-ui/core/Typography';
+//import { StepButton } from '@material-ui/core';
 import { Link, useHistory } from "react-router-dom";
 
 const defColor = '#2c5282' // '#784af4',
@@ -89,29 +89,29 @@ QontoStepIcon.propTypes = {
     completed: PropTypes.bool,
 };
 
-const ColorlibConnector = withStyles({
-    alternativeLabel: {
-        top: 22,
-    },
-    active: {
-        '& $line': {
-            backgroundImage:
-                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-        },
-    },
-    completed: {
-        '& $line': {
-            backgroundImage:
-                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-        },
-    },
-    line: {
-        height: 3,
-        border: 0,
-        backgroundColor: '#eaeaf0',
-        borderRadius: 1,
-    },
-})(StepConnector);
+//const ColorlibConnector = withStyles({
+//    alternativeLabel: {
+//        top: 22,
+//    },
+//    active: {
+//        '& $line': {
+//            backgroundImage:
+//                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+//        },
+//    },
+//    completed: {
+//        '& $line': {
+//            backgroundImage:
+//                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+//        },
+//    },
+//    line: {
+//        height: 3,
+//        border: 0,
+//        backgroundColor: '#eaeaf0',
+//        borderRadius: 1,
+//    },
+//})(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles({
     root: {

@@ -24,7 +24,7 @@ const initialItem = {
 const AddItemDialog = props => {
     const [itemSc, setItemSc] = useState(initialItem)
 
-    const { addItemHandler } = props
+    const { addItemHandler, title, subTitle } = props
     const [open, setOpen] = React.useState(false)
 
     const [switchState, setSwitchState] = React.useState({
@@ -61,9 +61,9 @@ const AddItemDialog = props => {
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
             >
-                <DialogTitle id="form-dialog-title">Add Item</DialogTitle>
+                <DialogTitle id="form-dialog-title">{title}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>Add item to Schedule.</DialogContentText>
+                    <DialogContentText>{subTitle}</DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"

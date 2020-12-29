@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { Link } from 'react-router-dom'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -6,6 +6,7 @@ import moment from 'moment'
 import { newRevision, obterScheduleItems, obterTemas } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
+import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import AlertDynamic from 'components/Notifications/AlertDynamic'
@@ -34,7 +35,7 @@ const CardContent = ({ categoryId, item, revision }) => {
                     {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">Last Revision in <b>{moment(item.detail.lastDateReview).format('DD/MM/YYYY HH:mm')}</b></p>}
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                     <div className="divhoverbutton">
-                        <a className="ahoverbutton" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
+                        <a className="ahoverbutton" href="#/" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
                     </div>
                 </div>
             </div>

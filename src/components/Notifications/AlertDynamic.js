@@ -5,8 +5,8 @@ const AlertDynamic = ({ showAlert, setShowAlert, message, seconds = 5 }) => {
     React.useEffect(() => {
         const intervalo = setInterval(() => {
             setShowAlert(false);
-        }, seconds * 1000); //Substitui componentDidAmount
-        return () => clearInterval(intervalo); //Substitui componentWillUnmount
+        }, seconds * 1000) //Substitui componentDidAmount
+        return () => clearInterval(intervalo) //Substitui componentWillUnmount
     }, [seconds, setShowAlert]);
 
     const cor_grau = message.type === 'sucess' ? 'bg-green-500' : 'bg-red-600'
@@ -21,7 +21,9 @@ const AlertDynamic = ({ showAlert, setShowAlert, message, seconds = 5 }) => {
                         right: '10px',
                         //width: '200px',
                         //height: '100px'
-                        width: '30%'
+                        width: '80%',
+                        //minWidth: '28rem',
+                        maxWidth: '28rem'
                     }} // width: '40%', marginLeft: '46%', marginTop: 'auto', marginBottom: '0px', marginRight: '5%' }}
                 >
                     <span className="text-xl inline-block mr-5 align-middle m-2">

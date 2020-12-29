@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useContext } from "react";
 import { useLocation } from 'react-router-dom'
-import { obterRevisionsId, newRevision } from 'api/mySchedule'
+import { obterRevisionsId, newRevision, obterAllRevision } from 'api/mySchedule'
 
+import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import TimeLine from './RevisionTimeLine'
@@ -15,10 +16,11 @@ const CardContent = ({ title, description, revision }) => {
                 </div>
                 <h6 className="text-xl font-semibold">{title}</h6>
                 <p className="mt-2 mb-4 text-gray-600">{description}</p>
-                <div className="divhoverbutton" style={{ width: "20%" }}>
-                    <a className="ahoverbutton" onClick={revision}>
+                {title ? <div className="divhoverbutton" style={{ width: "20%" }}>
+                    <a className="ahoverbutton" href="#/" onClick={revision}>
                         <span className="spanhoverbutton">New Revision</span></a>
-                </div>
+                </div> : null}
+
             </div>
         </div>)
 }
@@ -50,21 +52,24 @@ export default function Revision() {
         setIsSend(true)
         await obterRevisionsId(location)
             .then(c => {
-                console.log(c.data)
                 setData(c.data)
             })
-            .catch(e => console.log("err", e))
+            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         setIsSend(false)
     }, [isSend])
 
     React.useEffect(() => {
         const aa = async () => {
-            if (!location.state) return
-            await obterRevisionsId(location)
-                .then(c => {
-                    console.log(c.data)
-                    setData(c.data)
-                }).catch(e => console.log("err", e))
+            if (location?.state?.item?._id)
+                await obterRevisionsId(location)
+                    .then(c => {
+                        setData(c.data)
+                    }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+            else
+                await obterAllRevision()
+                    .then(c => {
+                        setData(c.data)
+                    }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         }
         aa()
     }, [location])
@@ -79,6 +84,8 @@ export default function Revision() {
                     refer={focusTextArea}
                     action={async () => {
                         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
+                            .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
+                            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                         await sendRequest()
                         setShowModal(false)
                         setRevisionNote(null)

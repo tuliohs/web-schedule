@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 
 import DateTimePicker from 'react-datetime-picker';
 import "./ModalSmall.css"

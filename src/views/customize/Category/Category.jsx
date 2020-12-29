@@ -1,11 +1,12 @@
-import React, { createRef, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, newCategory } from 'api/mySchedule'
+import { obterScheduleItems, obterTemas, newCategory } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
+import DefaultContext from 'constants/data/DefaultContext'
 // components
 import DropdownButton from "components/Dropdowns/DropdownButton";
 import AddItemDialog from '../AddItemDialog'
@@ -34,7 +35,7 @@ const CardContent = ({ categoryId, item, revision }) => {
                     {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">{`Last Revision in ${item.detail.lastDateReview}`}</p>}
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                     <div className="divhoverbutton">
-                        <a className="ahoverbutton" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
+                        <a className="ahoverbutton" href="#/" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
                     </div>
                 </div>
             </div>
@@ -44,11 +45,11 @@ const CardContent = ({ categoryId, item, revision }) => {
 
 export default function Category() {
 
+    const { setMessage, setShowAlert } = useContext(DefaultContext);
+
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
-
-    const valor = createRef()
 
     const [tabdata, setTabdata] = useState()
 
@@ -56,13 +57,14 @@ export default function Category() {
 
     const addcatHandler = async (e) => {
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
-            .then(() => {
+            .then(res => {
+                setMessage({ type: 'sucess', text: res?.data?.message })
                 const getDados = async () => await obterScheduleItems().then(c => {
-                    //setTabdata({})
                     setData(c.data)
-                }).catch(e => console.log("err", e))
+                }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
-            })
+            }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+        setShowAlert(true)
     }
 
     useEffect(() => {

@@ -1,31 +1,37 @@
 import React from "react";
 import Chart from "chart.js";
-import { getLineReview } from 'api/apiChart'
-import moment from 'moment'
+import { obterAllRevision } from 'api/mySchedule'
 
 export default function CardLineChart() {
-  const [dados, setData] = React.useState([])
-
   React.useEffect(() => {
-    const aa = async () => {
-      await getLineReview()
-        .then(c => {
-          //console.log(c.data.map(a => moment(a.revisionDate).format('DD/MM/YYYY HH:mm')))
-
-          setData(c.data)
-        }).catch(e => console.log("err", e))
-    }
-    aa()
-  }, [])
-
-  React.useEffect(() => {
-    console.log(dados)
-
     var config = {
       type: "line",
       data: {
-        labels: dados.labels,
-        datasets: dados.datasets,
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+        ],
+        datasets: [
+          {
+            label: new Date().getFullYear(),
+            backgroundColor: "#4c51bf",
+            borderColor: "#4c51bf",
+            data: [65, 78, 66, 44, 56, 67, 75],
+            fill: false,
+          },
+          {
+            label: new Date().getFullYear() - 1,
+            fill: false,
+            backgroundColor: "#fff",
+            borderColor: "#fff",
+            data: [40, 68, 86, 74, 56, 60, 87],
+          },
+        ],
       },
       options: {
         maintainAspectRatio: false,
@@ -100,7 +106,7 @@ export default function CardLineChart() {
     };
     var ctx = document.getElementById("line-chart").getContext("2d");
     window.myLine = new Chart(ctx, config);
-  }, [dados]);
+  }, []);
 
   return (
     <>
@@ -111,7 +117,7 @@ export default function CardLineChart() {
               <h6 className="uppercase text-gray-200 mb-1 text-xs font-semibold">
                 Overview
               </h6>
-              <h2 className="text-white text-xl font-semibold">Revisions By Day</h2>
+              <h2 className="text-white text-xl font-semibold">Sales value</h2>
             </div>
           </div>
         </div>
