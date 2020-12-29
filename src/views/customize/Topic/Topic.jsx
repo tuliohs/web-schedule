@@ -50,10 +50,10 @@ export default function Topic() {
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
 
-    const { setMessage, setShowAlert } = useContext(DefaultContext);
+    const { setMessage } = useContext(DefaultContext);
 
     useEffect(() => {
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getTopics()
     }, [])
 
@@ -61,17 +61,16 @@ export default function Topic() {
         await newTopic({ item: item, image: image })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+                const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
                 getTopics()
             })
             .catch(e => setMessage({ type: 'danger', text: e }))
-        setShowAlert(true)
     }
 
     const removeTopicHandler = async (id) => {
         await removeTopicId({ topicId: id })
             .then(() => {
-                const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+                const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
                 getTopics()
             })
     }

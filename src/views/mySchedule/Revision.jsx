@@ -35,7 +35,8 @@ export function EmptyRevision() {
 
 export default function Revision() {
     let location = useLocation();
-    const focusTextArea = useRef(null)
+
+    const { setMessage } = useContext(DefaultContext);
 
     const [data, setData] = useState([{}])
     const [showModal, setShowModal] = useState(false)
@@ -44,19 +45,6 @@ export default function Revision() {
     const [revisonNote, setRevisionNote] = useState(null)
 
     const [curr, setCurr] = useState({})
-    const [isSend, setIsSend] = useState(false)
-
-    const sendRequest = useCallback(async () => {
-        // don't send again while we are sending and don't send case not param
-        if (!location.state || isSend) return
-        setIsSend(true)
-        await obterRevisionsId(location)
-            .then(c => {
-                setData(c.data)
-            })
-            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-        setIsSend(false)
-    }, [isSend])
 
     React.useEffect(() => {
         const aa = async () => {
@@ -70,9 +58,19 @@ export default function Revision() {
                     .then(c => {
                         setData(c.data)
                     }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+
         }
         aa()
     }, [location])
+
+
+    const newRevisionHandler = async () => {
+        await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
+            .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
+            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+        setShowModal(false)
+        setRevisionNote(null)
+    }
 
 
     return (
@@ -81,20 +79,11 @@ export default function Revision() {
                 {/*Modal para criar uma nova revisão*/}
                 <ModalSmall title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote}
                     setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
-                    refer={focusTextArea}
-                    action={async () => {
-                        await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
-                            .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
-                            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-                        await sendRequest()
-                        setShowModal(false)
-                        setRevisionNote(null)
-                    }} />
+                    action={newRevisionHandler} />
                 <CardContent revision={() => {
                     //Alterando as propriedades para o item atual
                     setCurr({ categoryId: location.state?.categoryId, itemId: location.state?.item._id })
                     setShowModal(true)
-                    console.log(focusTextArea)
                     //focusTextArea.current.focus()
                 }}
                     title={location.state?.item.title} description={location.state?.item.description} />

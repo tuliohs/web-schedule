@@ -30,7 +30,6 @@ export const obterScheduleItems = async () => { return await Axios.get(URL.MYSCH
 export const obterTemas = async () => { return await Axios.get(URL.TOPIC) }
 
 export const addItem = async ({ filter, content }) => {
-    //console.log('cursor', curr)
     return await Axios.post(URL.ITEM, {
         filter: {
             categoryId: filter.categoryId,
@@ -43,11 +42,9 @@ export const addItem = async ({ filter, content }) => {
     })
 }
 export const removeItem = async ({ categoryId, itemId }) => {
-    //console.log('cursor', curr)
     return await Axios.delete(`${URL.ITEM}/${categoryId}/${itemId}`)
 }
 export const changeItem = async ({ filter, content }) => {
-    //console.log('cursor', curr)
     return await Axios.put(URL.ITEM, {
         filter: filter,
         content: content

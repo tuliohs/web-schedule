@@ -16,7 +16,7 @@ export default function ItemsScreen() {
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
 
-    const { setMessage, setShowAlert } = useContext(DefaultContext);
+    const { setMessage } = useContext(DefaultContext);
 
     const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
@@ -26,8 +26,8 @@ export default function ItemsScreen() {
         const getDados = async () => await obterScheduleItems().then(c => {
             //setTabdata({})
             setData(c.data)
-        }).catch(e => console.log("err", e))
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+        }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
     }, [])
@@ -53,37 +53,37 @@ export default function ItemsScreen() {
 
     const addcatHandler = async (e) => {
 
-        //setShowAlert(true)
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 const getDados = async () => await obterScheduleItems().then(c => {
                     //setTabdata({})
                     setData(c.data)
-                }).catch(e => console.log("err", e))
+                }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
             }).catch(er => setMessage({ type: 'danger', text: er?.toString() }))
-        setShowAlert(true)
     }
     const addItemHandler = async (e) => {
         await addItem({ filter: { categoryId: currentCat }, content: { title: e.title, description: e.description } })
-            .then(() => {
+            .then(res => {
+                setMessage({ type: 'sucess', text: res?.data?.message })
                 const getDados = async () => await obterScheduleItems().then(c => {
                     //setTabdata({})
                     setData(c.data)
-                }).catch(e => console.log("err", e))
+                }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
             })
     }
     const removeItemHandler = async (e) => {
         await removeItem({ categoryId: currentCat, itemId: itemCurrentAction._id })
-            .then(() => {
+            .then(res => {
+                setMessage({ type: 'sucess', text: res?.data?.message })
                 const getDados = async () => await obterScheduleItems().then(c => {
                     setData(c.data)
-                }).catch(e => console.log("err", e))
+                }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
             })
-            .catch(e => console.log("err", e))
+            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }
     const changeItemHandler = async ({ columnId, value, }) => {
         let itemSend = itemCurrentAction
@@ -92,7 +92,7 @@ export default function ItemsScreen() {
         const content = itemSend
         await changeItem({ filter: filter, content: content })
             .then(e => console.log(e))
-            .catch(e => console.log("err", e))
+            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }
 
     const color = 'teal-'

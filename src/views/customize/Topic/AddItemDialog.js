@@ -35,7 +35,6 @@ const AddItemDialog = props => {
         addMultiple: false,
     })
     function uploadImage(e, method) {
-        console.log('imp', e.target.files[0])
         setUrImage({ multerImage: URL.createObjectURL(e.target.files[0]) });
     }
     function getBaseFile(files) {

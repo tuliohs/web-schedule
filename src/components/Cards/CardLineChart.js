@@ -10,8 +10,6 @@ export default function CardLineChart() {
     const aa = async () => {
       await getLineReview()
         .then(c => {
-          //console.log(c.data.map(a => moment(a.revisionDate).format('DD/MM/YYYY HH:mm')))
-
           setData(c.data)
         }).catch(e => console.log("err", e))
     }
@@ -19,8 +17,6 @@ export default function CardLineChart() {
   }, [])
 
   React.useEffect(() => {
-    console.log(dados)
-
     var config = {
       type: "line",
       data: {

@@ -8,7 +8,6 @@ import AlertDynamic from 'components/Notifications/AlertDynamic'
 import DefaultContext from 'constants/data/DefaultContext'
 
 const CardContent = ({ item, revision }) => {
-    console.log('item?.color', item?.detail?.color)
     //let active = date
     return (
         <div className="items-center justify-center relative flex ">
@@ -40,9 +39,9 @@ export function useForceUpdate() {
     return update;
 }
 
-const defaultMessage = { type: 'sucess', text: 'sucess' }
 export default function Next() {
 
+    const { setMessage, } = useContext(DefaultContext);
     const focusTextArea = useRef(null)
 
     const [data, setData] = useState([{}])
@@ -73,7 +72,6 @@ export default function Next() {
         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-        setShowAlert(true)
         setShowModal(false)
         setRevisionNote(null)
         await nextHandler()

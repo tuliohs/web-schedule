@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -24,6 +24,10 @@ const App = () => {
 
     const [showAlert, setShowAlert] = useState(false);
     const [message, setMessage] = useState(defaultMessage);
+    useEffect(() => {
+        if (message !== defaultMessage)
+            setShowAlert(true)
+    }, [message])
     return (
         <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage }}>
             <BrowserRouter>

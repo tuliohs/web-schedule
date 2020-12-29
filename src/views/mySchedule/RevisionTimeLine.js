@@ -6,7 +6,6 @@ import 'react-vertical-timeline-component/style.min.css';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 
 export default function TimeLine({ itemRevision }) {
-    console.log(itemRevision)
     return (
         <VerticalTimeline>
             {itemRevision.map(c =>

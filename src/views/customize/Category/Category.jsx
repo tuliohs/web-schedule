@@ -45,7 +45,7 @@ const CardContent = ({ categoryId, item, revision }) => {
 
 export default function Category() {
 
-    const { setMessage, setShowAlert } = useContext(DefaultContext);
+    const { setMessage } = useContext(DefaultContext);
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
@@ -64,14 +64,13 @@ export default function Category() {
                 }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-        setShowAlert(true)
     }
 
     useEffect(() => {
         const getDados = async () => await obterScheduleItems().then(c => {
             setData(c.data)
-        }).catch(e => console.log("err", e))
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+        }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
     }, [])

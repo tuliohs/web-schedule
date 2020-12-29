@@ -52,7 +52,6 @@ const AddItemDialog = (addItemHandler, currentTopic, setCurrentTopic) => {
 
 
     const addcatHandler = async () => {
-        console.log('req data', { title: itemSc.title, description: itemSc.description, topicId: currentTopic })
         await newCategory({ title: itemSc.title, description: itemSc.description, topicId: currentTopic?._id })
             .then(() => {
                 //const getDados = async () => await obterScheduleItems().then(c => {

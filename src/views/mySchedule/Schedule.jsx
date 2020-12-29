@@ -9,7 +9,6 @@ import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
-import AlertDynamic from 'components/Notifications/AlertDynamic'
 import DropdownButton from 'components/Dropdowns/DropdownButton'
 
 const CardContent = ({ categoryId, item, revision }) => {
@@ -42,13 +41,11 @@ const CardContent = ({ categoryId, item, revision }) => {
         </div>
     )
 }
-const defaultMessage = { type: 'sucess', text: 'sucess' }
 export default function Schedule() {
 
+    const { setMessage, } = useContext(DefaultContext);
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
-    const [showAlert, setShowAlert] = useState(false);
-    const [message, setMessage] = useState(defaultMessage);
     const [topic, setTopic] = useState([])
 
     const [revisionDate, setRevisionDate] = useState(new Date());
@@ -59,9 +56,9 @@ export default function Schedule() {
     const atual = useRef(null)
 
     useEffect(() => {
-        const getItems = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => console.log("err", e))
+        const getItems = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         getItems()
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => console.log("err", e)) //show topics without data
+        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getTopics()
     }, [])
 
@@ -80,9 +77,8 @@ export default function Schedule() {
                     action={async () => {
                         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
                             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
-                            .catch(e => console.log("err", e))
+                            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                         setShowModal(false)
-                        setShowAlert(true)
                     }} />
                 <div className="w-full">
                     <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
@@ -108,7 +104,6 @@ export default function Schedule() {
 
                         </>
                     ))}
-                <AlertDynamic showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
             </div>}
         </>
     );
