@@ -1,7 +1,9 @@
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+    BrowserRouter as Router, Route, Switch, Redirect
+} from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
@@ -14,10 +16,14 @@ import Customize from 'layouts/Customize'
 
 // views without layouts
 import Landing from "views/Landing.js";
+import LandingOld from "views/LandingOld.js";
 import Profile from "views/Profile.js";
 
 import DefaultContext from 'constants/data/DefaultContext'
+import { StoreProvider } from 'constants/data/StoreContext'
 import AlertDynamic from 'components/Notifications/AlertDynamic'
+import RoutesPrivate from 'utils/Private/RoutesPrivate'
+import NotFound from 'utils/NotFound'
 
 const defaultMessage = { type: 'sucess', text: 'sucess' }
 const App = () => {
@@ -30,23 +36,36 @@ const App = () => {
     }, [message])
     return (
         <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage }}>
-            <BrowserRouter>
-                <Switch>
-                    {/* add routes with layouts */}
-                    <Route path="/customize" component={Customize} />
-                    <Route path="/myschedule" component={Schedule} />
-                    <Route path="/admin" component={Admin} />
-                    <Route path="/auth" component={Auth} />
-                    {/* add routes without layouts */}
-                    <Route path="/landing" exact component={Landing} />
-                    <Route path="/profile" exact component={Profile} />
-                    <Route path="/" exact component={Schedule} />
-                    {/* add redirect for first page */}
-                    <Redirect from="*" to="/" />
-                </Switch>
-            </BrowserRouter>
+            {/*inicio das rotas*/}
+            <Router>
+                <StoreProvider>
+                    <Switch>
+                        {/* add routes with layouts */}
+                        <RoutesPrivate path="/customize"  >
+                            <Customize />
+                        </RoutesPrivate>
+                        <RoutesPrivate path="/myschedule"  >
+                            <Schedule />
+                        </RoutesPrivate>
+                        <RoutesPrivate path="/admin"  >
+                            <Admin />
+                        </RoutesPrivate>
+                        {/* add routes without layouts */}
+                        <RoutesPrivate path="/landingold" exact  >
+                            <LandingOld />
+                        </RoutesPrivate>
+                        <Route path="/auth" component={Auth} />
+                        <Route path="/profile" exact component={Profile} />
+                        <Route path="/" exact component={Landing} />
+                        {/* add redirect for first page */}
+                        <Route path="*">
+                            <NotFound />
+                        </Route>
+                        {/*<Redirect from="*" tyo="/" />*/}
+                    </Switch>
+                </StoreProvider>
+            </Router>
             <AlertDynamic showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
-
         </DefaultContext.Provider>)
 }
 

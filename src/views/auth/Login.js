@@ -1,7 +1,47 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+
+import StoreContext from 'constants/data/StoreContext'
+
+function initialState() {
+  return { user: '', password: '' };
+}
+
+function Moclogin({ user, password }) {
+  if (user === 'admin' && password === 'admin') {
+    return { _token: '1234' };
+  }
+  return { error: 'Usuário ou senha inválido' };
+}
 
 export default function Login() {
+  const [values, setValues] = useState(initialState);
+  const [error, setError] = useState(null);
+  const { setToken, token } = useContext(StoreContext);
+  const history = useHistory();
+  console.log("token", token)
+
+  function onChange(event) {
+    const { value, name } = event.target;
+
+    setValues({
+      ...values,
+      [name]: value
+    });
+  }
+  function onSubmit(event) {
+    event.preventDefault();
+    const { _token, error } = Moclogin(values);
+    console.log(_token, error)
+    if (_token) {
+      setToken(_token);
+      return history.push('/');
+    }
+    setError(error);
+    setValues(initialState);
+  }
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -44,18 +84,22 @@ export default function Login() {
                 <div className="text-gray-500 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form>
+                <form onSubmit={onSubmit}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Email
+                      User
                     </label>
                     <input
-                      type="email"
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      id="user"
+                      type="text"
+                      name="user"
+                      onChange={onChange}
+                      value={values.user}
                     />
                   </div>
 
@@ -70,8 +114,15 @@ export default function Login() {
                       type="password"
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      id="password"
+                      name="password"
+                      onChange={onChange}
+                      value={values.password}
                     />
                   </div>
+                  {error && (
+                    <div className="user-login__error">{error}</div>
+                  )}
                   <div>
                     <label className="inline-flex items-center cursor-pointer">
                       <input
@@ -89,6 +140,7 @@ export default function Login() {
                     <button
                       className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
+                      onClick={onSubmit}
                     >
                       Sign In
                     </button>

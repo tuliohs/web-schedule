@@ -4,8 +4,15 @@ import moment from 'moment'
 
 //components
 import ModalSmall from 'components/Modals/ModalSmall'
-import AlertDynamic from 'components/Notifications/AlertDynamic'
 import DefaultContext from 'constants/data/DefaultContext'
+
+export const LabelStateColor = ({ state, color }) => {
+    return (<>
+        <p className="mt-2 mb-4 text-gray-600">
+            <i className={`fas fa-circle text-${color}-500 mr-2`}></i>
+            {state}</p>
+    </>)
+}
 
 const CardContent = ({ item, revision }) => {
     //let active = date
@@ -19,9 +26,7 @@ const CardContent = ({ item, revision }) => {
                     {/*<h6 className="text-xl font-semibold">{title}</h6>*/}
                     <p className="mt-2 mb-4 text-gray-600"><b className="mr-2">Next Review:</b>{moment(item?.detail?.nextReview).format('DD/MM/YYYY HH:mm')}</p>
                     <div className="mt-2 mb-4 text-gray-600">{item?.item?.title}</div>
-                    <p className="mt-2 mb-4 text-gray-600">
-                        <i className={`fas fa-circle text-${item?.detail?.color}-500 mr-2`}></i>
-                        {item?.detail?.state}</p>
+                    <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
                     <div className="divhoverbutton" style={{ width: "20%" }}>
                         <a className="ahoverbutton" href="#/" onClick={revision}>
                             <span className="spanhoverbutton">Revision</span></a>
@@ -62,7 +67,7 @@ export default function Next() {
                 }
                 setData(c.data.sort(compare))
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-    }, [])
+    }, [setMessage])
 
     React.useEffect(() => {
         nextHandler()

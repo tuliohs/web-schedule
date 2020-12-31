@@ -5,7 +5,7 @@ import TableDropdown from './TableDropdown'
 
 
 // Create an editable cell renderer
-const EditableCell = ({ value: initialValue, row: { index }, column: { id }, updateMyData, // This is a custom function that we supplied to our table instance
+const EditableCell = ({ value: initialValue, row: { index }, column: { id, editavel = true }, updateMyData,// This is a custom function that we supplied to our table instance
 }) => {
     // We need to keep and update the state of the cell normally
     const [value, setValue] = React.useState(initialValue)
@@ -18,7 +18,7 @@ const EditableCell = ({ value: initialValue, row: { index }, column: { id }, upd
     // If the initialValue is changed external, sync it up with our state
     React.useEffect(() => setValue(initialValue), [initialValue])
 
-    return <input className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-s whitespace-no-wrap p-3 border-t-0 align-middle border-l-0 border-r-0 text-s whitespace-no-wrap bg-blue-900"
+    return <input disabled={!editavel} className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-s whitespace-no-wrap p-3 border-t-0 align-middle border-l-0 border-r-0 text-s whitespace-no-wrap bg-blue-900"
         value={value} onChange={onChange} onBlur={onBlur} />
 }
 
@@ -35,15 +35,15 @@ function Table({ columns, data, setItemCurrentAction, removeItemHandler, updateM
         headerGroups,
         rows,
         prepareRow,
-        page,
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
-        pageCount,
-        gotoPage,
-        nextPage,
-        previousPage,
-        setPageSize,
+        //page,
+        //canPreviousPage,
+        //canNextPage,
+        //pageOptions,
+        //pageCount,
+        //gotoPage,
+        //nextPage,
+        //previousPage,
+        //setPageSize,
     } = useTable({
         columns,
         data,
@@ -84,7 +84,7 @@ function Table({ columns, data, setItemCurrentAction, removeItemHandler, updateM
                             {row.cells.map(cell => {
                                 return <td {...cell.getCellProps()} className="">{cell.render('Cell')}</td>
                             })}
-                            <th><a className="text-gray-600 py-1 px-3" ><TableDropdown rowHandler={() => setItemCurrentAction(row?.original)} actions={actions} /></a></th>
+                            <th><a className="text-gray-600 py-1 px-3" href="/#" ><TableDropdown rowHandler={() => setItemCurrentAction(row?.original)} actions={actions} /></a></th>
                         </tr>
                     )
                 })}
@@ -106,17 +106,19 @@ function TableEdit({ data, title, addItemHandler, setItemCurrentAction, removeIt
             },
             {
                 Header: 'Status',
-                accessor: 'status',
+                accessor: 'detail.state',
+                editavel: false
             },
             {
                 Header: 'Revisions',
                 //accessor: 'revisions',
+                editavel: false
             },
         ],
         []
     )
 
-    const [curr, setData] = React.useState(data)
+    const [/*curr*/, setData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
 
     // We need to keep the table from resetting the pageIndex when we

@@ -7,9 +7,11 @@ import { newRevision, obterScheduleItems, obterTemas } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
+import StoreContext from 'constants/data/StoreContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import DropdownButton from 'components/Dropdowns/DropdownButton'
+import { LabelStateColor } from './Next'
 
 const CardContent = ({ categoryId, item, revision }) => {
     return (
@@ -30,7 +32,7 @@ const CardContent = ({ categoryId, item, revision }) => {
                     </div>
                     <h6 className="text-xl font-semibold">{item?.title}</h6>
                     <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
-                    <p className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4">{item?.detail?.state}</p>
+                    <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
                     {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">Last Revision in <b>{moment(item.detail.lastDateReview).format('DD/MM/YYYY HH:mm')}</b></p>}
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                     <div className="divhoverbutton">
@@ -44,6 +46,8 @@ const CardContent = ({ categoryId, item, revision }) => {
 export default function Schedule() {
 
     const { setMessage, } = useContext(DefaultContext);
+    const { token, } = useContext(StoreContext);
+    console.log(token, 'token')
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [topic, setTopic] = useState([])
@@ -60,14 +64,14 @@ export default function Schedule() {
         getItems()
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getTopics()
-    }, [])
+    }, [setMessage])
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
         if (currentTopic) return
         const a = async () => { setCurrentTopic(topic[0]?._id) }
         //const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
         a()
-    }, [topic])
+    }, [topic, currentTopic])
 
     return (
         <>

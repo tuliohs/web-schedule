@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 
 import { newTopic, removeTopicId, obterTemas } from 'api/mySchedule'
 
@@ -47,15 +47,22 @@ const CardContent = ({ item, revision, removeHandler }) => {
 }
 export default function Topic() {
 
-    const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
 
     const { setMessage } = useContext(DefaultContext);
 
+    const getTopics = useCallback(async () => {//show topics without data
+        await obterTemas()
+            .then(c => {
+                setTopic(c.data)
+            }
+            ).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+    }, [setMessage])
+
     useEffect(() => {
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
+
         getTopics()
-    }, [])
+    }, [getTopics])
 
     const addTopicHandler = async ({ item, image }) => {
         await newTopic({ item: item, image: image })
@@ -80,7 +87,7 @@ export default function Topic() {
     return (
         <>
             <StepMenu defaultStepNum={0} />
-            {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
+            <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <div className=" mb-6"  >
                     {/*---------BUTTON ADD TOPIC*/}
                     <button
@@ -97,7 +104,7 @@ export default function Topic() {
                         {!topic ? null : topic.map(c => <CardContent item={c} removeHandler={removeTopicHandler} />)}
                     </div>
                 </div>
-            </div>}
+            </div>
         </>
     );
 }

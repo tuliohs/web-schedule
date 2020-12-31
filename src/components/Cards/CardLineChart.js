@@ -1,7 +1,6 @@
 import React from "react";
 import Chart from "chart.js";
 import { getLineReview } from 'api/apiChart'
-import moment from 'moment'
 
 export default function CardLineChart() {
   const [dados, setData] = React.useState([])

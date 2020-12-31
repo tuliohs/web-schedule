@@ -198,7 +198,7 @@ function getSteps() {
 
 export default function StepMenu({ defaultStepNum = 0 }) {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(defaultStepNum);
+    const activeStep = defaultStepNum //, setActiveStep] = React.useState(defaultStepNum);
     const steps = getSteps();
 
     //const handleNext = () => {

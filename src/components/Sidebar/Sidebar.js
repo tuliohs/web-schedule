@@ -126,27 +126,7 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/customize/revision") !== -1
-                      ? "text-blue-500 hover:text-blue-600"
-                      : "text-gray-800 hover:text-gray-600")
-                  }
-                  to="/customize/revision"
-                >
-                  <i
-                    className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/customize/revision") !== -1
-                        ? "opacity-75"
-                        : "text-gray-400")
-                    }
-                  ></i>{" "}
-                  Revision
-                </Link>
-              </li>
+
 
 
             </ul>
@@ -293,10 +273,19 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
-                  to="/landing"
-                >
+                  to="/landing"                >
                   <i className="fas fa-newspaper text-gray-500 mr-2 text-sm"></i>{" "}
                   Landing Page
+                </Link>
+              </li>
+
+              <li className="items-center">
+                <Link
+                  className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
+                  to="/landingold"
+                >
+                  <i className="fas fa-newspaper text-gray-500 mr-2 text-sm"></i>{" "}
+                Old Landing Page
                 </Link>
               </li>
 

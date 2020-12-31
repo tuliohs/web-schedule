@@ -30,14 +30,14 @@ export default function ItemsScreen() {
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
-    }, [])
+    }, [setMessage])
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
-        if (currentTopic) return
+        if (currentTopic) return //não fazer ada quando já houver um item selecionado
         const a = async () => { setCurrentTopic(topic[0]?._id) }
         //const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
         a()
-    }, [topic])
+    }, [topic, currentTopic])
 
     useEffect(() => {//'''SEMPRE''''  quando o tema for alterado => selecionar a primeira categoria como default
         //if (currentCat) return

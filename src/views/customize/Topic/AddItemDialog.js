@@ -34,9 +34,9 @@ const AddItemDialog = props => {
     const [switchState, setSwitchState] = React.useState({
         addMultiple: false,
     })
-    function uploadImage(e, method) {
-        setUrImage({ multerImage: URL.createObjectURL(e.target.files[0]) });
-    }
+    //function uploadImage(e, method) {
+    //    setUrImage({ multerImage: URL.createObjectURL(e.target.files[0]) });
+    //}
     function getBaseFile(files) {
         setUrImage({ baseImage: files.base64 });
         setImageObj({

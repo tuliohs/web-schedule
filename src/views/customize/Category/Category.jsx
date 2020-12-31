@@ -51,8 +51,7 @@ export default function Category() {
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
 
-    const [tabdata, setTabdata] = useState()
-
+    //const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
 
     const addcatHandler = async (e) => {
@@ -73,25 +72,25 @@ export default function Category() {
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
-    }, [])
+    }, [setMessage])
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
-        if (currentTopic) return
+        if (currentTopic) return //não fazer ada quando já houver um item selecionado
         const a = async () => { setCurrentTopic(topic[0]?._id) }
         a()
-    }, [topic])
+    }, [topic, currentTopic])
 
     useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
-        if (currentCat) return
+        if (currentCat) return //não fazer ada quando já houver um item selecionado
         const a = async () => { setCurrentCat(dados.filter(x => x.topic._id === currentTopic).find(x => x !== undefined)?._id) }
         a()
-    }, [currentTopic, dados])
+    }, [currentTopic, dados, currentCat])
 
 
-    useEffect(() => {// quando a categoria for alterada => filtrar a tabela
-        const a = async () => { setTabdata(dados.filter(x => x._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
-        a()
-    }, [currentCat, currentTopic, dados])
+    //useEffect(() => {// quando a categoria for alterada => filtrar a tabela
+    //    const a = async () => { setTabdata(dados.filter(x => x._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
+    //    a()
+    //}, [currentCat, currentTopic, dados])
 
 
     const color = 'teal-'

@@ -14,6 +14,8 @@ import Schedule from 'views/mySchedule/Schedule'
 import Revision from 'views/mySchedule/Revision'
 import Next from 'views/mySchedule/Next'
 import Statistics from 'views/mySchedule/Statistics/Statistics'
+//import RoutesPrivate from 'utils/Private/RoutesPrivate'
+
 
 export default function MySchedule() {
     return (

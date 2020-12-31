@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useLocation } from 'react-router-dom'
 import { obterRevisionsId, newRevision, obterAllRevision } from 'api/mySchedule'
 
@@ -61,7 +61,7 @@ export default function Revision() {
 
         }
         aa()
-    }, [location])
+    }, [location, setMessage])
 
 
     const newRevisionHandler = async () => {
