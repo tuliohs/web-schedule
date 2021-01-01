@@ -13,7 +13,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Topic from 'views/customize/Topic/Topic'
 import ItemsScreen from 'views/customize/ItemsScreen'
 import Category from 'views/customize/Category/Category'
-import RoutesPrivate from 'utils/Private/RoutesPrivate'
+//import Route from 'utils/Private/Route'
 
 export default function Customize() {
     return (
@@ -25,15 +25,15 @@ export default function Customize() {
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
-                        <RoutesPrivate path="/customize/topic" exact >
+                        <Route path="/customize/topic" exact >
                             <Topic />
-                        </RoutesPrivate>
-                        <RoutesPrivate path="/customize/item" exact >
+                        </Route>
+                        <Route path="/customize/item" exact >
                             <ItemsScreen />
-                        </RoutesPrivate>
-                        <RoutesPrivate path="/customize/category" exact >
+                        </Route>
+                        <Route path="/customize/category" exact >
                             <Category />
-                        </RoutesPrivate>
+                        </Route>
                         {/*Excluido  porque  não estava peritindo o rediecionamento*/}
                         {/*<Redirect from="/customize" to="/customize/topic" />*/}
                     </Switch>

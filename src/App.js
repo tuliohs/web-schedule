@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 import {
-    BrowserRouter as Router, Route, Switch, Redirect
+    BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";

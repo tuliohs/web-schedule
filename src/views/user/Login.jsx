@@ -34,17 +34,11 @@ const UserLogin = () => {
 
   function onSubmit(event) {
     event.preventDefault();
-
     const { token, error } = login(values);
-
-    console.log('p')
-    console.log('token', token, 'error', error)
-
     if (token) {
       setToken(token);
       return history.push('/');
     }
-
     setError(error);
     setValues(initialState);
   }

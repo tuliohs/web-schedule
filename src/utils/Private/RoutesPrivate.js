@@ -6,10 +6,6 @@ const RoutesPrivate = ({ children, ...rest }) => {
   const { token } = useContext(StoreContext);
 
   //chage to "EQUAL TOKEN" to remove authorization
-  console.log('pv',
-    token,
-    children
-  )
   return (
     <Route
       {...rest}

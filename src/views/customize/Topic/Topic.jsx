@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
+import StoreContext from 'constants/data/StoreContext'
 // components
 import AddUserItem from './AddItemDialog'
 import StepMenu from '../StepMenu'
@@ -50,13 +51,13 @@ export default function Topic() {
     const [topic, setTopic] = useState([])
 
     const { setMessage } = useContext(DefaultContext);
+    const { userId } = useContext(StoreContext);
 
     const getTopics = useCallback(async () => {//show topics without data
-        await obterTemas()
+        await obterTemas({ userId: userId })
             .then(c => {
                 setTopic(c.data)
-            }
-            ).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+            }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }, [setMessage])
 
     useEffect(() => {
@@ -65,10 +66,9 @@ export default function Topic() {
     }, [getTopics])
 
     const addTopicHandler = async ({ item, image }) => {
-        await newTopic({ item: item, image: image })
+        await newTopic({ item: item, image: image, userId: userId })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
                 getTopics()
             })
             .catch(e => setMessage({ type: 'danger', text: e }))
@@ -77,7 +77,6 @@ export default function Topic() {
     const removeTopicHandler = async (id) => {
         await removeTopicId({ topicId: id })
             .then(() => {
-                const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
                 getTopics()
             })
     }

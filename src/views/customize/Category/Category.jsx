@@ -7,6 +7,7 @@ import { obterScheduleItems, obterTemas, newCategory } from 'api/mySchedule'
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
+import StoreContext from 'constants/data/StoreContext'
 // components
 import DropdownButton from "components/Dropdowns/DropdownButton";
 import AddItemDialog from '../AddItemDialog'
@@ -46,6 +47,7 @@ const CardContent = ({ categoryId, item, revision }) => {
 export default function Category() {
 
     const { setMessage } = useContext(DefaultContext);
+    const { userId } = useContext(StoreContext);
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
@@ -54,11 +56,12 @@ export default function Category() {
     //const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
 
+
     const addcatHandler = async (e) => {
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getDados = async () => await obterScheduleItems().then(c => {
+                const getDados = async () => await obterScheduleItems({ userId: userId }).then(c => {
                     setData(c.data)
                 }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
@@ -66,10 +69,10 @@ export default function Category() {
     }
 
     useEffect(() => {
-        const getDados = async () => await obterScheduleItems().then(c => {
+        const getDados = async () => await obterScheduleItems({ userId: userId }).then(c => {
             setData(c.data)
         }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
+        const getTopics = async () => await obterTemas({ userId: userId }).then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
     }, [setMessage])
