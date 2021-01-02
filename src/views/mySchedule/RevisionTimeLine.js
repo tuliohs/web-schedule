@@ -8,8 +8,9 @@ import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 export default function TimeLine({ itemRevision }) {
     return (
         <VerticalTimeline>
-            {itemRevision.map(c =>
+            {itemRevision.map((c, index) =>
                 <VerticalTimelineElement
+                    key={index}
                     className="vertical-timeline-element--work"
                     //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }  }
                     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}

@@ -1,7 +1,6 @@
-import { Save } from "@material-ui/icons";
 import React from "react";
 
-import { UserInput } from './profile.utils'
+import { UserInput } from 'views/auth/auth.utils'
 
 // components
 
@@ -27,12 +26,12 @@ export default function CardSettings({ onChange, values, onSave }) {
             </h6>
                         <div className="flex flex-wrap">
                             <div className="w-full lg:w-6/12 px-4">
-                                <UserInput label="Username" id="username" type="email" name="username"
+                                <UserInput label="Username" id="userName" type="text" name="userName"
                                     onChange={onChange} value={values.userName} placeholder="Username"
                                 />
                             </div>
                             <div className="w-full lg:w-6/12 px-4">
-                                <UserInput label="Email address" id="email" type="email" name="email"
+                                <UserInput label="Email address" id="email" type="text" name="email"
                                     onChange={onChange} value={values.email} placeholder="Email address"
                                 />
                             </div>
@@ -95,7 +94,7 @@ export default function CardSettings({ onChange, values, onSave }) {
                                         className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                                         //defaultValue="A beautiful UI Kit and Admin for React & Tailwind CSS. It is Free and Open Source."
                                         rows="4"
-                                        id="about" type="text" name="about"
+                                        id="about" name="about"
                                         onChange={onChange} value={values.about} placeholder="About"
                                     ></textarea>
                                 </div>

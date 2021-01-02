@@ -13,7 +13,7 @@ export default function Register() {
 
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
-  const { setToken, setUser, setUserId } = useContext(StoreContext);
+  const { setToken, setUser } = useContext(StoreContext);
   const history = useHistory();
 
   function onChange(event) {
@@ -27,7 +27,6 @@ export default function Register() {
     event.preventDefault();
     register(values).then(a => {
       setUser(a.data?.user)
-      setUserId(a.data?.user?._id)
       setToken(a?.data?.token)
       return history.push('/myschedule/schedule')
     }).catch(error => {

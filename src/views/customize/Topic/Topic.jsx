@@ -6,7 +6,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
-import StoreContext from 'constants/data/StoreContext'
 // components
 import AddUserItem from './AddItemDialog'
 import StepMenu from '../StepMenu'
@@ -51,10 +50,9 @@ export default function Topic() {
     const [topic, setTopic] = useState([])
 
     const { setMessage } = useContext(DefaultContext);
-    const { userId } = useContext(StoreContext);
 
     const getTopics = useCallback(async () => {//show topics without data
-        await obterTemas({ userId: userId })
+        await obterTemas()
             .then(c => {
                 setTopic(c.data)
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
@@ -66,7 +64,7 @@ export default function Topic() {
     }, [getTopics])
 
     const addTopicHandler = async ({ item, image }) => {
-        await newTopic({ item: item, image: image, userId: userId })
+        await newTopic({ item: item, image: image })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getTopics()
@@ -81,26 +79,17 @@ export default function Topic() {
             })
     }
 
-    const color = 'teal-'
-    const grau = 500
     return (
         <>
             <StepMenu defaultStepNum={0} />
             <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <div className=" mb-6"  >
                     {/*---------BUTTON ADD TOPIC*/}
-                    <button
-                        className={`text-white font-bold uppercase text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
-                        type="button"
-                        style={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                    >
-                        <i className="fas px-6"> <AddUserItem addItemHandler={addTopicHandler} />  </i>
-                            Add Topic
-                        </button>
+                    <AddUserItem addItemHandler={addTopicHandler} />
                 </div>
                 <div className="w-full mb-12 px-4">
                     <div>
-                        {!topic ? null : topic.map(c => <CardContent item={c} removeHandler={removeTopicHandler} />)}
+                        {!topic ? null : topic.map(c => <CardContent key={c._id} item={c} removeHandler={removeTopicHandler} />)}
                     </div>
                 </div>
             </div>

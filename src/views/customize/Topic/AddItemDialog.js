@@ -7,8 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import IconButton from '@material-ui/core/IconButton'
-import PropTypes from 'prop-types'
 import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -23,12 +21,11 @@ const initialItem = {
     subRows: undefined,
 }
 
-const AddItemDialog = props => {
+const AddItemDialog = ({ addItemHandler, title = 'Add Topic', subTitle = 'Add new topic to started memorize  ' }) => {
 
     const [urImage, setUrImage] = useState()
     const [imageObj, setImageObj] = useState({})
     const [itemSc, setItemSc] = useState(initialItem)
-    const { addItemHandler, title = 'Add Topic', subTitle = 'Add new topic to started memorize  ' } = props
     const [open, setOpen] = React.useState(false)
 
     const [switchState, setSwitchState] = React.useState({
@@ -62,12 +59,19 @@ const AddItemDialog = props => {
         setItemSc({ ...itemSc, [name]: value })
     }
 
+
+    const color = 'teal-'
+    const grau = 500
     return (
         <div>
             <Tooltip title="Add">
-                <IconButton aria-label="add" onClick={handleClickOpen}>
-                    <AddIcon />
-                </IconButton>
+                <button
+                    className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
+                    type="button"
+                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                    onClick={handleClickOpen}
+                ><i className="fas px-6"><AddIcon /></i>
+                Add Topic</button>
             </Tooltip>
             <Dialog
                 open={open}
@@ -126,11 +130,4 @@ const AddItemDialog = props => {
         </div >
     )
 }
-
-AddItemDialog.propTypes = {
-    addItemHandler: PropTypes.func.isRequired,
-    title: 'Add Topic',
-    subTitle: ''
-}
-
 export default AddItemDialog

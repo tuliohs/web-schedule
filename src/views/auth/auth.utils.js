@@ -52,7 +52,7 @@ export const UserInput = ({ label, id, type, name, onChange, value, placeholder 
                 type={type}
                 name={name}
                 onChange={onChange}
-                value={value}
+                value={value + ''}
             />
         </div>
     )

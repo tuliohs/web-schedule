@@ -10,8 +10,8 @@ export const login = async (values) => {
     return await Axios.post(URL.LOGIN, values)
 }
 
-export const getUser = async ({ userId }) => {
-    return await api.get(URL.USER + '/' + userId)
+export const getUser = async () => {
+    return await api.get(URL.USER)
 }
 
 export const changeUser = async (values) => {

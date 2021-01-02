@@ -89,7 +89,8 @@ export default function Next() {
                     setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
                     refer={focusTextArea}
                     action={newReviewModal} />
-                {!data ? null : data.map(c => <CardContent item={c}
+                {!data ? null : data.map((c, index) => <CardContent item={c}
+                    key={index}
                     revision={() => {
                         //Alterando as propriedades para o item atual
                         setCurr({ categoryId: c.categoryId, itemId: c.item._id })

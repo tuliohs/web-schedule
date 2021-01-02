@@ -1,15 +1,15 @@
 import React from 'react'
 
-import AddUserItem from './AddItemDialog'
+import AddUserItem from '../AddItemDialog'
 import clsx from 'clsx'
-import DeleteIcon from '@material-ui/icons/Delete'
-import GlobalFilter from './GlobalFilter'
-import IconButton from '@material-ui/core/IconButton'
+//import DeleteIcon from '@material-ui/icons/Delete'
+//import GlobalFilter from './GlobalFilter'
+//import IconButton from '@material-ui/core/IconButton'
 import { lighten, makeStyles } from '@material-ui/core/styles'
 //import PropTypes from 'prop-types'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Tooltip from '@material-ui/core/Tooltip'
+//import Tooltip from '@material-ui/core/Tooltip'
 
 const useToolbarStyles = makeStyles(theme => ({
     root: {
@@ -36,10 +36,10 @@ const TableToolbar = props => {
     const {
         numSelected,
         addItemHandler,
-        deleteUserHandler,
-        preGlobalFilteredRows,
-        setGlobalFilter,
-        globalFilter,
+        //deleteUserHandler,
+        //preGlobalFilteredRows,
+        //setGlobalFilter,
+        //globalFilter,
         title
     } = props
     return (
@@ -48,7 +48,7 @@ const TableToolbar = props => {
                 [classes.highlight]: numSelected > 0,
             })}
         >
-            <AddUserItem addItemHandler={addItemHandler} />
+            <AddUserItem transparent={true} addItemHandler={addItemHandler} />
             {numSelected > 0 ? (
                 <Typography
                     className={classes.title}
@@ -63,7 +63,7 @@ const TableToolbar = props => {
                     </Typography>
                 )}
 
-            {numSelected > 0 ? (
+            {/*{numSelected > 0 ? (
                 <Tooltip title="Delete">
                     <IconButton aria-label="delete" onClick={deleteUserHandler}>
                         <DeleteIcon />
@@ -75,7 +75,9 @@ const TableToolbar = props => {
                         globalFilter={globalFilter}
                         setGlobalFilter={setGlobalFilter}
                     />
-                )}
+                )*/}
+
+
         </Toolbar>
     )
 }

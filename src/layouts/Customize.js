@@ -11,7 +11,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 // views
 
 import Topic from 'views/customize/Topic/Topic'
-import ItemsScreen from 'views/customize/ItemsScreen'
+import ItemsScreen from 'views/customize/Item/ItemsScreen'
 import Category from 'views/customize/Category/Category'
 import Profile from 'views/customize/Profile/Profile'
 //import Route from 'utils/Private/Route'

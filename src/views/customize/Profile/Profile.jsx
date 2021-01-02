@@ -2,32 +2,33 @@ import React, { useState, useContext, useCallback, useEffect } from "react";
 
 import { getUser, changeUser } from 'api/user.api'
 
-import StoreContext from 'constants/data/StoreContext'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
 import CardSettings from "./CardSettings";
 import CardProfile from "components/Cards/CardProfile.js";
 
-export default function Settings() {
-    const [values, setValues] = useState({});
-    const [error, setError] = useState(null);
+const defaultValues = {
+    userName: '',
+    email: ''
 
+}
+export default function Settings() {
+    const [values, setValues] = useState(defaultValues);
     const { setMessage, } = useContext(DefaultContext);
-    const { userId } = useContext(StoreContext);
 
     const getUserHandler = useCallback(async () => {
-        await getUser({ userId: userId })
+        await getUser()
             .then(c => { setValues(c.data) })
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-    }, [setMessage, userId])
+    }, [setMessage])
 
     const changeUserHandler = useCallback(async () => {
-        const dados = { filter: { _id: userId }, content: values }
+        const dados = { content: values }
         await changeUser(dados)
             .then(c =>
                 setMessage({ type: 'sucess', text: `n: ${c.data?.n}, nModified: ${c.data?.nModified}, ok: ${c.data?.ok}` }))
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-    }, [setMessage, userId, values])
+    }, [setMessage, values])
 
     useEffect(() => {
         getUserHandler()

@@ -7,7 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import IconButton from '@material-ui/core/IconButton'
 import PropTypes from 'prop-types'
 import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
@@ -24,7 +23,7 @@ const initialItem = {
 const AddItemDialog = props => {
     const [itemSc, setItemSc] = useState(initialItem)
 
-    const { addItemHandler, title, subTitle } = props
+    const { addItemHandler, title, subTitle, label, transparent = false } = props
     const [open, setOpen] = React.useState(false)
 
     const [switchState, setSwitchState] = React.useState({
@@ -49,12 +48,18 @@ const AddItemDialog = props => {
         setItemSc({ ...itemSc, [name]: value })
     }
 
+    const color = 'teal-'
+    const grau = 500
     return (
         <div>
             <Tooltip title="Add">
-                <IconButton aria-label="add" onClick={handleClickOpen}>
-                    <AddIcon />
-                </IconButton>
+                <button
+                    className={transparent ? null : `text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
+                    type="button"
+                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                    onClick={handleClickOpen}
+                ><i className="fas px-6"><AddIcon /></i>
+                    {label}</button>
             </Tooltip>
             <Dialog
                 open={open}

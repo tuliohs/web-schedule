@@ -15,9 +15,9 @@ export const newRevision = async ({ curr, revisonNote, revisionDate }) => {
 }
 export const obterRevisionsId = async (location) => { return await api.get(`${URL.REVIEW}/${location.state?.categoryId}/${location.state?.item._id}`) }
 
-export const obterScheduleItems = async ({ userId }) => { return await api.get(URL.MYSCHEDULE + '/' + userId) }
+export const obterScheduleItems = async () => { return await api.get(URL.MYSCHEDULE) }
 
-export const obterTemas = async ({ userId }) => { return await api.get(URL.TOPIC + '/' + userId) }
+export const obterTemas = async () => { return await api.get(URL.TOPIC) }
 
 export const addItem = async ({ filter, content }) => {
     return await api.post(URL.ITEM, {
@@ -51,12 +51,11 @@ export const newCategory = async ({ title, description, topicId }) => {
     })
 }
 
-export const newTopic = async ({ item, image, userId }) => {
+export const newTopic = async ({ item, image }) => {
     return await api.post(URL.TOPIC, {
         title: item.title,
         description: item.description,
-        image: image,
-        userId: userId
+        image: image
     })
 }
 

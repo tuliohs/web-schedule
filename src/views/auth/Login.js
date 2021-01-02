@@ -17,7 +17,7 @@ export default function Login() {
   const [error, setError] = useState(null);
 
   const { setMessage, } = useContext(DefaultContext);
-  const { setToken, setUser, setUserId } = useContext(StoreContext);
+  const { setToken, setUser } = useContext(StoreContext);
   const history = useHistory();
 
   function onChange(event) {
@@ -31,7 +31,6 @@ export default function Login() {
     event.preventDefault();
     login(values).then(a => {
       setUser(a.data?.user)
-      setUserId(a.data?.user?._id)
       setToken(a?.data?.token)
       return history.push('/myschedule/schedule')
     }).catch(er => {

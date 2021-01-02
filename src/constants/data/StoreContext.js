@@ -2,7 +2,6 @@ import React, { createContext, useState } from 'react'
 import Context from './StoreContext'
 import useStorage from 'utils/hooks/useStorage'
 
-
 const StoreContext = createContext({
   token: null,
   setToken: () => { },
@@ -12,7 +11,6 @@ export default StoreContext;
 
 export const StoreProvider = ({ children }) => {
   const [token, setToken, removeToken] = useStorage('token')
-  const [userId, setUserId] = useStorage('userid')
 
   const [user, setUser] = useState({})
   return (
@@ -22,9 +20,7 @@ export const StoreProvider = ({ children }) => {
         setToken,
         removeToken,
         user,
-        setUser,
-        userId,
-        setUserId
+        setUser
       }}
     >
       {children  /*is the component received*/}

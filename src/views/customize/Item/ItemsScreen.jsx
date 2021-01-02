@@ -4,12 +4,11 @@ import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, newCat
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
-import StoreContext from 'constants/data/StoreContext'
 // components
-import TableEdit from "views/customize/TableEdit";
+import TableEdit from "./TableEdit";
 import DropdownButton from "components/Dropdowns/DropdownButton";
-import AddUserItem from './AddItemDialog'
-import StepMenu from './StepMenu'
+import AddUserItem from '../AddItemDialog'
+import StepMenu from '../StepMenu'
 
 export default function ItemsScreen() {
 
@@ -18,18 +17,17 @@ export default function ItemsScreen() {
     const [currentTopic, setCurrentTopic] = useState(null)
 
     const { setMessage } = useContext(DefaultContext);
-    const { userId } = useContext(StoreContext);
 
     const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
     const [itemCurrentAction, setItemCurrentAction] = useState({})
 
     useEffect(() => {
-        const getDados = async () => await obterScheduleItems({ userId: userId }).then(c => {
+        const getDados = async () => await obterScheduleItems().then(c => {
             //setTabdata({})
             setData(c.data)
         }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-        const getTopics = async () => await obterTemas({ userId: userId }).then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
+        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
     }, [setMessage])
@@ -58,7 +56,7 @@ export default function ItemsScreen() {
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getDados = async () => await obterScheduleItems({ userId: userId }).then(c => {
+                const getDados = async () => await obterScheduleItems().then(c => {
                     //setTabdata({})
                     setData(c.data)
                 }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
@@ -69,7 +67,7 @@ export default function ItemsScreen() {
         await addItem({ filter: { categoryId: currentCat }, content: { title: e.title, description: e.description } })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getDados = async () => await obterScheduleItems({ userId: userId }).then(c => {
+                const getDados = async () => await obterScheduleItems().then(c => {
                     //setTabdata({})
                     setData(c.data)
                 }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
@@ -80,7 +78,7 @@ export default function ItemsScreen() {
         await removeItem({ categoryId: currentCat, itemId: itemCurrentAction._id })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getDados = async () => await obterScheduleItems({ userId: userId }).then(c => {
+                const getDados = async () => await obterScheduleItems().then(c => {
                     setData(c.data)
                 }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
@@ -97,8 +95,6 @@ export default function ItemsScreen() {
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }
 
-    const color = 'teal-'
-    const grau = 500
     const _topic = topic.filter(a => a._id === currentTopic)[0]?.description
     const _category = dados.filter(a => a._id === currentCat)[0]?.description ?? '...'
     const topic_category = _topic + ' > ' + _category
@@ -117,16 +113,7 @@ export default function ItemsScreen() {
                     </span>
                     {/*---------BUTTON ADD CATEGORY*/}
                     <div className="relative inline-flex align-middle m-2">
-                        <button
-                            className={`text-white font-bold uppercase text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
-                            type="button"
-                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                        >
-                            <i className="fas px-6"> <AddUserItem addItemHandler={addcatHandler} />  </i>
-
-
-                            Add Category
-                        </button>
+                        <AddUserItem label="Add Category" addItemHandler={addcatHandler} />
                     </div>
                 </div>
                 <div className="w-full mb-12 px-4">
