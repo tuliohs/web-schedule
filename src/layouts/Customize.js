@@ -13,6 +13,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Topic from 'views/customize/Topic/Topic'
 import ItemsScreen from 'views/customize/ItemsScreen'
 import Category from 'views/customize/Category/Category'
+import Profile from 'views/customize/Profile/Profile'
 //import Route from 'utils/Private/Route'
 
 export default function Customize() {
@@ -34,6 +35,10 @@ export default function Customize() {
                         <Route path="/customize/category" exact >
                             <Category />
                         </Route>
+                        <Route path="/customize/profile" exact >
+                            <Profile />
+                        </Route>
+
                         {/*Excluido  porque  não estava peritindo o rediecionamento*/}
                         {/*<Redirect from="/customize" to="/customize/topic" />*/}
                     </Switch>

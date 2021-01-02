@@ -125,9 +125,7 @@ export default function Sidebar() {
                   Topics
                 </Link>
               </li>
-
-
-
+              <ItemBar path="/customize/profile" name="Profile" />
 
             </ul>
 

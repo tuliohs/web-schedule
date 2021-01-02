@@ -6,7 +6,7 @@ import StoreContext from 'constants/data/StoreContext'
 import { Header, UserInput } from './auth.utils'
 
 function initialState() {
-  return { name: '', email: '', password: '' };
+  return { firstName: '', email: '', password: '' };
 }
 
 export default function Register() {
@@ -30,8 +30,10 @@ export default function Register() {
       setUserId(a.data?.user?._id)
       setToken(a?.data?.token)
       return history.push('/myschedule/schedule')
-    }).catch(error => setError(error.error));
-    setValues(initialState);
+    }).catch(error => {
+      setError(error.error)
+      setValues(initialState)
+    });
   }
 
   return (
@@ -47,8 +49,8 @@ export default function Register() {
                   <small>Or sign up with credentials</small>
                 </div>
                 <form >
-                  <UserInput label="Name" id="name" type="text" name="name"
-                    onChange={onChange} value={values.name} placeholder="Name"
+                  <UserInput label="First Name" id="firstName" type="text" name="firstName"
+                    onChange={onChange} value={values.firstName} placeholder="First Name"
                   />
                   <UserInput label="Email" id="email" type="email" name="email"
                     onChange={onChange} value={values.email} placeholder="Email"

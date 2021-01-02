@@ -10,5 +10,6 @@ export const URL = {
     SCHEDULE: `${base}/v1/schedule`,
     CHART: `${base}/v1/chart`,
     REGISTER: `${base}/v1/auth/register`,
-    LOGIN: `${base}/v1/auth/authenticate`
+    LOGIN: `${base}/v1/auth/authenticate`,
+    USER: `${base}/v1/auth/user`
 }

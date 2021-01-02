@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import api from './api'
 import { URL } from 'constants/config/url'
 
 export const register = async (values) => {
@@ -7,4 +8,12 @@ export const register = async (values) => {
 
 export const login = async (values) => {
     return await Axios.post(URL.LOGIN, values)
+}
+
+export const getUser = async ({ userId }) => {
+    return await api.get(URL.USER + '/' + userId)
+}
+
+export const changeUser = async (values) => {
+    return await api.put(URL.USER, values)
 }

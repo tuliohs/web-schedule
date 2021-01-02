@@ -25,14 +25,6 @@ const CardContent = ({ title, description, revision }) => {
         </div>)
 }
 
-export function EmptyRevision() {
-    return (
-        <div className="px-4 py-5 flex-auto ">
-            <h6 className="text-xl font-semibold">The history of your revisions will appear here</h6>
-        </div>
-    )
-}
-
 export default function Revision() {
     let location = useLocation();
 
@@ -88,9 +80,7 @@ export default function Revision() {
                 }}
                     title={location.state?.item.title} description={location.state?.item.description} />
                 {
-                    !data ?
-                        <EmptyRevision /> :
-                        <TimeLine itemRevision={data} />
+                    !data ? null : <TimeLine itemRevision={data} />
                 }
             </div>
         </>

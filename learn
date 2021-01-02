@@ -4,6 +4,15 @@ para inserir uma pagina:
         adicionar o layout no views/index caso ele não exista
     adiciona no SlideBar
 
+para adicionar o diplay message
+    import DefaultContext from 'constants/data/DefaultContext'
+    const { setMessage, } = useContext(DefaultContext);
+    .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
+    .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+
+DEPLOY
+remove build folder > rm -r namediretory
+
 Star work in ubuntu
 "start": "PORT=6000 react-scripts start",
 

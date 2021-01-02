@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createPopper } from "@popperjs/core";
+import StoreContext from 'constants/data/StoreContext'
 
 const UserDropdown = () => {
   // dropdown props
+
+  const { removeToken } = useContext(StoreContext);
+
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
@@ -15,6 +19,11 @@ const UserDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  const logoutHandler = e => {
+    e.preventDefault()
+    removeToken('token')
+  }
   return (
     <>
       <a
@@ -48,9 +57,9 @@ const UserDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => logoutHandler(e)}
         >
-          Action
+          Logout
         </a>
         <a
           href="#pablo"

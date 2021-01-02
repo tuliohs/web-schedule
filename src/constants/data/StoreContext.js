@@ -11,7 +11,7 @@ const StoreContext = createContext({
 export default StoreContext;
 
 export const StoreProvider = ({ children }) => {
-  const [token, setToken] = useStorage('token')
+  const [token, setToken, removeToken] = useStorage('token')
   const [userId, setUserId] = useStorage('userid')
 
   const [user, setUser] = useState({})
@@ -20,6 +20,7 @@ export const StoreProvider = ({ children }) => {
       value={{
         token,
         setToken,
+        removeToken,
         user,
         setUser,
         userId,

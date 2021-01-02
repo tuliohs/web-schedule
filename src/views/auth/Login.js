@@ -6,6 +6,7 @@ import { login } from 'api/user.api.js'
 import { Header, UserInput } from './auth.utils'
 
 import StoreContext from 'constants/data/StoreContext'
+import DefaultContext from 'constants/data/DefaultContext'
 
 function initialState() {
   return { email: '', password: '' };
@@ -14,7 +15,8 @@ function initialState() {
 export default function Login() {
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
-  console.log(error)
+
+  const { setMessage, } = useContext(DefaultContext);
   const { setToken, setUser, setUserId } = useContext(StoreContext);
   const history = useHistory();
 
@@ -25,16 +27,19 @@ export default function Login() {
       [name]: value
     });
   }
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
     login(values).then(a => {
       setUser(a.data?.user)
       setUserId(a.data?.user?._id)
       setToken(a?.data?.token)
       return history.push('/myschedule/schedule')
-    }).catch(er => console.log(er.message));
-    setValues(initialState);
-    setValues(initialState);
+    }).catch(er => {
+      //console.log(er.message)
+      setError(er?.toString())
+      setMessage({ type: 'danger', text: er?.toString() })
+      setValues(initialState);
+    });
   }
 
   return (
@@ -49,7 +54,7 @@ export default function Login() {
                 <div className="text-gray-500 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form>
+                <form >
                   <UserInput label="Email" id="email" type="email" name="email"
                     onChange={onChange} value={values.email} placeholder="Email"
                   />
