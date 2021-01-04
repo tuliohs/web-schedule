@@ -57,10 +57,10 @@ export default function Revision() {
 
 
     const newRevisionHandler = async () => {
+        setShowModal(false)
         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-        setShowModal(false)
         setRevisionNote(null)
     }
 

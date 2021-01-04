@@ -1,13 +1,12 @@
-import Axios from 'axios'
 import api from './api'
 import { URL } from 'constants/config/url'
 
 export const register = async (values) => {
-    return await Axios.post(URL.REGISTER, values)
+    return await api.post(URL.REGISTER, values)
 }
 
 export const login = async (values) => {
-    return await Axios.post(URL.LOGIN, values)
+    return await api.post(URL.LOGIN, values)
 }
 
 export const getUser = async () => {

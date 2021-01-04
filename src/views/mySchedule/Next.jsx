@@ -5,6 +5,8 @@ import moment from 'moment'
 //components
 import ModalSmall from 'components/Modals/ModalSmall'
 import DefaultContext from 'constants/data/DefaultContext'
+import Loading from 'utils/Loading'
+import GamesIcon from '@material-ui/icons/Games';
 
 export const LabelStateColor = ({ state, color }) => {
     return (<>
@@ -15,42 +17,48 @@ export const LabelStateColor = ({ state, color }) => {
 }
 
 const CardContent = ({ item, revision }) => {
-    //let active = date
+    console.log(item)
+    const expanndHandler = () => {
+
+    }
     return (
         <div className="items-center justify-center relative flex ">
+
             <div style={{ maxWidth: '75rem' }} className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="px-4 py-5 flex-auto">
+                <div className="px-4 py-5 flex-auto flex flex-row">
                     {/*<div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                         <i className="fas fa-retweet"></i>
                     </div>*/}
                     {/*<h6 className="text-xl font-semibold">{title}</h6>*/}
-                    <p className="mt-2 mb-4 text-gray-600"><b className="mr-2">Next Review:</b>{moment(item?.detail?.nextReview).format('DD/MM/YYYY HH:mm')}</p>
-                    <div className="mt-2 mb-4 text-gray-600">{item?.item?.title}</div>
-                    <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
+                    <div style={{ width: '20%' }} className="mt-2 mb-4 text-gray-600"><b className="mr-2">{item?.item?.title}</b></div>
+
+                    <p style={{ width: '30%' }} className="mt-2 mb-4 text-gray-600">Next Review:{' ' + moment(item?.detail?.nextReview).format('DD/MM/YYYY HH:mm')}</p>
+                    <span style={{ width: '20%' }}>
+                        <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
+                    </span>
                     <div className="divhoverbutton" style={{ width: "20%" }}>
                         <a className="ahoverbutton" href="#/" onClick={revision}>
                             <span className="spanhoverbutton">Revision</span></a>
                     </div>
+                    <i style={{ marginLeft: 'auto', marginRight: 8 }} onClick={expanndHandler}><GamesIcon /></i>
+                </div>
+
+                <div className="px-4 py-5 ">
+                    {item?.item?.description}
                 </div>
             </div>
         </div>)
 }
 
-export function useForceUpdate() {
-    const [, setTick] = useState(0);
-    const update = React.useCallback(() => {
-        setTick(tick => tick + 1);
-    }, [])
-    return update;
-}
 
 export default function Next() {
 
     const { setMessage, } = useContext(DefaultContext);
     const focusTextArea = useRef(null)
 
-    const [data, setData] = useState([{}])
+    const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
+    const [loading, setLoading] = useState(true);
 
     const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState('')
@@ -66,6 +74,7 @@ export default function Next() {
                     return 0;
                 }
                 setData(c.data.sort(compare))
+                setLoading(false)
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }, [setMessage])
 
@@ -74,10 +83,10 @@ export default function Next() {
     }, [nextHandler])
 
     const newReviewModal = async () => {
+        setShowModal(false)
         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-        setShowModal(false)
         setRevisionNote(null)
         await nextHandler()
     }
@@ -88,8 +97,11 @@ export default function Next() {
                 <ModalSmall title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote}
                     setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
                     refer={focusTextArea}
-                    action={newReviewModal} />
-                {!data ? null : data.map((c, index) => <CardContent item={c}
+                    action={newReviewModal}
+                    item={data.filter(a => a?.item?._id === curr?.itemId).map(c => { return c?.item })}
+                />
+
+                {data?.map((c, index) => <CardContent item={c}
                     key={index}
                     revision={() => {
                         //Alterando as propriedades para o item atual
@@ -98,6 +110,7 @@ export default function Next() {
                         //focusTextArea.current.focus()
                     }}
                 />)}
+                <Loading loading={loading} />
             </div>
         </>
     );

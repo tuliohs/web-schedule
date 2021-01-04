@@ -1,11 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback, useEffect } from "react";
 import { createPopper } from "@popperjs/core";
+import { useHistory } from 'react-router-dom';
+
+import { getUser } from 'api/user.api'
+import DefaultContext from 'constants/data/DefaultContext'
 import StoreContext from 'constants/data/StoreContext'
+
+import CardLetter from 'utils/CardLetter'
 
 const UserDropdown = () => {
   // dropdown props
 
-  const { removeToken } = useContext(StoreContext);
+  const history = useHistory();
+  const { removeToken, user, setUser } = useContext(StoreContext);
+  const { setMessage, } = useContext(DefaultContext);
 
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -24,6 +32,25 @@ const UserDropdown = () => {
     e.preventDefault()
     removeToken('token')
   }
+
+  const editProfileHandler = e => {
+    e.preventDefault()
+    history.push('/customize/profile')
+  }
+
+  const getUserHandler = useCallback(async () => {
+    await getUser()
+      .then(c => { setUser(c.data?.values) })
+      .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+  }, [setMessage, setUser])
+
+
+  useEffect(() => {
+    //Fica verificando caso o user não esteja na memoria
+    if (user?.email) return
+    getUserHandler()
+  }, [getUserHandler, user])
+
   return (
     <>
       <a
@@ -37,11 +64,13 @@ const UserDropdown = () => {
       >
         <div className="items-center flex">
           <span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
-            <img
+
+
+            {user?.imageData ? <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={require("assets/img/team-1-800x800.jpg")}
-            />
+              src={user?.imageData}
+            /> : <CardLetter letter={user?.firstName} size="small" />}
           </span>
         </div>
       </a>
@@ -66,9 +95,9 @@ const UserDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => editProfileHandler(e)}
         >
-          Another action
+          Edit Profile
         </a>
         <a
           href="#pablo"

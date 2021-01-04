@@ -12,7 +12,6 @@ import storage from 'utils/storage'
 //    }
 //});
 
-const deleteUser = () => { }
 
 const api = axios.create({
   //baseURL: 'http://localhost:9090',
@@ -24,13 +23,12 @@ const api = axios.create({
 
 api.interceptors.response.use(
   response => {
-
     // Do something with response data
 
     return response
   },
   error => {
-    console.log('error', error)
+    //console.log('error', error)
 
     // Do something with response error
 
@@ -41,20 +39,23 @@ api.interceptors.response.use(
       error.request._hasError === true &&
       error.request._response.includes('connect')
     ) {
-      console.log('Não foi possível conectar aos nossos servidores, sem conexão a internet')
+
+      return Promise.reject('Não foi possível conectar aos nossos servidores, sem conexão a internet')
     }
 
     if (error.response.status === 401) {
-      const requestConfig = error.config
+      //const requestConfig = error.config
+
       // O token JWT expirou
-      deleteUser().then(() => {
-        console.log('redirecionar para a tela de login')
-      })
+      storage.remove('token')
+      window.location.href = "/"
 
-      return axios(requestConfig)
+      return Promise.reject("Sessão expirada, faça login novamente")
+
+      //return axios(requestConfig)
     }
-
-    return Promise.reject(error)
+    //Reject para que caa no bloco catch
+    return Promise.reject(error.response.data.message)
   },
 )
 

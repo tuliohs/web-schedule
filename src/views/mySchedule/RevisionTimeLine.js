@@ -18,7 +18,7 @@ export default function TimeLine({ itemRevision }) {
                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                     icon={<OfflineBoltIcon />}
                 >
-                    {/*<h3 className="vertical-timeline-element-title">Creative Director</h3>*/}
+                    <h3 className="vertical-timeline-element-title">{c?.item?.title}</h3>
                     {/*<h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>*/}
                     <p>{c.note}</p>
                 </VerticalTimelineElement>

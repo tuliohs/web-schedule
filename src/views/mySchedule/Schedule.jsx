@@ -11,6 +11,7 @@ import DefaultContext from 'constants/data/DefaultContext'
 import ModalSmall from 'components/Modals/ModalSmall'
 import DropdownButton from 'components/Dropdowns/DropdownButton'
 import { LabelStateColor } from './Next'
+import Loading from 'utils/Loading'
 
 const CardContent = ({ categoryId, item, revision }) => {
     return (
@@ -72,14 +73,15 @@ export default function Schedule() {
 
     return (
         <>
-            {!data ? <h1>Loading ...</h1> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
+            {data.length === 0 ? <Loading /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal}
                     text={revisonNote} setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
+                    item={data.filter(a => a?._id === curr?.categoryId)[0]?.items.filter(c => c?._id === curr?.itemId)}
                     action={async () => {
+                        setShowModal(false)
                         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
                             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
                             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-                        setShowModal(false)
                     }} />
                 <div className="w-full">
                     <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />

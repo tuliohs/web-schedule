@@ -4,15 +4,12 @@ import DateTimePicker from 'react-datetime-picker';
 import "./ModalSmall.css"
 import "./DatePicker.less"
 
-export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action, revisionDate, setRevisionDate }) {
-
+export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action, revisionDate, setRevisionDate, item }) {
     return (
         <>
             {showModal ? (
                 <>
                     <div className="ajust inset-0 overflow-x-hidden overflow-y-auto fixed z-50 outline-none focus:outline-none justify-center items-center flex" id="small-modal-id">
-
-
                         {/*<div
                         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                         onClick={() => setShowModal(false)}
@@ -21,25 +18,32 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                             {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
-                                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                                    <h3 className="text-3xl font-semibold">
-                                        {title}
-                                    </h3>
-                                    <button
-                                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                        onClick={() => setShowModal(false)}
-                                    >
-                                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                            ×
+                                <div className=" border-b border-solid border-gray-300 rounded-t">
+
+                                    <div className="flex items-start justify-between p-5 ">
+                                        <h3 className="text-3xl font-semibold">
+                                            {title}
+                                        </h3>
+                                        <button
+                                            className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                            onClick={() => setShowModal(false)}
+                                        >
+                                            <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                                ×
                         </span>
-                                    </button>
+                                        </button>
+                                    </div>
+                                    <span className="p-5  font-semibold text-xl ml-4">{item ? item[0]?.title : null}</span>
                                 </div>
+
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto ajustc">
                                     <div className="mb-3 pt-0">
+
                                         <div className="flex items-center  justify-between m-24 pb-16"
                                             style={{ margin: "5%" }}
                                         >
+
                                             <span className="font-semibold text-xl ml-4">Date:</span>
                                             <div className="Sample__container">
                                                 <main className="Sample__container__content">
@@ -63,7 +67,7 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                         </div>
 
                                         <textarea autoFocus={true} type="text" placeholder="Insert one note about your revision"
-                                            value={text}
+                                            value={text ?? undefined}
                                             //ref={refField}
                                             onChange={e => setText(e.target.value)}
                                             className="px-3 py-4 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline w-full" />
