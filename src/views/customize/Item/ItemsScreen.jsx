@@ -6,7 +6,8 @@ import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
 import TableEdit from "./TableEdit";
-import DropdownButton from "components/Dropdowns/DropdownButton";
+//import DropdownButton from "components/Dropdowns/DropdownButton";
+import ControlledOpenSelect from "components/Dropdowns/ControlledOpenSelect";
 import AddUserItem from '../AddItemDialog'
 import StepMenu from '../StepMenu'
 
@@ -52,7 +53,6 @@ export default function ItemsScreen() {
     }, [currentCat, currentTopic, dados])
 
     const addcatHandler = async (e) => {
-
         await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
@@ -95,37 +95,40 @@ export default function ItemsScreen() {
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }
 
-    const _topic = topic.filter(a => a._id === currentTopic)[0]?.description
-    const _category = dados.filter(a => a._id === currentCat)[0]?.description ?? '...'
+    const _topic = topic.filter(a => a._id === currentTopic)[0]?.title
+    const _category = dados.filter(a => a._id === currentCat)[0]?.title ?? '...'
     const topic_category = _topic + ' > ' + _category
+
     return (
         <>
             <StepMenu defaultStepNum={2} />
-            {!dados ? null : <div className="flex flex-wrap justify-center">
-                <div className="flex justify-between flex-row flex-1 m-4 aling-center text-center items-center" >
-                    <div>
-                        <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
-                        <DropdownButton name='Category' state={currentCat} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />
-                    </div>
+            {
+                !dados ? null : <div className="flex flex-wrap justify-center">
+                    <div className="flex justify-between flex-row flex-1 m-4 aling-center text-center items-center" >
+                        <div>
+                            <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />
+                            <ControlledOpenSelect name='Category' state={currentCat} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.title }))} />
+                        </div>
 
-                    <span className=" text-gray-800 flex ml-6 text-2xl font-bold">
-                        {topic_category}
-                    </span>
-                    {/*---------BUTTON ADD CATEGORY*/}
-                    <div className="relative inline-flex align-middle m-2">
-                        <AddUserItem label="Add Category" addItemHandler={addcatHandler} />
+                        <span className=" text-gray-800 flex ml-6 text-2xl font-bold">
+                            {topic_category}
+                        </span>
+                        {/*---------BUTTON ADD CATEGORY*/}
+                        <div className="relative inline-flex align-middle m-2">
+                            <AddUserItem label="Add Category" addItemHandler={addcatHandler} />
+                        </div>
+                    </div>
+                    <div className="w-full mb-12 px-4">
+                        <div>
+                            {!tabdata ? null : <TableEdit addItemHandler={addItemHandler}
+                                removeItemHandler={removeItemHandler}
+                                setItemCurrentAction={setItemCurrentAction}
+                                changeItemHandler={changeItemHandler}
+                                title="Items" data={Object.values(tabdata[0] || {})} />}
+                        </div>
                     </div>
                 </div>
-                <div className="w-full mb-12 px-4">
-                    <div>
-                        {!tabdata ? null : <TableEdit addItemHandler={addItemHandler}
-                            removeItemHandler={removeItemHandler}
-                            setItemCurrentAction={setItemCurrentAction}
-                            changeItemHandler={changeItemHandler}
-                            title="Items" data={Object.values(tabdata[0] || {})} />}
-                    </div>
-                </div>
-            </div>}
+            }
         </>
     );
 }

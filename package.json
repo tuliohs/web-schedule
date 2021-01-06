@@ -19,10 +19,12 @@
     "js-cookie": "^2.2.1",
     "moment": "^2.29.1",
     "react": "16.13.1",
+    "react-animated-css": "^1.2.1",
     "react-datetime-picker": "^3.0.4",
     "react-dom": "16.13.1",
     "react-file-base64": "^1.0.3",
     "react-google-maps": "9.4.5",
+    "react-iframe": "^1.8.0",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.3",
@@ -33,7 +35,8 @@
     "tailwindcss": "1.8.10"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:dev": "react-scripts start",
+    "start": "PORT=6000 react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

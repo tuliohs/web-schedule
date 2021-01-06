@@ -48,7 +48,7 @@ api.interceptors.response.use(
 
       // O token JWT expirou
       storage.remove('token')
-      window.location.href = "/"
+      window.location.href = "/auth/login"
 
       return Promise.reject("Sessão expirada, faça login novamente")
 

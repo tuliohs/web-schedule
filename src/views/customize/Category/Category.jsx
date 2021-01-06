@@ -8,7 +8,8 @@ import { obterScheduleItems, obterTemas, newCategory } from 'api/mySchedule'
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
-import DropdownButton from "components/Dropdowns/DropdownButton";
+//import DropdownButton from "components/Dropdowns/DropdownButton";
+import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import AddItemDialog from '../AddItemDialog'
 import StepMenu from '../StepMenu'
 
@@ -99,9 +100,8 @@ export default function Category() {
             <StepMenu defaultStepNum={1} />
             {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <div className="flex items-center text-center content-center flex-row justify-between flex-1 m-4"  >
-                    <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
-                    {/*<DropdownButton  name='Category' state={currentCat} refer={valor} setState={setCurrentCat} items={dados.filter(x => x.topic._id === currentTopic).map(a => ({ id: a._id, value: a.description }))} />*/}
-
+                    {/*<DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />*/}
+                    <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />
                     <span className=" text-gray-800 flex ml-6 text-2xl font-bold">
                         {topic.filter(a => a._id === currentTopic)[0]?.description}
                     </span>

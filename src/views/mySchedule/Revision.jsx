@@ -5,7 +5,7 @@ import { obterRevisionsId, newRevision, obterAllRevision } from 'api/mySchedule'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
-import TimeLine from './RevisionTimeLine'
+import RevisionTimeLine from './RevisionTimeLine'
 
 const CardContent = ({ title, description, revision }) => {
     return (
@@ -80,7 +80,7 @@ export default function Revision() {
                 }}
                     title={location.state?.item.title} description={location.state?.item.description} />
                 {
-                    !data ? null : <TimeLine itemRevision={data} />
+                    !data ? null : <RevisionTimeLine itemRevision={data} />
                 }
             </div>
         </>
