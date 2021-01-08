@@ -9,6 +9,7 @@ import ModalSmall from 'components/Modals/ModalSmall'
 import DefaultContext from 'constants/data/DefaultContext'
 import Loading from 'utils/Loading'
 import HorizontalTimeLine from './HorizontalTimeLine'
+import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 
 import PublicIcon from '@material-ui/icons/Public';
 import HourglassFullTwoTone from '@material-ui/icons/HourglassFullTwoTone';
@@ -26,7 +27,7 @@ export const LabelStateColor = ({ state, color }) => {
 const CardContent = ({ item, revisionHanlder, showCard, setShowCard, current }) => {
     //console.log(item)
     const [showDetail, setShowDetail] = useState(false)
-    const [showRevisions, setShowRevisions] = useState(true)
+    const [showRevisions, setShowRevisions] = useState(false)
     const detailHandler = () => {
         setShowDetail(!showDetail)
         setShowRevisions(false)
@@ -55,12 +56,13 @@ const CardContent = ({ item, revisionHanlder, showCard, setShowCard, current }) 
                         </span>
                         <div className="divhoverbutton" style={{ width: '12em' }}>
                             <a className="ahoverbutton" href="#/" onClick={revisionHanlder}>
-                                <span className="spanhoverbutton">Revision</span></a>
+                                <span className="spanhoverbutton">New Revision</span></a>
                         </div>
                         <i style={{ marginLeft: 'auto', marginRight: 8 }} onClick={detailHandler}><PublicIcon /></i>
                         <i onClick={reviewsHandler}><HourglassFullTwoTone /></i>
                     </div>
-                    {!showDetail && !showRevisions ? null : <span className="mt-2 mb-2 text-gray-600">{item?.item?.description}</span>}
+                    {!showDetail && !showRevisions ? null :
+                        <span className="mt-2 mb-2 text-gray-600 m-4">{'Description : ' + item?.item?.description}</span>}
                     {!showDetail ? null : <div className="px-4 py-5 ">
 
                         <iframe frameBorder="0" style={{ width: "100%", height: "25em" }}
@@ -84,7 +86,7 @@ export default function Next() {
 
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState('')
@@ -139,6 +141,7 @@ export default function Next() {
                     action={newReviewModal}
                     item={data.filter(a => a?.item?._id === curr?.itemId).map(c => { return c?.item })}
                 />
+                {/*<ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />*/}
 
                 {data.filter(a => showAnimation ? a.item?._id !== curr.itemId : a.item?._id)
 

@@ -2,13 +2,24 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 //import './css.css'
+//https://digital-flowers.github.io/react-animated-css.html
 import { Animated } from "react-animated-css";
+import { THEME } from 'constants/themes/colors'
 
 const Styles = styled.div`
   li:hover,
   li.selected {
-    color: #ffcc00;
+    color: ${THEME.PRIMARY};
   }
+.dateCurrent{
+  color: ${THEME.PRIMARY};
+  font-size: 2.5em;
+  margin: 20px 0;
+}
+.noteCurrent{
+  color:#000000;
+}
+
   #dates li {
     list-style: none;
     float: left;
@@ -16,38 +27,27 @@ const Styles = styled.div`
     height: 50px;
     text-align: center;
     line-height: 38px;
-    padding-bottom: 10px;
+    font-size:1.3em; 
   }
 
 
   #timeline {
-    width: 800px;
     overflow: hidden;
-    margin: 2em;
     position: relative;
   }
   #dates {
-    width: 800px;
-    height: 60px;
     overflow: hidden;
   }
-  #issues {
-        width: 800px;
-        height: 150px;
-    overflow: hidden;
-  }
+  
   #next,
   #prev {
     position: absolute;
     top: 0;
-    font-size: 70px;
-    top: 170px;
+    top: 20px;
     width: 22px;
     height: 38px;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    text-indent: -9999px;
     overflow: hidden;
+    margin:2em;
   }
   #next:hover,
   #prev:hover {
@@ -65,57 +65,83 @@ const Styles = styled.div`
   #prev.disabled {
     opacity: 0.2;
   }
+  
 `
 
 export default function HorizontalTimeLine({ itemRevision }) {
-    const [atual, setAtual] = useState({})
-    const [isVisible, setIsVisible] = useState(false)
+  const [atual, setAtual] = useState({})
+  const [isVisible, setIsVisible] = useState(false)
+  const [blinking, setBlinking] = useState(false)
 
-    const onSet = (item, index) => {
-        setIsVisible(false)
-        setAtual({
-            item: itemRevision.filter(a => a._id === item._id)[0], index: index
-        })
-    }
-    const nextItem = () => {
+  const onSet = (item, index) => {
+    setIsVisible(false)
+    setAtual({
+      item: itemRevision.filter(a => a._id === item._id)[0], index: index
+    })
+  }
+  const nextItem = () => {
+    setIsVisible(false)
 
-        setAtual({ item: itemRevision[atual.index + 1], index: atual.index + 1 })
+    setAtual({ item: itemRevision[atual.index + 1], index: atual.index + 1 })
 
-    }
-    const prevItem = () => setAtual({ item: itemRevision[atual.index - 1], index: atual.index - 1 })
+  }
+  const prevItem = () => {
+    setAtual({ item: itemRevision[atual.index - 1], index: atual.index - 1 })
+    setIsVisible(false)
+  }
 
-    useEffect(() => {
-        setAtual({ item: itemRevision[0], index: 0 })
-    }, [itemRevision])
+  useEffect(() => {
+    setAtual({ item: itemRevision[0], index: 0 })
+  }, [itemRevision])
 
-    useEffect(() => setIsVisible(true), [atual])
+  useEffect(() => setIsVisible(true), [atual])
 
-    return (
-        <Styles>
-            <div id="timeline">
-                <ul id="dates">
-                    {itemRevision?.map((a, index) => (
-                        <li key={a._id} className={a._id === atual.item?._id ? 'selected' : ''}
-                            onClick={() => onSet(a, index)}>{moment(a.revisionDate).format('MMM-DD')}</li>
-                    ))}
-                </ul>
+  React.useEffect(() => {
+    const intervalo = setInterval(() => {
+      setBlinking(!blinking);
+    }, 450)
+    return () => clearInterval(intervalo)
+  }, [blinking]);
 
-                <ul id="issues">
-                    <Animated animationIn="pulse" animationInDuration={800} isVisible={isVisible}>
-                        <li>
-                            <h1>{moment(atual.item?.revisionDate).format('MMM-DD HH:mm')}</h1>
-                            <p>{atual.item?.note}</p>
-                        </li>
-                    </Animated>
+  return (
+    <Styles>
+      <div className="text-center">
+        <h1 className="text-white  uppercase font-bold  bg-blue-600 ">Revisions</h1>
 
-                </ul>
-                <div id="grad_left"></div>
-                <div id="grad_right"></div>
-                {atual.index === 0 ? null : <div id="prev" onClick={prevItem} />}
-                {atual.index === itemRevision.length - 1 ? null : <div id="next" onClick={nextItem} />}
+      </div>
+      {itemRevision?.length > 0 ?
 
-            </div >
+        <div id="timeline">
+          {/*Se houver apenas uma revisão, não é mostrada a data*/}
+          {itemRevision?.length > 1 ?
+            <ul id="dates"
+              style={{
+                marginLeft: '5em',
+                marginRight: '5em',
+              }}
+            >
+              {itemRevision?.map((a, index) => (
+                <li key={a._id} className={a._id === atual.item?._id ? 'selected' : ''}
+                  onClick={() => onSet(a, index)}>{moment(a.revisionDate).format('MMM-DD')}</li>
+              ))}
+            </ul> : null}
+          <ul id="issues" style={{
+            marginLeft: '5em',
+            marginRight: '5em',
+          }}>
+            <Animated animationIn="bounceInRight" animationInDuration={500} isVisible={isVisible}>
+              <div>
+                <h1 className="dateCurrent">{moment(atual.item?.revisionDate).format('MMM-DD HH:mm')}</h1>
+                <p className="noteCurrent">{atual.item?.note}</p>
+              </div>
+            </Animated>
+          </ul>
+          <div className={atual.index === 0 ? "disabled" : blinking ? null : 'opacity-50'} id="prev" onClick={atual.index === 0 ? null : prevItem} />
+          <div id="next" onClick={atual.index === itemRevision.length - 1 ? null : nextItem}
+            className={atual.index === itemRevision.length - 1 ? 'disabled' : blinking ? 'opacity-50' : null} />
 
-        </Styles>
-    )
+        </div >
+        : null}
+    </Styles>
+  )
 }

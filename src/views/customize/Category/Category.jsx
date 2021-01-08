@@ -1,42 +1,33 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-import { obterScheduleItems, obterTemas, newCategory } from 'api/mySchedule'
-
-import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
+import { obterScheduleItems, obterTemas, newCategory, removeCategoryId, editCategory } from 'api/mySchedule'
 // components
-//import DropdownButton from "components/Dropdowns/DropdownButton";
 import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
-import AddItemDialog from '../AddItemDialog'
 import StepMenu from '../StepMenu'
+import ItemDialog from '../Topic/AddItemDialog'
+import { submitDialog } from '../Topic/Topic'
 
-const CardContent = ({ categoryId, item, revision }) => {
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+const CardContent = ({ editHandler, category, removeHandler }) => {
     return (
         <div className="w-full md:w-4/12 px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
-                    <div className="flex">
-                        <div style={{ width: "80%", marginLeft: "10%" }}>
-                            <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
-                                <i className="fas fa-retweet"></i>
-                            </div></div>
 
-                        <Link className="relative w-auto pl-4 flex-initial"
-                            to={{ pathname: "revision", state: { item: item, categoryId: categoryId } }}
-                        >
-                            < ExitToAppIcon />
-                        </Link>
-                    </div>
-                    <h6 className="text-xl font-semibold">{item?.title}</h6>
-                    <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
-                    <p className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4">{item?.detail?.state}</p>
-                    {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">{`Last Revision in ${item.detail.lastDateReview}`}</p>}
-                    {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
-                    <div className="divhoverbutton">
-                        <a className="ahoverbutton" href="#/" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
+                    <h6 className="text-xl font-semibold">{category?.title}</h6>
+                    <p className="mt-2 mb-4 text-gray-600">{category?.description}</p>
+                    <p className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4">{category?.detail?.state}</p>
+
+                    <div className="items-center flex flex-col">
+                        <div className="mt-2 ml-4 flex flex-row justify-center" style={{ width: '10%', justifyContent: 'space-around' }}>
+                            <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(category?._id)} /></i>
+                            <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
+                                receivedItems={category}
+                                title="Edit Topic" addItemHandler={editHandler} /> </i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,16 +46,38 @@ export default function Category() {
     //const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
 
+    const getDados = useCallback(async () =>
+        await obterScheduleItems().then(c => {
+            setData(c.data)
+        }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [])
 
-    const addcatHandler = async (e) => {
-        await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
+    const addcatHandler = async ({ item, image }) => {
+        await newCategory({ item: item, image: image, topicId: currentTopic })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getDados = async () => await obterScheduleItems().then(c => {
-                    setData(c.data)
-                }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+    }
+
+    const removeCategoryHandler = async (id) => {
+        console.log(id)
+        submitDialog({
+            clickYes: async () => await removeCategoryId({ categoryId: id })
+                .then(res => {
+                    setMessage({ type: 'sucess', text: res?.data?.message })
+                    getDados()
+                })
+                .catch(e => setMessage({ type: 'danger', text: e }))
+        })
+    }
+    const editCategoryHandler = async ({ item, image }) => {
+        //item['_id'] = item._id
+        await editCategory({ item: item, image: image })
+            .then(res => {
+                setMessage({ type: 'sucess', text: res?.data?.message })
+                getDados()
+            })
+            .catch(e => setMessage({ type: 'danger', text: e }))
     }
 
     useEffect(() => {
@@ -84,7 +97,7 @@ export default function Category() {
 
     useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
         if (currentCat) return //não fazer ada quando já houver um item selecionado
-        const a = async () => { setCurrentCat(dados.filter(x => x.topic._id === currentTopic).find(x => x !== undefined)?._id) }
+        const a = async () => { setCurrentCat(dados.filter(x => x.topic?._id === currentTopic).find(x => x !== undefined)?._id) }
         a()
     }, [currentTopic, dados, currentCat])
 
@@ -107,12 +120,14 @@ export default function Category() {
                     </span>
                     {/*---------BUTTON ADD CATEGORY--------------*/}
                     <div >
-                        <AddItemDialog label="Add Category" addItemHandler={addcatHandler} />
+                        <ItemDialog btnLabel="Add Category" addItemHandler={addcatHandler} />
                     </div>
                 </div>
                 <div className="w-full mb-12 px-4 flex flex-wrap justify-center" >
-                    {dados.filter(w => w.topic._id === currentTopic).map(c => (
-                        <CardContent key={c._id} item={c} />
+                    {dados?.filter(w => w.topic?._id === currentTopic).map(c => (
+                        <CardContent key={c._id} category={c}
+                            removeHandler={removeCategoryHandler} editHandler={editCategoryHandler}
+                        />
                     ))}
                 </div>
             </div>}

@@ -9911,6 +9911,11 @@ react-clock@^3.0.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
+react-confirm-alert@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.6.2.tgz#775c6e5233cd2c4b06f4ddedd59b8de03e071876"
+  integrity sha512-lvlk+Sic7p3wbOcsetkCHVXA3LJCDViqjO8sV7FtCfJwjw36ZKCJv2FiaxUCiw3g8PXvmpjEtvAvLqPKb8yh/A==
+
 react-date-picker@^8.0.0:
   version "8.0.5"
   resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-8.0.5.tgz#be5452466d5dd18c30f3eb5378f1d3052992aa3f"

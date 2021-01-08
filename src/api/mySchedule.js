@@ -43,11 +43,26 @@ export const changeItem = async ({ filter, content }) => {
 
 export const obterNextSchedule = async () => { return await api.get(URL.SCHEDULE) }
 
-export const newCategory = async ({ title, description, topicId }) => {
+export const newCategory = async ({ item, image, topicId }) => {
+
     return await api.post(URL.MYSCHEDULE, {
-        title: title,
-        description: description,
-        topicId: topicId
+        title: item?.title,
+        description: item?.description,
+        topicId: topicId,
+        image: image
+    })
+}
+
+export const removeCategoryId = async ({ categoryId }) => {
+    return await api.delete(URL.MYSCHEDULE + '/' + categoryId)
+}
+
+export const editCategory = async ({ item, image }) => {
+    return await api.put(URL.MYSCHEDULE, {
+        _id: item._id,
+        title: item.title,
+        description: item.description,
+        image: image
     })
 }
 
@@ -63,5 +78,13 @@ export const removeTopicId = async ({ topicId }) => {
     return await api.delete(URL.TOPIC + '/' + topicId)
 }
 
+export const editTopic = async ({ item, image }) => {
+    return await api.put(URL.TOPIC, {
+        _id: item._id,
+        title: item.title,
+        description: item.description,
+        image: image
+    })
+}
 
 export const obterAllRevision = async () => { return await api.get(URL.REVIEW) }

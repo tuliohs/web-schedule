@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import Button from '@material-ui/core/Button'
@@ -12,28 +12,20 @@ import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 
 import FileBase from 'react-file-base64';
+import EditIcon from '@material-ui/icons/Edit';
 
-const initialItem = {
-    title: '',
-    description: '',
-    status: 'single',
-    progress: 0,
-    subRows: undefined,
-}
+const initialItem = { title: '', description: '', status: 'single', progress: 0, subRows: undefined, }
 
-const AddItemDialog = ({ addItemHandler, title = 'Add Topic', subTitle = 'Add new topic to started memorize  ' }) => {
+const AddItemDialog = ({ btnLabel, addItemHandler, receivedItems = {}, type, title, subTitle }) => {
 
     const [urImage, setUrImage] = useState()
     const [imageObj, setImageObj] = useState({})
-    const [itemSc, setItemSc] = useState(initialItem)
+    const [itemSc, setItemSc] = useState(receivedItems)
     const [open, setOpen] = React.useState(false)
 
     const [switchState, setSwitchState] = React.useState({
         addMultiple: false,
     })
-    //function uploadImage(e, method) {
-    //    setUrImage({ multerImage: URL.createObjectURL(e.target.files[0]) });
-    //}
     function getBaseFile(files) {
         setUrImage({ baseImage: files.base64 });
         setImageObj({
@@ -41,38 +33,43 @@ const AddItemDialog = ({ addItemHandler, title = 'Add Topic', subTitle = 'Add ne
             imageData: files.base64.toString()
         })
     }
-    const handleSwitchChange = name => event => {
-        setSwitchState({ ...switchState, [name]: event.target.checked })
-    }
+    const handleSwitchChange = name => event => setSwitchState({ ...switchState, [name]: event.target.checked })
 
     const handleClickOpen = () => setOpen(true)
 
     const handleClose = () => setOpen(false)
 
     const handleAdd = event => {
+        if (type !== "edit") setItemSc(initialItem)
         addItemHandler({ item: itemSc, image: imageObj })
-        setItemSc(initialItem)
         setOpen(false)
     }
 
-    const handleChange = name => ({ target: { value } }) => {
-        setItemSc({ ...itemSc, [name]: value })
-    }
+    const handleChange = name => ({ target: { value } }) => setItemSc({ ...itemSc, [name]: value })
+
+    useEffect(() => {
+        if (!receivedItems?.imageData) return
+        setImageObj({
+            imageName: "base-image-" + Date.now(),
+            imageData: receivedItems.imageData
+        })
+    }, [])
 
 
     const color = 'teal-'
     const grau = 500
     return (
         <div>
-            <Tooltip title="Add">
-                <button
-                    className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
-                    type="button"
-                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                    onClick={handleClickOpen}
-                ><i className="fas px-6"><AddIcon /></i>
-                Add Topic</button>
-            </Tooltip>
+            {type === "edit" ? <EditIcon onClick={handleClickOpen} /> :
+                <Tooltip title="Add">
+                    <button
+                        className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
+                        type="button"
+                        style={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                        onClick={handleClickOpen}
+                    ><i className="fas px-6"><AddIcon /></i>
+                        {btnLabel}</button>
+                </Tooltip>}
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -105,9 +102,8 @@ const AddItemDialog = ({ addItemHandler, title = 'Add Topic', subTitle = 'Add ne
                                 //uploadImage(e)
                             }} />
                         </div>
-                        <img src={urImage?.baseImage} alt="" className="process__image" />
+                        <img src={urImage?.baseImage ?? itemSc?.imageData} alt="" className="process__image" />
                     </div>
-
                 </DialogContent>
                 <DialogActions>
                     <Tooltip title="Add multiple">
@@ -119,12 +115,8 @@ const AddItemDialog = ({ addItemHandler, title = 'Add Topic', subTitle = 'Add ne
                         />
                     </Tooltip>
 
-                    {/*<div>
-                        <input type="file" className="process__upload-btn" onChange={(e) => uploadImage(e, "multer")} />
-                        <img src={urImage} alt="upload-image" className="process__image" />
-                    </div>*/}
                     <Button onClick={handleClose} color="primary">Cancel</Button>
-                    <Button onClick={handleAdd} color="primary">Add</Button>
+                    <Button onClick={handleAdd} color="primary">{type === 'edit' ? "Edit" : "Add"}</Button>
                 </DialogActions>
             </Dialog>
         </div >

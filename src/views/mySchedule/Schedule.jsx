@@ -9,7 +9,7 @@ import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
-import DropdownButton from 'components/Dropdowns/DropdownButton'
+import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import { LabelStateColor } from './Next'
 import Loading from 'utils/Loading'
 
@@ -83,8 +83,8 @@ export default function Schedule() {
                             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
                             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                     }} />
-                <div className="w-full">
-                    <DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
+                <div className="relative" style={{ marginLeft: 0, marginRight: 'auto' }} >
+                    <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
 
                 </div>
                 {data.filter(a => a?.topic?._id === currentTopic)
