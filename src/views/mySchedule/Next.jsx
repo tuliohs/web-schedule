@@ -1,18 +1,27 @@
-import React, { useCallback, useRef, useState, useContext } from "react";
+import React, { useCallback, useRef, useState, useContext, createRef } from "react";
 import { obterNextSchedule, newRevision } from 'api/mySchedule'
+import printIframe from './Capture/printIframe'
 
 import moment from 'moment'
-import { Animated } from "react-animated-css";
+//import { Animated } from "react-animated-css";
 
 //components
 import ModalSmall from 'components/Modals/ModalSmall'
 import DefaultContext from 'constants/data/DefaultContext'
 import Loading from 'utils/Loading'
 import HorizontalTimeLine from './HorizontalTimeLine'
-import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
+
+import html2canvas from 'html2canvas'
+import * as htmlToImage from 'html-to-image';
+import domtoimage from 'dom-to-image'
+
+import axios from 'axios'
 
 import PublicIcon from '@material-ui/icons/Public';
+import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import HourglassFullTwoTone from '@material-ui/icons/HourglassFullTwoTone';
+
+import captureFrame from 'capture-frame'
 //import Iframe from 'react-iframe'
 
 
@@ -24,10 +33,13 @@ export const LabelStateColor = ({ state, color }) => {
     </>)
 }
 
-const CardContent = ({ item, revisionHanlder, showCard, setShowCard, current }) => {
+const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/ }) => {
     //console.log(item)
+
+    const frameRef = createRef()
     const [showDetail, setShowDetail] = useState(false)
     const [showRevisions, setShowRevisions] = useState(false)
+    const [image, setImage] = useState(null)
     const detailHandler = () => {
         setShowDetail(!showDetail)
         setShowRevisions(false)
@@ -37,43 +49,173 @@ const CardContent = ({ item, revisionHanlder, showCard, setShowCard, current }) 
         setShowDetail(false)
     }
 
-    return (
-        <Animated animationIn="fadeIn" animationOut="slideOutUp" animationInDuration={0} animationOutDuration={700}
-            isVisible={!showCard && current.itemId === item.item._id ? false : true}>
-            <div className="items-center justify-center relative flex ">
 
-                <div style={{ maxWidth: '75rem' }} className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                    <div className="px-4 py-5 flex-auto flex flex-row flex-wrap">
-                        {/*<div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+    const captureSnapshot = (e) => {
+        const video = e
+        video.setAttribute('crossOrigin', 'anonymous');
+        console.log(video);
+
+        const buf = captureFrame(video);
+        const image = document.createElement('img');
+        image.setAttribute('crossOrigin', 'anonymous');
+        image.setAttribute('src', window.URL.createObjectURL(new window.Blob([buf])));
+
+
+        console.log('captured frame src', image);
+        this.setState({ image: image.src });
+    }
+
+
+    const handleClickTakeScreenShot = async (e) => {
+        //e.preventDefault();
+
+
+        //const {
+        //    cropPositionTop,
+        //    cropPositionLeft,
+        //    cropWidth,
+        //    cropHeigth
+        //} = this.state;
+
+        //Html2canvas(document.getElementById('id'),
+        //    { scale: 2, logging: false, useCORS: true, allowTaint: false, proxy: 'cross-domain url' }
+        //).then(function (canvas) { document.body.appendChild(canvas); })
+
+        const body = document.getElementById(item.item._id)//frameRef?.current//.find('body')[0];
+        var x = body;
+        console.log(new URL(x.src).origin);
+
+        //const body = frameRef?.current.contentWindow//.find('body')[0];
+        console.log('body', body)
+
+        printIframe(body)
+
+        //axios.post('http://localhost:9090/v1/schedule/img', {
+        //    content: '',// body
+        //    link: 'https://brasilescola.uol.com.br/ingles/possessive-pronouns.htm'
+        //}).then(a => ('ok', a))
+        //    .catch(e => console.log('err', e))
+        //item.item._id
+
+        //domtoimage.toPng(body)
+        //    .then(function (dataUrl) {
+        //        //var img = new Image();
+        //        //img.src = dataUrl;
+        //        console.log(dataUrl)
+        //        //document.body.appendChild(img);
+        //    })
+        //    .catch(function (error) {
+        //        console.error('oops, something went wrong!', error);
+        //    });
+
+        //var domElement = document.getElementById('my-node');
+        //htmlToImage.toJpeg(body)
+        //    .then(function (dataUrl) {
+        //        console.log(dataUrl);
+        //        //download(dataUrl, 'image.jpeg');
+        //    })
+        //    .catch(function (error) {
+        //        console.error('oops, something went wrong!', error);
+        //    });
+
+        await html2canvas(body).then(function (canvas) {
+            console.log('aq', canvas)
+            //var link = document.createElement("a");
+            //document.body.appendChild(link);
+            //link.download = "manpower_efficiency.jpg";
+            //link.href = canvas.toDataURL();
+            //link.target = '_blank';
+            //link.click();
+        }).catch(e => console.log('ht2 er', e))
+
+        //html2canvas(body,
+        //    { scale: 2, logging: false, useCORS: true, allowTaint: false, proxy: 'cross-domain url' }
+        //).then(canvas => {
+        //    let croppedCanvas = document.createElement("canvas");
+        //    let croppedCanvasContext = croppedCanvas.getContext("2d");
+
+        //    //croppedCanvas.width = cropWidth;
+        //    //croppedCanvas.height = cropHeigth;
+
+        //    croppedCanvasContext.drawImage(
+        //        canvas,
+        //        0,
+        //        1000
+        //        //0, //cropPositionLeft,
+        //        //0, //cropPositionTop,
+        //        //0, //cropWidth,
+        //        //0, //cropHeigth,
+        //        //0,
+        //        //0,
+        //        //cropWidth,
+        //        //cropHeigth
+        //    );
+
+        //    //this.props.onEndCapture(croppedCanvas.toDataURL());
+        //    //console.log(croppedCanvas)
+        //    console.log(croppedCanvas.toDataURL())
+        //    setImage(croppedCanvas.toDataURL())
+        //});
+
+    };
+
+
+    return (
+        //<Animated animationIn="fadeIn" animationOut="slideOutUp" animationInDuration={0} animationOutDuration={700}
+        //    isVisible={!showCard && current.itemId === item.item._id ? false : true}>
+        <div className="items-center justify-center relative flex ">
+
+            <div style={{ maxWidth: '75rem' }} className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="px-4 py-5 flex-auto flex flex-row flex-wrap">
+                    {/*<div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                         <i className="fas fa-retweet"></i>
                     </div>*/}
-                        {/*<h6 className="text-xl font-semibold">{title}</h6>*/}
-                        <div style={{ width: '12em' }} className="mt-2 mb-4 text-gray-600"><b className="mr-2">{item?.item?.title}</b></div>
+                    {/*<h6 className="text-xl font-semibold">{title}</h6>*/}
+                    <div style={{ width: '12em' }} className="mt-2 mb-4 text-gray-600"><b className="mr-2">{item?.item?.title}</b></div>
 
-                        <p style={{ width: '18em' }} className="mt-2 mb-4 text-gray-600">Next Review:{' ' + moment(item?.detail?.nextReview).format('DD/MM/YYYY HH:mm')}</p>
-                        <span style={{ width: '12em' }}>
-                            <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
-                        </span>
-                        <div className="divhoverbutton" style={{ width: '12em' }}>
-                            <a className="ahoverbutton" href="#/" onClick={revisionHanlder}>
-                                <span className="spanhoverbutton">New Revision</span></a>
-                        </div>
-                        <i style={{ marginLeft: 'auto', marginRight: 8 }} onClick={detailHandler}><PublicIcon /></i>
-                        <i onClick={reviewsHandler}><HourglassFullTwoTone /></i>
-                    </div>
-                    {!showDetail && !showRevisions ? null :
-                        <span className="mt-2 mb-2 text-gray-600 m-4">{'Description : ' + item?.item?.description}</span>}
-                    {!showDetail ? null : <div className="px-4 py-5 ">
-
-                        <iframe frameBorder="0" style={{ width: "100%", height: "25em" }}
-                            src={`https://www.bing.com/search?q=${item?.item?.title?.replace(' ', '+')}`}>
-                        </iframe>
-                    </div>}
-                    {/*<RevisionTimeSmall itemRevision={item.revisions} />*/}
-                    {!showRevisions ? null : <HorizontalTimeLine itemRevision={item.revisions} />}
+                    <p style={{ width: '18em' }} className="mt-2 mb-4 text-gray-600">Next Review:{' ' + moment(item?.detail?.nextReview).format('DD/MM/YYYY HH:mm')}</p>
+                    <span style={{ width: '12em' }}>
+                        <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
+                    </span>
+                    <button
+                        className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-teal-500 active:bg-teal-600 ease-linear transition-all duration-150`}
+                        type="button"
+                        style={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                        onClick={revisionHanlder}
+                    >New Revision</button>
+                    {/*<div className="divhoverbutton" style={{ width: '12em' }}>
+                        <a className="ahoverbutton" href="#/" onClick={revisionHanlder}>
+                            <span className="spanhoverbutton"></span></a>
+                    </div>*/}
+                    <img
+                        src=""
+                    />
+                    <i style={{ marginLeft: 'auto', marginRight: 8 }} onClick={detailHandler}><PublicIcon /></i>
+                    <i onClick={reviewsHandler}><HourglassFullTwoTone /></i>
                 </div>
+                {!showDetail && !showRevisions ? null :
+                    <span className="mt-2 mb-2 text-gray-600 m-4">{'Description : ' + item?.item?.description}</span>}
+                {!showDetail ? null : <div className="px-4 py-5 ">
+                    <div className="items-right">
+                        <i onClick={e => handleClickTakeScreenShot(e)}><ScreenShareIcon /></i>
+                        <img src={image} />
+                    </div>
+
+                    <iframe ref={frameRef} id={item.item._id}
+                        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                        onLoad={e => console.log('onLoad', e)}
+                        crossOrigin={'anonymous'}
+                        frameBorder="0" style={{ width: "100%", height: "25em" }}
+                        key={item.item._id} title={item.item._id}
+                        //src={`https://www.bing.com/search?q=${item?.item?.title?.replace(' ', '+')}`}>
+
+                        src={'http://localhost:5000/'}>
+                    </iframe>
+                </div>}
+                {/*<RevisionTimeSmall itemRevision={item.revisions} />*/}
+                {!showRevisions ? null : <HorizontalTimeLine itemRevision={item.revisions} />}
             </div>
-        </Animated>
+        </div>
     )
 }
 
@@ -127,10 +269,9 @@ export default function Next() {
         setShowAnimation(true)
         await delay(900);
 
-        console.log('ss')
         await nextHandler()
 
-    }, [curr, revisionDate, revisonNote, setMessage])
+    }, [curr, revisionDate, revisonNote, setMessage, nextHandler])
 
     return (
         <>

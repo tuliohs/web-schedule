@@ -88,9 +88,9 @@ export default function Sidebar() {
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <ItemBar path="/myschedule/schedule" name="Schedule" />
-              <ItemBar path="/myschedule/next" name="Next" />
-              <ItemBar path="/myschedule/revision" name="Revision" />
-              <ItemBar path="/myschedule/statistics" name="Statistics" />
+              <ItemBar path="/myschedule/next" name="Next" faIcon="stopwatch" />
+              <ItemBar path="/myschedule/revision" name="Revision" faIcon="history" />
+              <ItemBar path="/myschedule/statistics" name="Statistics" faIcon="chart-bar" />
             </ul>
 
             {/*---------------------------------CUSTOMIZE-------------------------------------*/}

@@ -53,8 +53,8 @@ export default function Login() {
                 <div className="text-gray-500 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form >
-                  <UserInput label="Email" id="email" type="email" name="email"
+                <form onSubmit={e => onSubmit(e)}>
+                  <UserInput label="Email" id="email" name="email" type="text"  //change type for the email
                     onChange={onChange} value={values.email} placeholder="Email"
                   />
                   <UserInput label="Password" id="password" type="password" name="password"
@@ -79,8 +79,8 @@ export default function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={onSubmit}
+                      type="submit"
+                    //onClick={onSubmit}
                     >
                       Sign In
                     </button>
@@ -92,7 +92,7 @@ export default function Login() {
               <div className="w-1/2">
                 <a
                   href="#pablo"
-                  onClick={(e) => e.preventDefault()}
+                  //onClick={(e) => e.preventDefault()}
                   className="text-gray-300"
                 >
                   <small>Forgot password?</small>

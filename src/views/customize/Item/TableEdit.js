@@ -84,7 +84,7 @@ function Table({ columns, data, setItemCurrentAction, removeItemHandler, updateM
                             {row.cells.map(cell => {
                                 return <td {...cell.getCellProps()} className="">{cell.render('Cell')}</td>
                             })}
-                            <th><a className="text-gray-600 py-1 px-3" href="/#" ><TableDropdown rowHandler={() => setItemCurrentAction(row?.original)} actions={actions} /></a></th>
+                            <th><a className="text-gray-600 py-1 px-3" href="#/" ><TableDropdown rowHandler={() => setItemCurrentAction(row?.original)} actions={actions} /></a></th>
                         </tr>
                     )
                 })}

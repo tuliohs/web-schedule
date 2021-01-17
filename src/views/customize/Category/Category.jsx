@@ -5,10 +5,9 @@ import { obterScheduleItems, obterTemas, newCategory, removeCategoryId, editCate
 // components
 import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import StepMenu from '../StepMenu'
-import ItemDialog from '../Topic/AddItemDialog'
+import ItemDialog from '../ItemDialog'
 import { submitDialog } from '../Topic/Topic'
 
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const CardContent = ({ editHandler, category, removeHandler }) => {
@@ -49,7 +48,7 @@ export default function Category() {
     const getDados = useCallback(async () =>
         await obterScheduleItems().then(c => {
             setData(c.data)
-        }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [])
+        }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
 
     const addcatHandler = async ({ item, image }) => {
         await newCategory({ item: item, image: image, topicId: currentTopic })

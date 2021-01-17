@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AddUserItem from '../AddItemDialog'
+import ItemDialog from '../ItemDialog'
 import clsx from 'clsx'
 //import DeleteIcon from '@material-ui/icons/Delete'
 //import GlobalFilter from './GlobalFilter'
@@ -48,7 +48,7 @@ const TableToolbar = props => {
                 [classes.highlight]: numSelected > 0,
             })}
         >
-            <AddUserItem transparent={true} addItemHandler={addItemHandler} />
+            <ItemDialog transparent={true} addItemHandler={addItemHandler} />
             {numSelected > 0 ? (
                 <Typography
                     className={classes.title}

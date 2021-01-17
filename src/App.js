@@ -5,6 +5,7 @@ import {
     BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 
+//icons slide bar
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
 

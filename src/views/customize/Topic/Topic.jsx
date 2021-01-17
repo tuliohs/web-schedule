@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
-import AddUserItem from './AddItemDialog'
+import ItemDialog from '../ItemDialog'
 import StepMenu from '../StepMenu'
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -43,11 +43,9 @@ const CardContent = ({ topic, removeHandler, editHandler }) => {
                             <p className="mt-2 mb-4 text-gray-600">{topic?.description}</p>
                             <div className="mt-2 ml-4 flex flex-row justify-center" style={{ width: '10%', justifyContent: 'space-around' }}>
                                 <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(topic._id)} /></i>
-                                <i className="m-2 mt-2 mb-4 "> <AddUserItem type="edit"
-                                    title='Edit Topic'
-
-                                    receivedItems={topic}
-                                    title="Edit Topic" addItemHandler={editHandler} /> </i>
+                                <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
+                                    title='Edit Topic' receivedItems={topic}
+                                    addItemHandler={editHandler} /> </i>
                             </div>
                         </div>
 
@@ -114,7 +112,7 @@ export default function Topic() {
             <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <div className=" mb-6"  >
                     {/*---------BUTTON ADD TOPIC*/}
-                    <AddUserItem addItemHandler={addTopicHandler}
+                    <ItemDialog addItemHandler={addTopicHandler}
                         title='Add Topic'
                         subTitle='Add new topic to started memorize  '
                         btnLabel="Add Topic"

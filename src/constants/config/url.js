@@ -1,5 +1,5 @@
-//const base = "http://localhost:9090"
-const base = 'http://45.90.108.173:9090'
+const base = "http://localhost:9090"
+//const base = 'http://45.90.108.173:9090'
 
 export const URL = {
     BASE: base,
@@ -13,3 +13,4 @@ export const URL = {
     LOGIN: `${base}/v1/auth/authenticate`,
     USER: `${base}/v1/auth/user`
 }
+

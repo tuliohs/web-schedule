@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 
 
-export default function ItemBar({ name, path }) {
+export default function ItemBar({ name, path, faIcon = 'tv' }) {
     const location = useLocation()
 
     return (
@@ -20,7 +20,7 @@ export default function ItemBar({ name, path }) {
             >
                 <i
                     className={
-                        "fas fa-tv mr-2 text-sm " +
+                        `fas fa-${faIcon} mr-2 text-sm ` +
                         (location?.pathname === path
                             ? "opacity-75"
                             : "text-gray-400")

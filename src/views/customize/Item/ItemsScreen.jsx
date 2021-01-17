@@ -48,7 +48,7 @@ export default function ItemsScreen() {
 
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela
-        const a = async () => { setTabdata(dados.filter(x => x?._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
+        const a = async () => { setTabdata(dados.filter(x => x?._id === currentCat && x.topic?._id === currentTopic).map(a => { return a.items })) }
         a()
     }, [currentCat, currentTopic, dados])
 
@@ -63,8 +63,8 @@ export default function ItemsScreen() {
     //            getDados()
     //        }).catch(er => setMessage({ type: 'danger', text: er?.toString() }))
     //}
-    const addItemHandler = async (e) => {
-        await addItem({ filter: { categoryId: currentCat }, content: { title: e.title, description: e.description } })
+    const addItemHandler = async ({ item, image }) => {
+        await addItem({ filter: { categoryId: currentCat }, content: { title: item?.title, description: item?.description } })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 const getDados = async () => await obterScheduleItems().then(c => {
