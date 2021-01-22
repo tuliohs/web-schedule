@@ -59,7 +59,6 @@ export default function Category() {
     }
 
     const removeCategoryHandler = async (id) => {
-        console.log(id)
         submitDialog({
             clickYes: async () => await removeCategoryId({ categoryId: id })
                 .then(res => {
@@ -69,24 +68,18 @@ export default function Category() {
                 .catch(e => setMessage({ type: 'danger', text: e }))
         })
     }
-    const editCategoryHandler = async ({ item, image }) => {
-        //item['_id'] = item._id
+    const editCategoryHandler = async ({ item, image }) =>
         await editCategory({ item: item, image: image })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getDados()
-            })
-            .catch(e => setMessage({ type: 'danger', text: e }))
-    }
+            }).catch(e => setMessage({ type: 'danger', text: e }))
 
     useEffect(() => {
-        const getDados = async () => await obterScheduleItems().then(c => {
-            setData(c.data)
-        }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
-    }, [setMessage])
+    }, [setMessage, getDados])
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
         if (currentTopic) return //não fazer ada quando já houver um item selecionado

@@ -2,7 +2,7 @@ import React, { createRef } from "react";
 
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import styled from 'styled-components'
-import CardLetter from "utils/CardLetter";
+import CardLetter from "components/Cards/CardLetter";
 //import FileBase from 'react-file-base64';
 import { getBase64 } from 'utils/getBase64'
 

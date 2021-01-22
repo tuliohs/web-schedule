@@ -6,7 +6,7 @@ import { getUser } from 'api/user.api'
 import DefaultContext from 'constants/data/DefaultContext'
 import StoreContext from 'constants/data/StoreContext'
 
-import CardLetter from 'utils/CardLetter'
+import CardLetter from 'components/Cards/CardLetter'
 
 const UserDropdown = () => {
   // dropdown props

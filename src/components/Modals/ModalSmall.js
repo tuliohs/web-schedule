@@ -3,6 +3,7 @@ import React from 'react'
 import DateTimePicker from 'react-datetime-picker';
 import "./ModalSmall.css"
 import "./DatePicker.less"
+import TxtEditor from 'components/Cards/TxtEditor'
 
 export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action, revisionDate, setRevisionDate, item }) {
     return (
@@ -65,7 +66,7 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                                 </main>
                                             </div>
                                         </div>
-
+                                        <TxtEditor />
                                         <textarea autoFocus={true} type="text" placeholder="Insert one note about your revision"
                                             value={text ?? undefined}
                                             //ref={refField}

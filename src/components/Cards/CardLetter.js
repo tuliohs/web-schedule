@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import { deepOrange } from '@material-ui/core/colors';
+import { blueGrey } from '@material-ui/core/colors';
 
 
 const styleLarge = makeStyles((theme) => ({
@@ -13,8 +13,8 @@ const styleLarge = makeStyles((theme) => ({
         marginTop: theme.spacing(1) + 3
     },
     avatar: {
-        color: theme.palette.getContrastText(deepOrange[500]),
-        backgroundColor: deepOrange[500],
+        color: theme.palette.getContrastText(blueGrey[500]),
+        backgroundColor: blueGrey[500],
         width: '5em',
         height: '5em',
     },
@@ -31,8 +31,8 @@ const styleSmall = makeStyles((theme) => ({
         },
     },
     avatar: {
-        color: theme.palette.getContrastText(deepOrange[500]),
-        backgroundColor: deepOrange[500],
+        color: theme.palette.getContrastText(blueGrey[500]),
+        backgroundColor: blueGrey[500],
         width: '2.5em',
         height: '2.5em',
     },

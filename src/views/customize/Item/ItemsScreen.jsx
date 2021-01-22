@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, } from 'api/mySchedule'
 
@@ -6,10 +6,9 @@ import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
 // components
 import TableEdit from "./TableEdit";
-//import DropdownButton from "components/Dropdowns/DropdownButton";
 import ControlledOpenSelect from "components/Dropdowns/ControlledOpenSelect";
-//import AddUserItem from '../AddItemDialog'
 import StepMenu from '../StepMenu'
+import { submitDialog } from '../Topic/Topic'
 
 export default function ItemsScreen() {
 
@@ -23,15 +22,16 @@ export default function ItemsScreen() {
     const [currentCat, setCurrentCat] = useState(null)
     const [itemCurrentAction, setItemCurrentAction] = useState({})
 
+    const getDados = useCallback(async () => await obterScheduleItems().then(c => {
+        //setTabdata({})
+        setData(c.data)
+    }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
+
     useEffect(() => {
-        const getDados = async () => await obterScheduleItems().then(c => {
-            //setTabdata({})
-            setData(c.data)
-        }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
-    }, [setMessage])
+    }, [setMessage, getDados])
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
         if (currentTopic) return //não fazer ada quando já houver um item selecionado
@@ -41,50 +41,40 @@ export default function ItemsScreen() {
     }, [topic, currentTopic])
 
     useEffect(() => {//'''SEMPRE''''  quando o tema for alterado => selecionar a primeira categoria como default
-        //if (currentCat) return
+        if (currentCat) return
         const a = async () => { setCurrentCat(dados.filter(x => x.topic?._id === currentTopic).find(x => x !== undefined)?._id) }
         a()
-    }, [currentTopic, dados])
-
+    }, [currentTopic, dados, currentCat])
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela
-        const a = async () => { setTabdata(dados.filter(x => x?._id === currentCat && x.topic?._id === currentTopic).map(a => { return a.items })) }
-        a()
+        const filterTable = async () => { setTabdata(dados.filter(x => x?._id === currentCat && x.topic?._id === currentTopic).map(a => { return a.items })) }
+        filterTable()
     }, [currentCat, currentTopic, dados])
 
     //const addcatHandler = async (e) => {
     //    await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
     //        .then(res => {
-    //            setMessage({ type: 'sucess', text: res?.data?.message })
-    //            const getDados = async () => await obterScheduleItems().then(c => {
-    //                //setTabdata({})
-    //                setData(c.data)
-    //            }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+    //            setMessage({ type: 'sucess', text: res?.data?.message })            
     //            getDados()
     //        }).catch(er => setMessage({ type: 'danger', text: er?.toString() }))
     //}
-    const addItemHandler = async ({ item, image }) => {
+    const addItemHandler = async ({ item, image }) =>
         await addItem({ filter: { categoryId: currentCat }, content: { title: item?.title, description: item?.description } })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                const getDados = async () => await obterScheduleItems().then(c => {
-                    //setTabdata({})
-                    setData(c.data)
-                }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                 getDados()
-            })
-    }
-    const removeItemHandler = async (e) => {
-        await removeItem({ categoryId: currentCat, itemId: itemCurrentAction._id })
-            .then(res => {
-                setMessage({ type: 'sucess', text: res?.data?.message })
-                const getDados = async () => await obterScheduleItems().then(c => {
-                    setData(c.data)
-                }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-                getDados()
-            })
-            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-    }
+            }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+
+    const removeItemHandler = async () =>
+        submitDialog({
+            clickYes: async () => await removeItem({ categoryId: currentCat, itemId: itemCurrentAction._id })
+                .then(res => {
+                    setMessage({ type: 'sucess', text: res?.data?.message })
+                    getDados()
+                })
+                .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+        })
+
     const changeItemHandler = async ({ columnId, value, }) => {
         let itemSend = itemCurrentAction
         itemSend[columnId] = value

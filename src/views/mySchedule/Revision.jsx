@@ -50,11 +50,9 @@ export default function Revision() {
                     .then(c => {
                         setData(c.data)
                     }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-
         }
         aa()
     }, [location, setMessage])
-
 
     const newRevisionHandler = async () => {
         setShowModal(false)
@@ -63,7 +61,6 @@ export default function Revision() {
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         setRevisionNote(null)
     }
-
 
     return (
         <>

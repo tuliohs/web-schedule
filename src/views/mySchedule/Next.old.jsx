@@ -1,8 +1,7 @@
-import React, { useCallback, useRef, useState, useContext, createRef } from "react";
+import React, { useCallback, useRef, useState, useContext, createRef, useEffect } from "react";
 import { obterNextSchedule, newRevision } from 'api/mySchedule'
 
 import moment from 'moment'
-import axios from 'axios'
 //import { Animated } from "react-animated-css";
 
 //components
@@ -11,9 +10,18 @@ import DefaultContext from 'constants/data/DefaultContext'
 import Loading from 'utils/Loading'
 import HorizontalTimeLine from './HorizontalTimeLine'
 
+import html2canvas from 'html2canvas'
+import * as htmlToImage from 'html-to-image';
+import domtoimage from 'dom-to-image'
+
+import axios from 'axios'
+
 import PublicIcon from '@material-ui/icons/Public';
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import HourglassFullTwoTone from '@material-ui/icons/HourglassFullTwoTone';
+
+import captureFrame from 'capture-frame'
+//import Iframe from 'react-iframe'
 
 
 export const LabelStateColor = ({ state, color }) => {
@@ -30,11 +38,7 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
     const frameRef = createRef()
     const [showDetail, setShowDetail] = useState(false)
     const [showRevisions, setShowRevisions] = useState(false)
-    //const [fullPrint, setFullPrint] = useState(false)
-    const [worldSearch, setWorldSearch] = useState('')
-    //const [image, setImage] = useState(null)
-    const [itemsPesquisa, setItemsPesquisa] = useState([])
-
+    const [image, setImage] = useState(null)
     const detailHandler = () => {
         setShowDetail(!showDetail)
         setShowRevisions(false)
@@ -43,64 +47,130 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
         setShowRevisions(!showRevisions)
         setShowDetail(false)
     }
-    const handleClickTakeScreenShot = async () => {
 
-        const displayMediaOptions = { video: { mediaSource: 'screen' } }
-        let captureStream = null;
-        const canvas = document.getElementById('fake')
-        //setFullPrint(true)
-        try {
-            captureStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
-            // get correct video track
-            const track = captureStream.getVideoTracks()[0]
-            // init Image Capture and not Video stream
-            const imageCapture = new ImageCapture(track)
-            // take first frame only
-            const bitmap = await imageCapture.grabFrame()
-            // destory video track to prevent more recording / mem leak
-            track.stop()
-            // this could be a document.createElement('canvas') if you want
-            // draw weird image type to canvas so we can get a useful image
-            canvas.width = bitmap.width
-            canvas.height = bitmap.height
-            const context = canvas.getContext('2d')
-            context.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height)
-            const image = canvas.toDataURL()
-            // this turns the base 64 string to a [File] object
-            const res = await fetch(image)
-            const buff = await res.arrayBuffer()
-            // clone so we can rename, and put into array for easy proccessing
-            const file = [
-                new File([buff], `photo_${new Date()}.jpg`, {
-                    type: 'image/jpeg',
-                }),
-            ]
-            //setImage()
-            return console.log('file', file);
 
-        } catch (err) { console.error("Error: " + err); }
-        //finally { setFullPrint(false) }
+    const captureSnapshot = (e) => {
+        const video = e
+        video.setAttribute('crossOrigin', 'anonymous');
+        console.log(video);
 
+        const buf = captureFrame(video);
+        const image = document.createElement('img');
+        image.setAttribute('crossOrigin', 'anonymous');
+        image.setAttribute('src', window.URL.createObjectURL(new window.Blob([buf])));
+
+
+        console.log('captured frame src', image);
+        this.setState({ image: image.src });
     }
-    const searchWord = async (e) => {
-        e.preventDefault();
-        const apiKey = 'AIzaSyA8vljIcmebx3rfSfxZ2fv_32CKTeHGp3A'
-        const mechanism = '30fdb3668b1bd72bc'
-        console.log('worldSearch', worldSearch)
-        let go = worldSearch.replace(' ', '+')
-        await axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${mechanism}&q=${go}`)
-            .then(c => {
-                setItemsPesquisa(c?.data?.items)
-                console.log(c?.data?.items)
-            })
-    }
+
+
+    const handleClickTakeScreenShot = async (e) => {
+        //e.preventDefault();
+
+        //const {
+        //    cropPositionTop,
+        //    cropPositionLeft,
+        //    cropWidth,
+        //    cropHeigth
+        //} = this.state;
+
+        //Html2canvas(document.getElementById('id'),
+        //    { scale: 2, logging: false, useCORS: true, allowTaint: false, proxy: 'cross-domain url' }
+        //).then(function (canvas) { document.body.appendChild(canvas); })
+
+        //const body = document.getElementById(item.item._id)//frameRef?.current//.find('body')[0];
+        //var x = body;
+        //console.log(new URL(x.src).origin);
+
+        const body = frameRef?.current//.find('body')[0];
+        console.log('body', body)
+
+        //await axios.post('http://localhost:4000/shot', {
+        //    fileName: item.item._id,
+        //    url: "https://brasilescola.uol.com.br/ingles/possessive-pronouns.htm"
+        //}).then(a => ('ok', a))
+        //    .catch(e => console.log('err', e))
+
+        //domtoimage.toPng(body)
+        //    .then(function (dataUrl) {
+        //        //var img = new Image();
+        //        //img.src = dataUrl;
+        //        console.log(dataUrl)
+        //        //document.body.appendChild(img);
+        //    })
+        //    .catch(function (error) {
+        //        console.error('oops, something went wrong!', error);
+        //    });
+
+        //var domElement = document.getElementById('my-node');
+        //htmlToImage.toJpeg(body)
+        //    .then(function (dataUrl) {
+        //        console.log(dataUrl);
+        //        //download(dataUrl, 'image.jpeg');
+        //    })
+        //    .catch(function (error) {
+        //        console.error('oops, something went wrong!', error);
+        //    });
+
+        await html2canvas(body).then(function (canvas) {
+            console.log('aq', canvas.toDataURL())
+            //var link = document.createElement("a");
+            //document.body.appendChild(link);
+            //link.download = "manpower_efficiency.jpg";
+            //link.href = canvas.toDataURL();
+            //link.target = '_blank';
+            //link.click();
+        }).catch(e => console.log('ht2 er', e))
+
+        //html2canvas(body,
+        //    { scale: 2, logging: false, useCORS: true, allowTaint: false, proxy: 'cross-domain url' }
+        //).then(canvas => {
+        //    let croppedCanvas = document.createElement("canvas");
+        //    let croppedCanvasContext = croppedCanvas.getContext("2d");
+
+        //    //croppedCanvas.width = cropWidth;
+        //    //croppedCanvas.height = cropHeigth; 
+        //    croppedCanvasContext.drawImage(
+        //        canvas,
+        //        0,
+        //        1000
+        //        //0, //cropPositionLeft,
+        //        //0, //cropPositionTop,
+        //        //0, //cropWidth,
+        //        //0, //cropHeigth,
+        //        //0,
+        //        //0,
+        //        //cropWidth,
+        //        //cropHeigth
+        //    );
+
+        //    //this.props.onEndCapture(croppedCanvas.toDataURL());
+        //    //console.log(croppedCanvas)
+        //    console.log(croppedCanvas.toDataURL())
+        //    setImage(croppedCanvas.toDataURL())
+        //});
+
+
+    };
+
+    useEffect(() => {
+        //window.addEventListener("message", function (event) {
+        //    //You must check your origin!
+        //    //if (event.origin !== "http://localhost:3000")
+        //    //    return;
+        //    //Get the data
+        //    var data = event.data;
+        //    console.log(data.curURL)
+        //}, false);
+    }, [])
+    let pxy = 'https://cors-anywhere.herokuapp.com/'
     return (
         //<Animated animationIn="fadeIn" animationOut="slideOutUp" animationInDuration={0} animationOutDuration={700}
         //    isVisible={!showCard && current.itemId === item.item._id ? false : true}>
         <div className="items-center justify-center relative flex ">
 
             <div style={{ maxWidth: '75rem' }} className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                {/*<canvas id="fake"></canvas>*/}
                 <div className="px-4 py-5 flex-auto flex flex-row flex-wrap">
                     {/*<div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                         <i className="fas fa-retweet"></i>
@@ -112,62 +182,58 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
                     <span style={{ width: '12em' }}>
                         <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
                     </span>
-
-                    {/*<form method="get" title="Search Form" action="https://cse.google.com/cse/publicurl">
-                        <div>
-                            <input type="text" id="q" name="q" title="Search this site" alt="Search Text" maxlength="256" />
-                            <input type="hidden" id="cx" name="cx" value="013626029654558379071:ze3tw4csia4" />
-                            <input type="image" id="searchSubmit" name="submit" src="https://www.flaticon.com/free-icon/active-search-symbol_34148" alt="Go" title="Submit Search Query" />
-                        </div>
-                    </form>*/}
                     <button
                         className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-teal-500 active:bg-teal-600 ease-linear transition-all duration-150`}
                         type="button"
                         style={{ textAlign: 'left', justifyContent: 'flex-start' }}
                         onClick={revisionHanlder}
                     >New Revision</button>
+                    {/*<div className="divhoverbutton" style={{ width: '12em' }}>
+                        <a className="ahoverbutton" href="#/" onClick={revisionHanlder}>
+                            <span className="spanhoverbutton"></span></a>
+                    </div>*/}
+                    <img
+                        src=""
+                    />
                     <i style={{ marginLeft: 'auto', marginRight: 8 }} onClick={detailHandler}><PublicIcon /></i>
                     <i onClick={reviewsHandler}><HourglassFullTwoTone /></i>
-
-                    <form>
-                        <div className="relative flex w-full flex-wrap items-stretch mb-3">
-                            <input type="text" onChange={e => setWorldSearch(e.target.value)} placeholder="Search" className="px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pr-10" />
-                            <button onClick={e => searchWord(e)} type="submit" className="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-2 py-1">
-                                <i className="fas fa-search"></i>
-                            </button >
-                        </div>
-                    </form>
-                    <div id="pesquisa">
-                        {
-                            itemsPesquisa?.map(c => (
-                                <div key={c?.cacheId}>
-                                    <h1>{c?.title}</h1>
-                                    <div>{c?.htmlSnippet}</div>
-                                    <img alt="" src={c?.pagemap?.cse_image[0]?.src} />
-                                </div>
-                            ))
-                        }
-                    </div>
                 </div>
                 {!showDetail && !showRevisions ? null :
                     <span className="mt-2 mb-2 text-gray-600 m-4">{'Description : ' + item?.item?.description}</span>}
                 {!showDetail ? null : <div className="px-4 py-5 ">
-
                     <div className="items-right">
                         <i onClick={e => handleClickTakeScreenShot(e)}><ScreenShareIcon /></i>
-                        {/*<img src={image} />*/}
+                        <img src={image} />
                     </div>
-                    {/*<div className="MuiDialog-container MuiDialog-scrollPaper" role="none presentation" tabindex="-1" style="opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;">*/}
 
                     <iframe ref={frameRef} id={item.item._id}
-                        className="relative"
                         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                        onLoad={() => {
+
+                            //some custom settings
+                            //this.width = screen.width; this.height = screen.height; this.passing = 0; this.frameBorder = "0";
+
+                            //var iframe = frameRef?.current
+                            //var href = iframe.contentWindow.location.href;
+                            //var origin = iframe.contentWindow.location.origin;
+                            //var url = iframe.contentWindow.location.url;
+                            //var path = iframe.contentWindow.location.pathname;
+
+                            //console.log("href: ", href)
+                            //console.log("origin: ", origin)
+                            //console.log("path: ", path)
+                            //console.log("url: ", url)
+                        }}
                         crossOrigin={'anonymous'}
                         frameBorder="0" style={{ width: "100%", height: "25em" }}
                         key={item.item._id} title={item.item._id}
-                        src={`https://www.bing.com/search?q=${item?.item?.title?.replace(' ', '+')}`}>
+                        //src={`https://www.bing.com/search?q=${item?.item?.title?.replace(' ', '+')}`}>
+
+                        src={'http://localhost:5002'}>
+
+                        //src={`${pxy}https://www.bing.com/search?q=${item?.item?.title?.replace(' ', '+')}`}>
+
                     </iframe>
-                    {/*</div>*/}
                 </div>}
                 {/*<RevisionTimeSmall itemRevision={item.revisions} />*/}
                 {!showRevisions ? null : <HorizontalTimeLine itemRevision={item.revisions} />}
@@ -193,10 +259,6 @@ export default function Next() {
     const [showCard, setShowCard] = useState(true)
     const [showAnimation, setShowAnimation] = useState(false)
 
-    const callModal = () => {
-        setRevisionDate(new Date())
-        setShowModal(true)
-    }
     const [curr, setCurr] = useState({})
     const nextHandler = useCallback(async () => {
         await obterNextSchedule()
@@ -255,7 +317,7 @@ export default function Next() {
                         revisionHanlder={() => {
                             //Alterando as propriedades para o item atual
                             setCurr({ categoryId: c.categoryId, itemId: c.item._id })
-                            callModal()
+                            setShowModal(true)
                             //focusTextArea.current.focus()
                         }}
                     />)}

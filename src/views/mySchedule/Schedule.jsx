@@ -57,6 +57,10 @@ export default function Schedule() {
     const [currentTopic, setCurrentTopic] = useState(null)
     const atual = useRef(null)
 
+    const callModal = () => {
+        setRevisionDate(new Date())
+        setShowModal(true)
+    }
     useEffect(() => {
         const getItems = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         getItems()
@@ -98,7 +102,7 @@ export default function Schedule() {
                                 {c.items.map((x, index) => (
                                     <CardContent key={index} item={x} categoryId={c._id} revision={() => {
                                         setCurr({ categoryId: c._id, itemId: x._id })
-                                        setShowModal(true)
+                                        callModal()
                                     }} />
                                 ))}
                             </div>
