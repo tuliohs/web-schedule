@@ -10,7 +10,7 @@ import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
-import { LabelStateColor } from './Next'
+import { LabelStateColor } from './Next/Next'
 import Loading from 'utils/Loading'
 
 const CardContent = ({ categoryId, item, revision }) => {

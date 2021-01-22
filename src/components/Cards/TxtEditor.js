@@ -1,26 +1,28 @@
-import React from "react";
-import { Editor, EditorState, RichUtils } from "draft-js";
+import React, { useState, useEffect, useRef } from "react";
+import { /* Editor, EditorState,*/ RichUtils } from "draft-js";
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 import styled from 'styled-components'
 
 const Styles = styled.div`
 .editorContainer {
-    padding: 4em 10px 10px 10px;
+    padding: 2em 5px 5px 5px;
     margin: 10px;
-    height: 100%;
     position: relative;
+    
+  width: 100%;
   }
   
   .editors {
     border: 1px transparent solid;
-    padding: 20px 20px 20px 20px;
     margin: 1.25em;
     font-size: 1.1em;
     border-radius: 6px;
     text-align: left;
     line-height: 1.25em;
     color: black;
-    min-height: 200px;
-    position: relative;
+    min-height: 100px;
   }
   
   .buttonMenu {
@@ -112,56 +114,60 @@ const Styles = styled.div`
   }
   
 `
-export default class TxtEditor extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            editorState: EditorState.createEmpty()
-        };
-    }
+export default function TxtEditor({ setEditorState, editorState }) {
 
-    onChange = editorState => this.setState({ editorState });
+  //import { stateToHTML } from 'draft-js-export-html';
+  //stateToHTML(revisonNote.getCurrentContent()),
+  //const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  //const handleKeyCommand = command => {
+  //  const newState = RichUtils.handleKeyCommand(
+  //    editorState,
+  //    command
+  //  );
+  //  if (newState) {
+  //    setEditorState(newState);
+  //    return "handled";
+  //  }
+  //  return "not-handled";
+  //};
 
-    handleKeyCommand = command => {
-        const newState = RichUtils.handleKeyCommand(
-            this.state.editorState,
-            command
-        );
-        if (newState) {
-            this.onChange(newState);
-            return "handled";
-        }
-        return "not-handled";
-    };
-
-    onUnderlineClick = () => this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "UNDERLINE"))
-    onBoldClick = () => this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
-    onItalicClick = () => this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC"));
-
-    render() {
-        return (
-            <Styles>
-                <div className="editorContainer">
-                    <button onClick={this.onUnderlineClick}>U</button>
-                    <button onClick={this.onBoldClick}>
-                        <b>B</b>
-                    </button>
-                    <button onClick={this.onItalicClick}>
-                        <em>I</em>
-                    </button>
-                    <div className="editors">
-                        <Editor
-                            editorState={this.state.editorState}
-                            handleKeyCommand={this.handleKeyCommand}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                </div>
-            </Styles>
-        );
-    }
+  //const onUnderlineClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"))
+  //const onBoldClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
+  //const onItalicClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
+  //const editor = useRef(null);
+  //const focusEditor = () => editor.current.focus()
+  //useEffect(() => {
+  //  focusEditor()
+  //}, []);
+  const [showOptions, setShowOptions] = useState(false)
+  return (
+    //<Styles>
+    <div className="editorContainer">
+      {/*<button onClick={onUnderlineClick}>U</button>
+      <button onClick={onBoldClick}>
+        <b>B</b>
+      </button>
+      <button onClick={onItalicClick}>
+        <em>I</em>
+      </button>*/}
+      <div className="editors"
+      // onClick={focusEditor}
+      >
+        <Editor
+          //ref={editor}
+          editorState={editorState}
+          //handleKeyCommand={handleKeyCommand}
+          onEditorStateChange={setEditorState}
+          toolbarClassName="toolbarClassName"
+          wrapperClassName="wrapperClassName"
+          editorClassName="editorClassName"
+          toolbar={{
+            options: !showOptions ? ['inline', 'link'] : ['blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'embedded', 'emoji', 'image', 'remove', 'history', 'inline']
+          }}
+          toolbarCustomButtons={<button>ok</button>}
+        />
+      </div>
+    </div>
+    //</Styles>
+  );
 }
-
-
-
-

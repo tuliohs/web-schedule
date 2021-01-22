@@ -5,7 +5,7 @@ import "./ModalSmall.css"
 import "./DatePicker.less"
 import TxtEditor from 'components/Cards/TxtEditor'
 
-export default function ModalSmall({ title, content, showModal, setShowModal, text, setText, action, revisionDate, setRevisionDate, item }) {
+export default function ModalSmall({ title, content, showModal, setShowModal, editorState, setEditorState, action, revisionDate, setRevisionDate, item }) {
     return (
         <>
             {showModal ? (
@@ -41,7 +41,7 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                 <div className="relative p-6 flex-auto ajustc">
                                     <div className="mb-3 pt-0">
 
-                                        <div className="flex items-center  justify-between m-24 pb-16"
+                                        <div className="flex items-center  justify-between m-24"
                                             style={{ margin: "5%" }}
                                         >
 
@@ -66,12 +66,12 @@ export default function ModalSmall({ title, content, showModal, setShowModal, te
                                                 </main>
                                             </div>
                                         </div>
-                                        <TxtEditor />
-                                        <textarea autoFocus={true} type="text" placeholder="Insert one note about your revision"
+                                        <TxtEditor setEditorState={setEditorState} editorState={editorState} />
+                                        {/*<textarea autoFocus={true} type="text" placeholder="Insert one note about your revision"
                                             value={text ?? undefined}
                                             //ref={refField}
                                             onChange={e => setText(e.target.value)}
-                                            className="px-3 py-4 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline w-full" />
+                                            className="px-3 py-4 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline w-full" />*/}
                                     </div>
                                     <p className="my-4 text-gray-600 text-lg leading-relaxed">
                                         {content}

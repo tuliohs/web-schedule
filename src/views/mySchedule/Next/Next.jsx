@@ -3,6 +3,8 @@ import { obterNextSchedule, newRevision } from 'api/mySchedule'
 
 import moment from 'moment'
 import axios from 'axios'
+import { EditorState /*, convertToRaw*/ } from "draft-js";
+import { stateToHTML } from 'draft-js-export-html';
 //import { Animated } from "react-animated-css";
 
 //components
@@ -188,7 +190,7 @@ export default function Next() {
     const [loading, setLoading] = useState(false);
 
     const [revisionDate, setRevisionDate] = useState(new Date());
-    const [revisonNote, setRevisionNote] = useState('')
+    const [revisonNote, setRevisionNote] = useState(EditorState.createEmpty())
 
     const [showCard, setShowCard] = useState(true)
     const [showAnimation, setShowAnimation] = useState(false)
@@ -196,6 +198,7 @@ export default function Next() {
     const callModal = () => {
         setRevisionDate(new Date())
         setShowModal(true)
+        setRevisionNote(EditorState.createEmpty())
     }
     const [curr, setCurr] = useState({})
     const nextHandler = useCallback(async () => {
@@ -220,9 +223,9 @@ export default function Next() {
 
     const newReviewModal = useCallback(async () => {
         setShowModal(false)
-        await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
+        await newRevision({ curr: curr, revisonNote: stateToHTML(revisonNote.getCurrentContent()), revisionDate: revisionDate })
             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
-            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+            .catch(e => setMessage({ type: 'danger', text: e?.message }))
         setRevisionNote(null)
         //implement animations
         setShowCard(false)
@@ -237,8 +240,8 @@ export default function Next() {
     return (
         <>
             <div>
-                <ModalSmall title="New Revision" setShowModal={setShowModal} showModal={showModal} text={revisonNote}
-                    setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
+                <ModalSmall title="New Revision" setShowModal={setShowModal} showModal={showModal} editorState={revisonNote}
+                    setEditorState={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
                     refer={focusTextArea}
                     action={newReviewModal}
                     item={data.filter(a => a?.item?._id === curr?.itemId).map(c => { return c?.item })}
@@ -246,7 +249,6 @@ export default function Next() {
                 {/*<ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />*/}
 
                 {data.filter(a => showAnimation ? a.item?._id !== curr.itemId : a.item?._id)
-
                     .map((c, index) => <CardContent item={c}
                         key={index}
                         current={curr}

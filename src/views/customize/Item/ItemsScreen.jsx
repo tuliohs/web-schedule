@@ -23,9 +23,11 @@ export default function ItemsScreen() {
     const [itemCurrentAction, setItemCurrentAction] = useState({})
 
     const getDados = useCallback(async () => await obterScheduleItems().then(c => {
-        //setTabdata({})
         setData(c.data)
     }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
+
+    const selectFirstCategory = async () => { setCurrentCat(dados.filter(x => x.topic?._id === currentTopic).find(x => x !== undefined)?._id) }
+    const selectFirstTopic = async () => { setCurrentTopic(topic[0]?._id) }
 
     useEffect(() => {
         const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
@@ -34,16 +36,14 @@ export default function ItemsScreen() {
     }, [setMessage, getDados])
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
-        if (currentTopic) return //não fazer ada quando já houver um item selecionado
-        const a = async () => { setCurrentTopic(topic[0]?._id) }
+        if (!currentTopic) selectFirstTopic()
+        else selectFirstCategory()
         //const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
-        a()
     }, [topic, currentTopic])
 
-    useEffect(() => {//'''SEMPRE''''  quando o tema for alterado => selecionar a primeira categoria como default
-        if (currentCat) return
-        const a = async () => { setCurrentCat(dados.filter(x => x.topic?._id === currentTopic).find(x => x !== undefined)?._id) }
-        a()
+    useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
+        if (!currentCat)
+            selectFirstCategory()
     }, [currentTopic, dados, currentCat])
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela

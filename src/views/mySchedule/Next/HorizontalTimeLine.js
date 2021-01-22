@@ -132,7 +132,8 @@ export default function HorizontalTimeLine({ itemRevision }) {
             <Animated animationIn="bounceInRight" animationInDuration={500} isVisible={isVisible}>
               <div>
                 <h1 className="dateCurrent">{moment(atual.item?.revisionDate).format('MMM-DD HH:mm')}</h1>
-                <p className="noteCurrent">{atual.item?.note}</p>
+                <p className="noteCurrent" dangerouslySetInnerHTML={{ __html: atual.item?.note }} />
+
               </div>
             </Animated>
           </ul>

@@ -2,21 +2,18 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 // components
-
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import HeaderDefault from "components/Headers/HeaderDefault.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
-
 import Schedule from 'views/mySchedule/Schedule'
-import Revision from 'views/mySchedule/Revision'
-import Next from 'views/mySchedule/Next'
+import Revision from 'views/mySchedule/Revision/Revision'
+import Next from 'views/mySchedule/Next/Next'
 import Statistics from 'views/mySchedule/Statistics/Statistics'
 //import NotFound from 'utils/NotFound'
 //import RoutesPrivate from 'utils/Private/RoutesPrivate'
-
 
 export default function MySchedule() {
     return (
