@@ -3,7 +3,7 @@ import React from 'react'
 import DateTimePicker from 'react-datetime-picker';
 import "./ModalSmall.css"
 import "./DatePicker.less"
-import TxtEditor from 'components/Cards/TxtEditor'
+import TxtEditor from 'components/Inputs/TxtEditor'
 
 export default function ModalSmall({ title, content, showModal, setShowModal, editorState, setEditorState, action, revisionDate, setRevisionDate, item }) {
     return (

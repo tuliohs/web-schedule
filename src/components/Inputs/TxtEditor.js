@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { /* Editor, EditorState,*/ RichUtils } from "draft-js";
+import React, { useState, useEffect, createRef } from "react";
+import { RichUtils } from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import styled from 'styled-components'
+import HideEditor from "components/Inputs/HideEditor";
 
 const Styles = styled.div`
 .editorContainer {
@@ -16,7 +17,7 @@ const Styles = styled.div`
   
   .editors {
     border: 1px transparent solid;
-    margin: 1.25em;
+    /*margin: 1.25em;*/
     font-size: 1.1em;
     border-radius: 6px;
     text-align: left;
@@ -131,43 +132,40 @@ export default function TxtEditor({ setEditorState, editorState }) {
   //  return "not-handled";
   //};
 
-  //const onUnderlineClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"))
-  //const onBoldClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
-  //const onItalicClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
-  //const editor = useRef(null);
-  //const focusEditor = () => editor.current.focus()
-  //useEffect(() => {
-  //  focusEditor()
-  //}, []);
+  const onUnderlineClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"))
+  const onBoldClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
+  const onItalicClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
+  const editor = createRef(null);
+  const focusEditor = () => editor.current.focusEditor()
+  useEffect(() => focusEditor(), [editorState])
+
   const [showOptions, setShowOptions] = useState(false)
+  const handlerHide = () => setShowOptions(!showOptions)
+
   return (
-    //<Styles>
-    <div className="editorContainer">
-      {/*<button onClick={onUnderlineClick}>U</button>
-      <button onClick={onBoldClick}>
-        <b>B</b>
-      </button>
-      <button onClick={onItalicClick}>
-        <em>I</em>
-      </button>*/}
-      <div className="editors"
-      // onClick={focusEditor}
-      >
-        <Editor
-          //ref={editor}
-          editorState={editorState}
-          //handleKeyCommand={handleKeyCommand}
-          onEditorStateChange={setEditorState}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-          toolbar={{
-            options: !showOptions ? ['inline', 'link'] : ['blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'embedded', 'emoji', 'image', 'remove', 'history', 'inline']
-          }}
-          toolbarCustomButtons={<button>ok</button>}
-        />
+    <Styles>
+      <div className="editorContainer">
+        {!showOptions && <div>
+          <button onClick={onUnderlineClick}>U</button>
+          <button onClick={onBoldClick}><b>B</b></button>
+          <button onClick={onItalicClick}><em>I</em></button>
+          <button onClick={handlerHide}>expand</button>
+        </div>}
+        <div className="editors">
+          <Editor
+            ref={editor}
+            editorState={editorState}
+            //handleKeyCommand={handleKeyCommand}
+            onEditorStateChange={setEditorState}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            toolbar={{ options: ['blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'embedded', 'emoji', 'image', 'remove', 'history', 'inline'] }}
+            toolbarCustomButtons={[<HideEditor setHide={handlerHide} />]}
+            toolbarHidden={!showOptions}
+          />
+        </div>
       </div>
-    </div>
-    //</Styles>
+    </Styles>
   );
 }

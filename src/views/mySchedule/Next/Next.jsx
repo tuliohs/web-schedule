@@ -17,7 +17,6 @@ import PublicIcon from '@material-ui/icons/Public';
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import HourglassFullTwoTone from '@material-ui/icons/HourglassFullTwoTone';
 
-
 export const LabelStateColor = ({ state, color }) => {
     return (<>
         <p className="mt-2 mb-4 text-gray-600">
@@ -247,7 +246,6 @@ export default function Next() {
                     item={data.filter(a => a?.item?._id === curr?.itemId).map(c => { return c?.item })}
                 />
                 {/*<ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />*/}
-
                 {data.filter(a => showAnimation ? a.item?._id !== curr.itemId : a.item?._id)
                     .map((c, index) => <CardContent item={c}
                         key={index}

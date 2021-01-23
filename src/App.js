@@ -29,6 +29,16 @@ import NotFound from 'utils/NotFound'
 const defaultMessage = { type: 'sucess', text: 'sucess' }
 const App = () => {
 
+    //{ JS CONFIG
+    //    "compilerOptions": {
+    //      "baseUrl": "src",
+    //      "paths": {
+    //        "*": ["src/*"]
+    //      }
+    //    }
+    //  }
+
+
     const [showAlert, setShowAlert] = useState(false);
     const [message, setMessage] = useState(defaultMessage);
     useEffect(() => {
