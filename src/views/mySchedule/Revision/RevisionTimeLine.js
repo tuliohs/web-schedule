@@ -20,7 +20,7 @@ export default function TimeLine({ itemRevision }) {
                 >
                     <h3 className="vertical-timeline-element-title">{c?.item?.title}</h3>
                     {/*<h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>*/}
-                    <p>{c.note}</p>
+                    <p dangerouslySetInnerHTML={{ __html: c.note }}></p>
                 </VerticalTimelineElement>
             )}
             {/*last element for complementary content*/}

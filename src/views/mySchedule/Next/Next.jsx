@@ -95,6 +95,11 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
                 console.log(c?.data?.items)
             })
     }
+    const onClickReview = () => {
+        setShowDetail(false)
+        setShowRevisions(false)
+        revisionHanlder()
+    }
     return (
         //<Animated animationIn="fadeIn" animationOut="slideOutUp" animationInDuration={0} animationOutDuration={700}
         //    isVisible={!showCard && current.itemId === item.item._id ? false : true}>
@@ -125,7 +130,7 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
                         className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-teal-500 active:bg-teal-600 ease-linear transition-all duration-150`}
                         type="button"
                         style={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                        onClick={revisionHanlder}
+                        onClick={onClickReview}
                     >New Revision</button>
                     <i style={{ marginLeft: 'auto', marginRight: 8 }} onClick={detailHandler}><PublicIcon /></i>
                     <i onClick={reviewsHandler}><HourglassFullTwoTone /></i>
@@ -133,7 +138,7 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
                     <form>
                         <div className="relative flex w-full flex-wrap items-stretch mb-3">
                             <input type="text" onChange={e => setWorldSearch(e.target.value)} placeholder="Search" className="px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pr-10" />
-                            <button onClick={e => searchWord(e)} type="submit" className="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-2 py-1">
+                            <button onClick={e => searchWord(e)} type="submit" className="z-10 h-full leading-snug font-normal text-center text-gray-400 bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-2 py-1">
                                 <i className="fas fa-search"></i>
                             </button >
                         </div>
@@ -194,7 +199,8 @@ export default function Next() {
     const [showCard, setShowCard] = useState(true)
     const [showAnimation, setShowAnimation] = useState(false)
 
-    const callModal = () => {
+    const callModal = ({ categoryId, itemId }) => {
+        setCurr({ categoryId: categoryId, itemId: itemId })
         setRevisionDate(new Date())
         setShowModal(true)
         setRevisionNote(EditorState.createEmpty())
@@ -254,8 +260,7 @@ export default function Next() {
                         showCard={showCard} setShowCard={setShowCard}
                         revisionHanlder={() => {
                             //Alterando as propriedades para o item atual
-                            setCurr({ categoryId: c.categoryId, itemId: c.item._id })
-                            callModal()
+                            callModal({ categoryId: c.categoryId, itemId: c.item._id })
                             //focusTextArea.current.focus()
                         }}
                     />)}

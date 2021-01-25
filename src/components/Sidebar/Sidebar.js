@@ -87,10 +87,10 @@ export default function Sidebar() {
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <ItemBar path="/myschedule/schedule" name="Schedule" />
-              <ItemBar path="/myschedule/next" name="Next" faIcon="stopwatch" />
-              <ItemBar path="/myschedule/revision" name="Revision" faIcon="history" />
-              <ItemBar path="/myschedule/statistics" name="Statistics" faIcon="chart-bar" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/schedule" name="Schedule" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/next" name="Next" faIcon="stopwatch" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/revision" name="Revision" faIcon="history" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/statistics" name="Statistics" faIcon="chart-bar" />
             </ul>
 
             {/*---------------------------------CUSTOMIZE-------------------------------------*/}
@@ -125,7 +125,7 @@ export default function Sidebar() {
                   Topics
                 </Link>
               </li>
-              <ItemBar path="/customize/profile" name="Profile" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/customize/profile" name="Profile" />
 
             </ul>
 

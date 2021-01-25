@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { FunctionComponent, SetStateAction } from 'react'
 
 import { Link, useLocation } from "react-router-dom";
 
+interface MyProps {
+    name: string,
+    path: string,
+    faIcon: string,
+    setCollapseShow: React.Dispatch<SetStateAction<string>>
+}
 
-
-export default function ItemBar({ name, path, faIcon = 'tv' }) {
+const ItemBar: FunctionComponent<MyProps> = ({ name, path, faIcon = "tv", setCollapseShow }) => {
     const location = useLocation()
 
     return (
@@ -17,6 +22,7 @@ export default function ItemBar({ name, path, faIcon = 'tv' }) {
                         : "text-gray-800 hover:text-gray-600")
                 }
                 to={path}
+                onClick={() => setCollapseShow("hidden")}
             >
                 <i
                     className={
@@ -31,3 +37,5 @@ export default function ItemBar({ name, path, faIcon = 'tv' }) {
         </li>
     )
 }
+
+export default ItemBar

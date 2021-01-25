@@ -12,8 +12,15 @@ import ModalSmall from 'components/Modals/ModalSmall'
 import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import { LabelStateColor } from './Next/Next'
 import Loading from 'utils/Loading'
-
+import DefaultDropDown from './Schedule/DefaultDropDown'
+export const items = [
+    { id: 1, value: "Beginner" },
+    { id: 2, value: "Easy" },
+    { id: 3, value: "Normal" },
+    { id: 4, value: "Hard" },
+    { id: 5, value: "Challenging" }]
 const CardContent = ({ categoryId, item, revision }) => {
+    const [level, setLevel] = useState('')
     return (
         <div className="w-full md:w-4/12 px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -33,6 +40,8 @@ const CardContent = ({ categoryId, item, revision }) => {
                     <h6 className="text-xl font-semibold">{item?.title}</h6>
                     <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
                     <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
+                    <DefaultDropDown items={items} firsrOrDefault={true} state={level} setState={setLevel} />
+
                     {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">Last Revision in <b>{moment(item.detail.lastDateReview).format('DD/MM/YYYY HH:mm')}</b></p>}
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
                     <div className="divhoverbutton">
