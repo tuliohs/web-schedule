@@ -10,9 +10,9 @@ import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
-import { LabelStateColor } from './Next/Next'
+import { LabelStateColor } from '../Next/Next'
 import Loading from 'utils/Loading'
-import DefaultDropDown from './Schedule/DefaultDropDown'
+import DefaultDropDown from './DefaultDropDown'
 export const items = [
     { id: 1, value: "Beginner" },
     { id: 2, value: "Easy" },

@@ -9,6 +9,7 @@ import TableEdit from "./TableEdit";
 import ControlledOpenSelect from "components/Dropdowns/ControlledOpenSelect";
 import StepMenu from '../StepMenu'
 import { submitDialog } from '../Topic/Topic'
+import Loading from 'utils/Loading'
 
 export default function ItemsScreen() {
 
@@ -93,7 +94,7 @@ export default function ItemsScreen() {
         <>
             <StepMenu defaultStepNum={2} />
             {
-                !dados ? null : <div className="flex flex-wrap justify-center">
+                !dados ? <Loading /> : <div className="flex flex-wrap justify-center">
                     <div className="flex justify-between flex-row flex-1 m-4 aling-center text-center items-center" >
                         <div className="flex justify-between flex-row p-6 flex-wrap">
                             <div className="m-2"><ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} /></div>
@@ -114,6 +115,7 @@ export default function ItemsScreen() {
                                 setItemCurrentAction={setItemCurrentAction}
                                 changeItemHandler={changeItemHandler}
                                 title="Items" data={Object.values(tabdata[0] || {})} />}
+                            {tabdata?.length === 0 ? <Loading /> : null}
                         </div>
                     </div>
                 </div>

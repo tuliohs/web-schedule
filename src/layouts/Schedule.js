@@ -8,7 +8,7 @@ import HeaderDefault from "components/Headers/HeaderDefault.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
-import Schedule from 'views/mySchedule/Schedule'
+import Schedule from 'views/mySchedule/Schedule/Schedule'
 import Revision from 'views/mySchedule/Revision/Revision'
 import Next from 'views/mySchedule/Next/Next'
 import Statistics from 'views/mySchedule/Statistics/Statistics'

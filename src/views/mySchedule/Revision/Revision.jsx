@@ -6,6 +6,7 @@ import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import RevisionTimeLine from './RevisionTimeLine'
+import Loading from 'utils/Loading'
 
 const CardContent = ({ title, description, revision }) => {
     return (
@@ -77,7 +78,7 @@ export default function Revision() {
                 }}
                     title={location.state?.item.title} description={location.state?.item.description} />
                 {
-                    !data ? null : <RevisionTimeLine itemRevision={data} />
+                    !data.length === 0 ? <Loading /> : <RevisionTimeLine itemRevision={data} />
                 }
             </div>
         </>

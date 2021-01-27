@@ -28,7 +28,7 @@ import NotFound from 'utils/NotFound'
 
 const defaultMessage = { type: 'sucess', text: 'sucess' }
 const App = () => {
-
+    console.log('env', process.env)
     //{ JS CONFIG
     //    "compilerOptions": {
     //      "baseUrl": "src",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { css } from "@emotion/core";
 import BeatLoader from "react-spinners/BeatLoader";
 
@@ -12,9 +12,12 @@ const override = css`
   position:relative;
 `;
 
-function Loading({ loading }) {
-    let [color/*, setColor*/] = useState(THEME.PRIMARY);
+interface LoadingProps {
+    loading: boolean
+}
 
+const Loading: FunctionComponent<LoadingProps> = ({ loading }) => {
+    let [color/*, setColor*/] = useState(THEME.PRIMARY);
     return (
         <div className="flex sweet-loading items-center mt-32">
             <BeatLoader color={color} loading={loading} css={override} size={50} />

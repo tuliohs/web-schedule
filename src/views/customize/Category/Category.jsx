@@ -7,6 +7,7 @@ import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import StepMenu from '../StepMenu'
 import ItemDialog from '../ItemDialog'
 import { submitDialog } from '../Topic/Topic'
+import Loading from 'utils/Loading'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -103,7 +104,7 @@ export default function Category() {
     return (
         <>
             <StepMenu defaultStepNum={1} />
-            {!dados ? null : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
+            {!dados ? <Loading /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <div className="flex items-center text-center content-center flex-row justify-between flex-1 m-4"  >
                     {/*<DropdownButton name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />*/}
                     <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />
@@ -116,7 +117,7 @@ export default function Category() {
                     </div>
                 </div>
                 <div className="w-full mb-12 px-4 flex flex-wrap justify-center" >
-                    {dados?.filter(w => w.topic?._id === currentTopic).map(c => (
+                    {dados?.length === 0 ? <Loading /> : dados?.filter(w => w.topic?._id === currentTopic).map(c => (
                         <CardContent key={c._id} category={c}
                             removeHandler={removeCategoryHandler} editHandler={editCategoryHandler}
                         />

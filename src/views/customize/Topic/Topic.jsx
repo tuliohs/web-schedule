@@ -9,9 +9,9 @@ import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ItemDialog from '../ItemDialog'
 import StepMenu from '../StepMenu'
-
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import Loading from 'utils/Loading'
 
 export const submitDialog = async ({ clickYes }) => {
     return confirmAlert({
@@ -121,7 +121,7 @@ export default function Topic() {
 
                 <div className="w-full mb-12 px-4">
                     <div>
-                        {!topic ? null : topic.map(c => <CardContent key={c._id} topic={c} removeHandler={removeTopicHandler} editHandler={editTopicHandler} getTopics={getTopics} />)}
+                        {topic?.length === 0 ? <Loading /> : topic.map(c => <CardContent key={c._id} topic={c} removeHandler={removeTopicHandler} editHandler={editTopicHandler} getTopics={getTopics} />)}
                     </div>
                 </div>
             </div>
