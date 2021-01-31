@@ -4,7 +4,9 @@ import useStorage from 'utils/hooks/useStorage'
 
 const StoreContext = createContext({
   token: null,
-  setToken: () => { },
+  setToken: (token) => { },
+  user: null,
+  setUser: (user) => { },
 })
 
 export default StoreContext;

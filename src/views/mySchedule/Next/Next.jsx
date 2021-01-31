@@ -12,10 +12,51 @@ import ModalSmall from 'components/Modals/ModalSmall'
 import DefaultContext from 'constants/data/DefaultContext'
 import HorizontalTimeLine from './HorizontalTimeLine'
 import Loading from 'utils/Loading'
+import styled from 'styled-components'
 
 import PublicIcon from '@material-ui/icons/Public';
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import HourglassFullTwoTone from '@material-ui/icons/HourglassFullTwoTone';
+
+const Styles = styled.div`
+
+width: 75px;
+height: 68px;
+    overflow: hidden;
+    position: absolute;
+    top: -3px;
+    right: -3px; 
+
+.ribbon:hover{
+    font-size: 15px;
+    opacity:0.7;
+}
+
+.ribbon {
+    padding: 0;
+    font-size: 0px;
+    display: block;
+    font-family: 'Segoe UI',Arial, sans-serif;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    position: relative;
+    padding: 7px 0;
+    left: -5px;
+    top: 15px;
+    width: 120px;
+    line-height: 3px; 
+    -webkit-box-shadow: 0px 0px 3px rgb(0 0 0 / 30%);
+    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 3px rgb(0 0 0 / 30%);
+    opacity:0.4;
+}
+
+`
 
 export const LabelStateColor = ({ state, color }) => {
     return (<>
@@ -103,18 +144,19 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
     return (
         //<Animated animationIn="fadeIn" animationOut="slideOutUp" animationInDuration={0} animationOutDuration={700}
         //    isVisible={!showCard && current.itemId === item.item._id ? false : true}>
-        <div className="items-center justify-center relative flex ">
-
-            <div style={{ maxWidth: '75rem' }} className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                {/*<canvas id="fake"></canvas>*/}
-                <div className="px-4 py-5 flex-auto flex flex-row flex-wrap">
+        <div className="items-center relative justify-center  flex ">
+            <div style={{ maxWidth: '75rem' }} className=" flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="transparent relative px-4 py-5 flex-auto flex flex-row flex-wrap">
+                    <Styles >
+                        <div className={"ribbon " + (item?.detail?.nextIsToday ? "bg-gray-900" : "bg-blue-600")}>{item?.detail?.nextIsToday && 'Today'}</div>
+                    </Styles>
                     {/*<div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                         <i className="fas fa-retweet"></i>
                     </div>*/}
                     {/*<h6 className="text-xl font-semibold">{title}</h6>*/}
                     <div style={{ width: '12em' }} className="mt-2 mb-4 text-gray-600"><b className="mr-2">{item?.item?.title}</b></div>
-
                     <p style={{ width: '18em' }} className="mt-2 mb-4 text-gray-600">Next Review:{' ' + moment(item?.detail?.nextReview).format('DD/MM/YYYY HH:mm')}</p>
+
                     <span style={{ width: '12em' }}>
                         <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
                     </span>
@@ -138,8 +180,8 @@ const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/
                     <form>
                         <div className="relative flex w-full flex-wrap items-stretch mb-3">
                             <input type="text" onChange={e => setWorldSearch(e.target.value)} placeholder="Search" className="px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pr-10" />
-                            <button onClick={e => searchWord(e)} type="submit" className="z-10 h-full leading-snug font-normal text-center text-gray-400 bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-2 py-1">
-                                <i className="fas fa-search"></i>
+                            <button onClick={e => searchWord(e)} type="submit" className="absolute z-10 h-full leading-snug font-normal text-center text-gray-400 bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-2 py-1">
+                                <div> <i className=" fas fa-search"></i></div>
                             </button >
                         </div>
                     </form>

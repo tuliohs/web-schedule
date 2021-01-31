@@ -44,7 +44,6 @@ export default function ModalSmall({ title, content, showModal, setShowModal, ed
                                         <div className="flex items-center  justify-between m-24"
                                             style={{ margin: "5%" }}
                                         >
-
                                             <span className="font-semibold text-xl ml-4">Date:</span>
                                             <div className="Sample__container">
                                                 <main className="Sample__container__content">

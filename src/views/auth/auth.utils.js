@@ -9,7 +9,7 @@ export const Header = ({ title }) => {
                 </h6>
             </div>
             <div className="btn-wrapper text-center">
-                <button
+                {/*<button
                     className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
                 >
@@ -30,10 +30,11 @@ export const Header = ({ title }) => {
                         src={require("assets/img/google.svg")}
                     />
         Google
-      </button>
+      </button>*/}
             </div>
             <hr className="mt-6 border-b-1 border-gray-400" />
-        </div>)
+        </div>
+    )
 }
 
 export const UserInput = ({ label, id, type, name, onChange, value, placeholder }) => {

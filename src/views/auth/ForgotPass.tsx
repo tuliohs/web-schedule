@@ -1,38 +1,39 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 
-import { login } from 'api/user.api.js'
+import { recoveryPass } from 'api/user.api.js'
 import { Header, UserInput } from './auth.utils'
 
 import StoreContext from 'constants/data/StoreContext'
 import DefaultContext from 'constants/data/DefaultContext'
 
 function initialState() {
-  return { email: '', password: '' };
+  return { email: '', emailRepeat: '' };
 }
 
-export default function Login() {
+const ForgotPass: FunctionComponent = () => {
   const [values, setValues] = useState(initialState);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   const { setMessage, } = useContext(DefaultContext);
   const { setToken, setUser } = useContext(StoreContext);
   const history = useHistory();
 
-  function onChange(event) {
+  const onChange: Function = (event: any): void => {
     const { value, name } = event.target;
     setValues({
       ...values,
       [name]: value
     });
   }
-  async function onSubmit(event) {
+  const onSubmit: Function = async (event: any) => {
     event.preventDefault();
-    await login(values).then(a => {
-      setUser(a.data?.user)
-      setToken(a?.data?.token)
-      return history.push('/myschedule/schedule')
+    if (values.email !== values.emailRepeat)
+      return setError('The typed emails are not the same');
+    await recoveryPass(values).then(a => {
+      setMessage({ type: 'sucess', text: a.data.message })
+      //return history.push('/myschedule/schedule')
     }).catch(er => {
       //console.log(er.message)
       setError(er?.toString())
@@ -48,7 +49,7 @@ export default function Login() {
           <div className="w-full lg:w-4/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
 
-              <Header title={"Sign in"/* with"*/} />
+              <Header title="Password Recovery" />
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <div className="text-gray-500 text-center mb-3 font-bold">
                   {/*<small>Or sign in with credentials</small>*/}
@@ -57,32 +58,19 @@ export default function Login() {
                   <UserInput label="Email" id="email" name="email" type="text"  //change type for the email
                     onChange={onChange} value={values.email} placeholder="Email"
                   />
-                  <UserInput label="Password" id="password" type="password" name="password"
-                    onChange={onChange} value={values.password} placeholder="Password"
+                  <UserInput label="Repeat Email" id="emailRepeat" name="emailRepeat" type="text"  //change type for the email
+                    onChange={onChange} value={values.emailRepeat} placeholder="Repeat the email again"
                   />
                   {error && (
                     <div className="user-login__error">{error}</div>
                   )}
-                  <div>
-                    <label className="inline-flex items-center cursor-pointer">
-                      <input
-                        id="customCheckLogin"
-                        type="checkbox"
-                        className="form-checkbox text-gray-800 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                      />
-                      <span className="ml-2 text-sm font-semibold text-gray-700">
-                        Remember me
-                      </span>
-                    </label>
-                  </div>
-
                   <div className="text-center mt-6">
                     <button
                       className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="submit"
-                    //onClick={onSubmit}
+                      onClick={e => onSubmit(e)}
                     >
-                      Sign In
+                      Send
                     </button>
                   </div>
                 </form>
@@ -95,8 +83,8 @@ export default function Login() {
                   //onClick={(e) => e.preventDefault()}
                   className="text-gray-300"
                 >
-                  <Link to="/auth/forgotpass" className="text-gray-300">
-                    <small>Forgot password?</small>
+                  <Link to="/auth/login" className="text-gray-300">
+                    <small>Sign In</small>
                   </Link>
                 </a>
               </div>
@@ -112,3 +100,5 @@ export default function Login() {
     </>
   );
 }
+
+export default ForgotPass

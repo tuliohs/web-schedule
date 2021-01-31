@@ -11,21 +11,21 @@ export default function FooterAdmin() {
               <div className="text-sm text-gray-600 font-semibold py-1 text-center md:text-left">
                 Copyright © {new Date().getFullYear()}{" "}
                 <a
-                  href="https://www.creative-tim.com?ref=nr-footer-admin"
+                  //href="https://www.creative-tim.com?ref=nr-footer-admin"
                   className="text-gray-600 hover:text-gray-800 text-sm font-semibold py-1"
                 >
-                  Creative Tim
+                  Forgetion
                 </a>
               </div>
             </div>
-            <div className="w-full md:w-8/12 px-4">
+            {/*<div className="w-full md:w-8/12 px-4">
               <ul className="flex flex-wrap list-none md:justify-end  justify-center">
                 <li>
                   <a
                     href="https://www.creative-tim.com?ref=nr-footer-admin"
                     className="text-gray-700 hover:text-gray-900 text-sm font-semibold block py-1 px-3"
                   >
-                    Creative Tim
+                    Forgetion
                   </a>
                 </li>
                 <li>
@@ -53,7 +53,7 @@ export default function FooterAdmin() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div>*/}
           </div>
         </div>
       </footer>

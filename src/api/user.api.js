@@ -16,3 +16,7 @@ export const getUser = async () => {
 export const changeUser = async (values) => {
     return await api.put(URL.USER, values)
 }
+
+export const recoveryPass = async (values) => {
+    return await api.post(URL.RECPASS, values)
+}

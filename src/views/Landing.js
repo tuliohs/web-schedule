@@ -143,18 +143,18 @@ export default function Landing() {
                       viewBox="0 0 583 95"
                       className="absolute left-0 w-full block h-95-px -top-94-px"
                     >
-                      <polygon
+                      {/*<polygon
                         points="-30,95 583,95 583,65"
                         className="text-blue-600 fill-current"
-                      ></polygon>
+                      ></polygon>*/}
                     </svg>
                     <h4 className="text-xl font-bold">
-                      Top Notch Services
+                      This is fantastic!
                     </h4>
                     <p className="text-md font-light mt-2">
-                      The Arctic Ocean freezes every winter and much of the
-                      sea-ice then thaws every summer, and that process will
-                      continue whatever happens.
+                      It is not about how much you learn, but how you learn.
+                      You are the most responsible for what you
+                      will retain for your mind.
                     </p>
                   </blockquote>
                 </div>

@@ -26,13 +26,13 @@ export default function Customize() {
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
-                        <Route path="/customize/topic" exact >
+                        <Route path="/customize/lab/topic" exact >
                             <Topic />
                         </Route>
-                        <Route path="/customize/item" exact >
+                        <Route path="/customize/lab/item" exact >
                             <ItemsScreen />
                         </Route>
-                        <Route path="/customize/category" exact >
+                        <Route path="/customize/lab/category" exact >
                             <Category />
                         </Route>
                         <Route path="/customize/profile" exact >

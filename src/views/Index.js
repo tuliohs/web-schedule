@@ -14,11 +14,10 @@ export default function Index() {
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
             <div className="pt-32 sm:pt-0">
               <h2 className="font-semibold text-4xl text-gray-700">
-                Notus React - A beautiful extension for Tailwind CSS.
+                Forgetion
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                Notus React is Free and Open Source. It does not change or add
-                any CSS to the already one from{" "}
+                Forgetion
                 <a
                   href="https://tailwindcss.com/?ref=creativetim"
                   className="text-gray-700"
@@ -122,8 +121,7 @@ export default function Index() {
                         CSS Components
                       </h6>
                       <p className="mb-4 text-gray-600">
-                        Notus React comes with a huge number of Fully Coded CSS
-                        components.
+                        Forgetion
                       </p>
                     </div>
                   </div>
@@ -496,9 +494,7 @@ export default function Index() {
           <div className="w-full md:w-6/12 px-12 md:px-4">
             <h2 className="font-semibold text-4xl">Beautiful Example Pages</h2>
             <p className="text-lg leading-relaxed mt-4 mb-4 text-gray-600">
-              Notus React is a completly new product built using our past
-              experience in web templates. Take the examples we made for you and
-              start playing with them.
+              Forgetion
             </p>
           </div>
         </div>

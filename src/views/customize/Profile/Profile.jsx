@@ -10,7 +10,6 @@ import CardSettings from "./CardSettings";
 import CardProfile from "./CardProfile.js";
 
 const defaultValues = {
-    userName: '',
     email: ''
 
 }
@@ -52,7 +51,7 @@ export default function Settings() {
         <>
             <div className="flex flex-wrap">
                 <div className="w-full lg:w-8/12 px-4">
-                    <CardSettings onChange={onChange} values={values} onSave={changeUserHandler} />
+                    <CardSettings onChange={onChange} setValues={setValues} values={values} onSave={changeUserHandler} />
                 </div>
                 <div className="w-full lg:w-4/12 px-4">
                     <CardProfile onChange={onChange} setValues={setValues} values={values} image={values?.imageData} />

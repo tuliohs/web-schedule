@@ -40,7 +40,7 @@ const CardContent = ({ categoryId, item, revision }) => {
                     <h6 className="text-xl font-semibold">{item?.title}</h6>
                     <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
                     <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
-                    <DefaultDropDown items={items} firsrOrDefault={true} state={level} setState={setLevel} />
+                    {/*<DefaultDropDown items={items} firsrOrDefault={true} state={level} setState={setLevel} />*/}
 
                     {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">Last Revision in <b>{moment(item.detail.lastDateReview).format('DD/MM/YYYY HH:mm')}</b></p>}
                     {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}

@@ -1,7 +1,7 @@
 let base = ""
 if (process.env.NODE_ENV === "development") {
-    //base = "http://localhost:9090"
-    base = 'http://45.90.108.173:9090'
+    base = "http://localhost:9090"
+    //base = 'http://45.90.108.173:9090'
 }
 else
     base = 'http://45.90.108.173:9090'
@@ -16,6 +16,7 @@ export const URL = {
     CHART: `${base}/v1/chart`,
     REGISTER: `${base}/v1/auth/register`,
     LOGIN: `${base}/v1/auth/authenticate`,
-    USER: `${base}/v1/auth/user`
+    USER: `${base}/v1/auth/user`,
+    RECPASS: `${base}/v1/auth/recpass`,
 }
 

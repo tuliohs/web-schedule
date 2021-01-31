@@ -132,12 +132,21 @@ export default function TxtEditor({ setEditorState, editorState }) {
   //  return "not-handled";
   //};
 
-  const onUnderlineClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"))
-  const onBoldClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
-  const onItalicClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
+  const onUnderlineClick = () => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"))
+    focusEditor()
+  }
+  const onBoldClick = () => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
+    focusEditor()
+  }
+  const onItalicClick = () => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
+    focusEditor()
+  }
   const editor = createRef(null);
   const focusEditor = () => editor.current.focusEditor()
-  useEffect(() => focusEditor(), [editorState])
+  //useEffect(() => focusEditor(), [editorState])
 
   const [showOptions, setShowOptions] = useState(false)
   const handlerHide = () => setShowOptions(!showOptions)
@@ -152,6 +161,7 @@ export default function TxtEditor({ setEditorState, editorState }) {
           <button onClick={handlerHide}>expand</button>
         </div>}
         <div className="editors">
+          {console.log(editorState)}
           <Editor
             ref={editor}
             editorState={editorState}

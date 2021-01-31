@@ -4,37 +4,37 @@ import { Link } from "react-router-dom";
 
 // components
 
-import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
+//import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <Link
-              className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase"
-              to="/"
-            >
-              Notus React
+        <div className="container px-4 mx-auto flex  items-center justify-between">
+          {/*<div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">*/}
+          <Link
+            className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase"
+            to="/"
+          >
+            Forgetion
             </Link>
-            <button
+          {/*<button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               <i className="text-white fas fa-bars"></i>
-            </button>
-          </div>
+            </button>*/}
+          {/*</div>
           <div
             className={
-              "lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none" +
-              (navbarOpen ? " block rounded shadow-lg" : " hidden")
+              //"lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none" +
+              ("")
             }
             id="example-navbar-warning"
-          >
-            {/*<ul className="flex flex-col lg:flex-row list-none mr-auto">
+          >*/}
+          {/*<ul className="flex flex-col lg:flex-row list-none mr-auto">
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
@@ -45,17 +45,17 @@ export default function Navbar(props) {
                 </a>
               </li>
             </ul>*/}
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="flex items-center">
-                {/*<PagesDropdown />*/}
-                <a
-                  className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="/myschedule/schedule"
-                >
-                  Acess
+          {/*<ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+              <li className="flex items-center">*/}
+          {/*<PagesDropdown />*/}
+          <a
+            className="lg:text-white lg:hover:text-gray-300 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+            href="/myschedule/schedule"
+          >
+            Acess
       </a>
-              </li>
-              {/*<li className="flex items-center">
+          {/*</li>*/}
+          {/*<li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-react%2F%23%2F"
@@ -66,7 +66,7 @@ export default function Navbar(props) {
                 </a>
               </li>*/}
 
-              {/*<li className="flex items-center">
+          {/*<li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-react%2F%23%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20React%20UI%20Kit%20and%20Admin.%20Let%20Notus%20React%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level.%20"
@@ -88,7 +88,7 @@ export default function Navbar(props) {
                 </a>
               </li>*/}
 
-              {/*<li className="flex items-center">
+          {/*<li className="flex items-center">
                 <button
                   className="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                   type="button"
@@ -96,8 +96,8 @@ export default function Navbar(props) {
                   <i className="fas fa-arrow-alt-circle-down"></i> Download
                 </button>
               </li>*/}
-            </ul>
-          </div>
+          {/*</ul>*/}
+          {/*</div>*/}
         </div>
       </nav>
     </>

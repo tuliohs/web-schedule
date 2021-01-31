@@ -86,27 +86,9 @@ const UserDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
           }
-          onClick={(e) => logoutHandler(e)}
-        >
-          Logout
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
-          }
           onClick={(e) => editProfileHandler(e)}
         >
           Edit Profile
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Something else here
         </a>
         <div className="h-0 my-2 border border-solid border-gray-200" />
         <a
@@ -114,10 +96,29 @@ const UserDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
           }
+          onClick={(e) => logoutHandler(e)}
+        >
+          Logout
+        </a>
+
+        {/*<a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
+          }
+          onClick={(e) => e.preventDefault()}
+        >
+          Something else here
+        </a>*/}
+        {/*<a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
+          }
           onClick={(e) => e.preventDefault()}
         >
           Seprated link
-        </a>
+        </a>*/}
       </div>
     </>
   );

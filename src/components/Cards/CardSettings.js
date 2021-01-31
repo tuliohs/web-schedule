@@ -29,7 +29,7 @@ export default function CardSettings() {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Username
+                    Phone Number
                   </label>
                   <input
                     type="text"

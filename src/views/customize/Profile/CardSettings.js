@@ -1,16 +1,24 @@
 import React from "react";
 
 import { UserInput } from 'views/auth/auth.utils'
+import { ProfilePicture } from './CardProfile'
 
+import { Link } from 'react-router-dom';
 // components
 
-export default function CardSettings({ onChange, values, onSave }) {
+export default function CardSettings({ setValues, onChange, values, onSave, title = "My account", showImage = false, linkLater }) {
+    const changeImage = ({ field, value }) => {
+        setValues({
+            ...values,
+            [field]: value
+        })
+    }
     return (
         <>
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
                 <div className="rounded-t bg-white mb-0 px-6 py-6">
                     <div className="text-center flex justify-between">
-                        <h6 className="text-gray-800 text-xl font-bold">My account</h6>
+                        <h6 className="text-gray-800 text-xl font-bold"> {title}</h6>
                         {/*<button
                             className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                             type="button"
@@ -26,13 +34,13 @@ export default function CardSettings({ onChange, values, onSave }) {
             </h6>
                         <div className="flex flex-wrap">
                             <div className="w-full lg:w-6/12 px-4">
-                                <UserInput label="Username" id="userName" type="text" name="userName"
-                                    onChange={onChange} value={values.userName} placeholder="Username"
+                                <UserInput label="Email address" id="email" type="text" name="email"
+                                    onChange={onChange} value={values.email} placeholder="Email address"
                                 />
                             </div>
                             <div className="w-full lg:w-6/12 px-4">
-                                <UserInput label="Email address" id="email" type="text" name="email"
-                                    onChange={onChange} value={values.email} placeholder="Email address"
+                                <UserInput label="Phone Number" id="phone" type="text" name="phone"
+                                    onChange={onChange} value={values.phone} placeholder="Phone Number"
                                 />
                             </div>
                             <div className="w-full lg:w-6/12 px-4">
@@ -99,14 +107,30 @@ export default function CardSettings({ onChange, values, onSave }) {
                                     ></textarea>
                                 </div>
                             </div>
-                            <div className="w-full rounded-t mb-0 px-6 py-6 text-right">
-                                <button
-                                    className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                    type="button"
-                                    onClick={onSave}
-                                >
-                                    Save
-            </button>
+                            {showImage &&
+                                <ProfilePicture values={values}
+                                    image={values?.imageData}
+                                    changeImage={changeImage}
+                                    avatarCircle={false}
+                                />
+                            }
+                            <div className="w-full rounded-t mb-0 px-6 py-6 flex" >
+                                {linkLater &&
+                                    <Link to={linkLater}>
+                                        <button
+                                            className="bg-gray-500 active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                            type="button"
+                                            onClick={onSave}
+                                        >Later</button>
+                                    </Link>}
+                                <div className="text-right w-full">
+                                    <button
+                                        className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                        type="button"
+                                        onClick={onSave}
+                                    >Save</button>
+                                </div>
+
                             </div>
                         </div>
                     </form>
