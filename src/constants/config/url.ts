@@ -18,5 +18,6 @@ export const URL = {
     LOGIN: `${base}/v1/auth/authenticate`,
     USER: `${base}/v1/auth/user`,
     RECPASS: `${base}/v1/auth/recpass`,
+    EMPTY: `${base}/v1/schedule/empty`,
 }
 

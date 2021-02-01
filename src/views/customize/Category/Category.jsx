@@ -8,6 +8,7 @@ import StepMenu from '../StepMenu'
 import ItemDialog from '../ItemDialog'
 import { submitDialog } from '../Topic/Topic'
 import Loading from 'utils/Loading'
+import Empty from 'utils/Empty'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -42,6 +43,7 @@ export default function Category() {
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     //const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
@@ -77,7 +79,10 @@ export default function Category() {
             }).catch(e => setMessage({ type: 'danger', text: e }))
 
     useEffect(() => {
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
+        const getTopics = async () => await obterTemas().then(c => {
+            setTopic(c.data)
+            setLoading(false)
+        }).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
     }, [setMessage, getDados])
@@ -117,12 +122,13 @@ export default function Category() {
                     </div>
                 </div>
                 <div className="w-full mb-12 px-4 flex flex-wrap justify-center" >
-                    {dados?.length === 0 ? <Loading /> : dados?.filter(w => w.topic?._id === currentTopic).map(c => (
+                    {dados?.length === 0 ? <Loading loading={loading} /> : dados?.filter(w => w.topic?._id === currentTopic).map(c => (
                         <CardContent key={c._id} category={c}
                             removeHandler={removeCategoryHandler} editHandler={editCategoryHandler}
                         />
                     ))}
                 </div>
+                <Empty />
             </div>}
         </>
     );

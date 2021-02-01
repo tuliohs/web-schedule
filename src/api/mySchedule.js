@@ -88,3 +88,5 @@ export const editTopic = async ({ item, image }) => {
 }
 
 export const obterAllRevision = async () => { return await api.get(URL.REVIEW) }
+
+export const obterEmpty = async () => { return await api.get(URL.EMPTY) }

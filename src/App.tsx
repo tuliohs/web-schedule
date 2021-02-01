@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 
 import {
     BrowserRouter as Router, Route, Switch
@@ -20,13 +20,13 @@ import Landing from "views/Landing.js";
 import LandingOld from "views/LandingOld.js";
 import Profile from "views/Profile.js";
 
-import DefaultContext from 'constants/data/DefaultContext'
+import DefaultContext, { TMessage, DefaultProvider, EEmpty } from 'constants/data/DefaultContext'
 import { StoreProvider } from 'constants/data/StoreContext'
 import AlertDynamic from 'components/Notifications/AlertDynamic'
 import RoutesPrivate from 'utils/Private/RoutesPrivate'
 import NotFound from 'utils/NotFound'
 
-const defaultMessage = { type: 'sucess', text: 'sucess' }
+const defaultMessage: TMessage = { type: 'sucess', text: 'sucess' }
 const App = () => {
     //{ JS CONFIG
     //    "compilerOptions": {
@@ -36,16 +36,16 @@ const App = () => {
     //      }
     //    }
     //  }
+    const [empType, setEmpType] = useState<EEmpty>(EEmpty.Valid)
+    const [showAlert, setShowAlert] = useState<boolean>(false);
 
-
-    const [showAlert, setShowAlert] = useState(false);
-    const [message, setMessage] = useState(defaultMessage);
+    const [message, setMessage] = useState<TMessage>(defaultMessage);
     useEffect(() => {
         if (message !== defaultMessage)
             setShowAlert(true)
     }, [message])
     return (
-        <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage }}>
+        <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage, empType, setEmpType }}>
             {/*inicio das rotas*/}
             <Router>
                 <StoreProvider>

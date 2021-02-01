@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "chart.js";
 
-export default function CardBarChart() {
+export default function CardBarChart({ avaiable = false }) {
   React.useEffect(() => {
     let config = {
       type: "bar",
@@ -99,7 +99,7 @@ export default function CardBarChart() {
     window.myBar = new Chart(ctx, config);
   }, []);
 
-  const relativeProp = "" // relative
+  const relativeProp = !avaiable ? "" : "relative"
   return (
     <>
       {/*classe relative excluida*/}

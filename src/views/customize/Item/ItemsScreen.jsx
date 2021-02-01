@@ -10,12 +10,14 @@ import ControlledOpenSelect from "components/Dropdowns/ControlledOpenSelect";
 import StepMenu from '../StepMenu'
 import { submitDialog } from '../Topic/Topic'
 import Loading from 'utils/Loading'
+import Empty from 'utils/Empty'
 
 export default function ItemsScreen() {
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     const { setMessage } = useContext(DefaultContext);
 
@@ -31,7 +33,10 @@ export default function ItemsScreen() {
     const selectFirstTopic = async () => { setCurrentTopic(topic[0]?._id) }
 
     useEffect(() => {
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
+        const getTopics = async () => await obterTemas().then(c => {
+            setTopic(c.data)
+            setLoading(false)
+        }).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
     }, [setMessage, getDados])
@@ -87,8 +92,8 @@ export default function ItemsScreen() {
     }
 
     const _topic = topic.filter(a => a._id === currentTopic)[0]?.title
-    const _category = dados.filter(a => a._id === currentCat)[0]?.title ?? '...'
-    const topic_category = _topic + '> ' + _category
+    const _category = dados?.filter(a => a._id === currentCat)[0]?.title ?? '...'
+    const topic_category = _topic || '' + '> ' + _category
 
     return (
         <>
@@ -115,8 +120,9 @@ export default function ItemsScreen() {
                                 setItemCurrentAction={setItemCurrentAction}
                                 changeItemHandler={changeItemHandler}
                                 title="Items" data={Object.values(tabdata[0] || {})} />}
-                            {tabdata?.length === 0 ? <Loading /> : null}
+                            {tabdata?.length === 0 ? <Loading loading={loading} /> : null}
                         </div>
+                        <Empty />
                     </div>
                 </div>
             }

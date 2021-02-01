@@ -12,6 +12,7 @@ import ModalSmall from 'components/Modals/ModalSmall'
 import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import { LabelStateColor } from '../Next/Next'
 import Loading from 'utils/Loading'
+import Empty from 'utils/Empty'
 import DefaultDropDown from './DefaultDropDown'
 export const items = [
     { id: 1, value: "Beginner" },
@@ -58,6 +59,7 @@ export default function Schedule() {
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [topic, setTopic] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState(null)
@@ -73,7 +75,10 @@ export default function Schedule() {
     useEffect(() => {
         const getItems = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         getItems()
-        const getTopics = async () => await obterTemas().then(c => setTopic(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
+        const getTopics = async () => await obterTemas().then(c => {
+            setTopic(c.data)
+            setLoading(false)
+        }).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getTopics()
     }, [setMessage])
 
@@ -86,7 +91,7 @@ export default function Schedule() {
 
     return (
         <>
-            {data.length === 0 ? <Loading /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
+            {data.length === 0 ? <Loading loading={loading} /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal}
                     text={revisonNote} setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
                     item={data.filter(a => a?._id === curr?.categoryId)[0]?.items.filter(c => c?._id === curr?.itemId)}
@@ -118,6 +123,7 @@ export default function Schedule() {
                         </div>
                     ))}
             </div>}
+            <Empty />
         </>
     );
 }

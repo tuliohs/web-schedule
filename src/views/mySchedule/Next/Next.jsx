@@ -12,6 +12,7 @@ import ModalSmall from 'components/Modals/ModalSmall'
 import DefaultContext from 'constants/data/DefaultContext'
 import HorizontalTimeLine from './HorizontalTimeLine'
 import Loading from 'utils/Loading'
+import Empty from 'utils/Empty'
 import styled from 'styled-components'
 
 import PublicIcon from '@material-ui/icons/Public';
@@ -294,7 +295,7 @@ export default function Next() {
                     item={data.filter(a => a?.item?._id === curr?.itemId).map(c => { return c?.item })}
                 />
                 {/*<ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />*/}
-                {data.length === 0 ? <Loading /> : data.filter(a => showAnimation ? a.item?._id !== curr.itemId : a.item?._id)
+                {data.length === 0 ? <Loading loading={loading} /> : data.filter(a => showAnimation ? a.item?._id !== curr.itemId : a.item?._id)
                     .map((c, index) => <CardContent item={c}
                         key={index}
                         current={curr}
@@ -306,6 +307,7 @@ export default function Next() {
                             //focusTextArea.current.focus()
                         }}
                     />)}
+                <Empty />
             </div>
         </>
     );

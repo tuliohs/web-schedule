@@ -12,6 +12,7 @@ import StepMenu from '../StepMenu'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Loading from 'utils/Loading'
+import Empty from 'utils/Empty'
 
 export const submitDialog = async ({ clickYes }) => {
     return confirmAlert({
@@ -61,12 +62,15 @@ const CardContent = ({ topic, removeHandler, editHandler }) => {
 export default function Topic() {
 
     const [topic, setTopic] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    const { setMessage } = useContext(DefaultContext);
+    const { setMessage, empty, setEmpty } = useContext(DefaultContext);
+    console.log('setMessage', setMessage)
 
     const getTopics = useCallback(async () => {//show topics without data
         await obterTemas()
             .then(c => {
+                setLoading(false)
                 setTopic(c.data)
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }, [setMessage])
@@ -118,11 +122,15 @@ export default function Topic() {
                         btnLabel="Add Topic"
                     />
                 </div>
-
                 <div className="w-full mb-12 px-4">
                     <div>
-                        {topic?.length === 0 ? <Loading /> : topic.map(c => <CardContent key={c._id} topic={c} removeHandler={removeTopicHandler} editHandler={editTopicHandler} getTopics={getTopics} />)}
+                        {
+                            topic?.length === 0
+                                ? <Loading loading={loading} /> :
+                                topic.map(c => <CardContent key={c._id} topic={c} removeHandler={removeTopicHandler} editHandler={editTopicHandler} getTopics={getTopics} />)
+                        }
                     </div>
+                    <Empty />
                 </div>
             </div>
         </>

@@ -1,10 +1,7 @@
-import React from "react";
-
+import React, { useState, useEffect, useContext } from "react";
 import styled from 'styled-components'
-
-
+import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
 // components
-
 import CardLineChart from "components/Cards/CardLineChart.js";
 import CardBarChart from "components/Cards/CardBarChart.js";
 import CardPageVisits from "components/Cards/CardPageVisits.js";
@@ -25,12 +22,29 @@ text-align:center;
 justify-content:center;
 display:flex;
 `
+
 export default function Statistics() {
+    const [avLineChart, setAvLineChart] = useState(false)
+
+    const { empType } = useContext(DefaultContext);
+    console.log('s', empType, EEmpty.Valid)
+    useEffect(() => {
+        if (empType === EEmpty.Valid)
+            setAvLineChart(true)
+    }, [])
+
     return (
         <>
             <div className="flex flex-wrap">
                 <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-                    <CardLineChart />
+                    {avLineChart ?
+                        <CardLineChart avaiable={true} />
+                        : <Outside>
+                            <Inside className="items-center aling-center">
+                                Not Avaiable
+                        </Inside>
+                            <CardLineChart avaiable={false} />
+                        </Outside>}
                 </div>
                 <div className="w-full xl:w-4/12 px-4">
                     <Outside>
