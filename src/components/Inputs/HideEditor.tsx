@@ -1,21 +1,8 @@
-import React, { Component, useState, FunctionComponent } from 'react';
-import PropTypes from 'prop-types';
-import { EditorState, Modifier } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
+import React, { FunctionComponent } from 'react';
+//import PropTypes from 'prop-types';
+//import { EditorState, Modifier } from 'draft-js';
+//import { Editor } from 'react-draft-wysiwyg';
 
-interface MyProps {
-  //editorState: any,
-  //;  onChange: any,
-  //onChange: Function,
-  //editorState: object,
-  hidde: boolean,
-}
-interface MyState {
-  value: string
-}
-interface DivProps extends HTMLDivElement {
-  name: string
-}
 interface EditorProps {
   initial?: any,
   editorState: any,
@@ -25,15 +12,15 @@ interface EditorProps {
 
 const HideEditor: FunctionComponent<EditorProps> = ({ editorState, onChange, setHide }) => {
 
-  const addStar: Function = (): void => {
-    const contentState = Modifier.replaceText(
-      editorState.getCurrentContent(),
-      editorState.getSelection(),
-      '⭐',
-      editorState.getCurrentInlineStyle(),
-    );
-    onChange(EditorState.push(editorState, contentState, 'insert-characters'));
-  };
+  //const addStar: Function = (): void => {
+  //  const contentState = Modifier.replaceText(
+  //    editorState.getCurrentContent(),
+  //    editorState.getSelection(),
+  //    '⭐',
+  //    editorState.getCurrentInlineStyle(),
+  //  );
+  //  onChange(EditorState.push(editorState, contentState, 'insert-characters'));
+  //};
   //const hideToolBar: Function = (): void => {
   //  const options = () => { }
   //  onChange(EditorState.push(editorState, options,))

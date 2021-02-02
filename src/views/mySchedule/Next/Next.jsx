@@ -68,8 +68,6 @@ export const LabelStateColor = ({ state, color }) => {
 }
 
 const CardContent = ({ item, revisionHanlder/*, showCard, setShowCard, current*/ }) => {
-    //console.log(item)
-
     const frameRef = createRef()
     const [showDetail, setShowDetail] = useState(false)
     const [showRevisions, setShowRevisions] = useState(false)

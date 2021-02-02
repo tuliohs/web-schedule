@@ -17,7 +17,7 @@ export default function FooterSmall(props) {
               <div className="text-sm text-gray-600 font-semibold py-1 text-center md:text-left">
                 Copyright © {new Date().getFullYear()}{" "}
                 <a
-                  //href="https://www.creative-tim.com?ref=nr-footer-small"
+                  href="/"
                   className="text-white hover:text-gray-400 text-sm font-semibold py-1"
                 >
                   Forgetion

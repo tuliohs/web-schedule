@@ -33,9 +33,9 @@ export default function RegisterComplet() {
       })
       .catch(e => {
         setMessage({ type: 'danger', text: e?.toString() })
-
+        setError(e?.toString())
       })
-  }, [setMessage, values, setUser])
+  }, [setMessage, values, setUser, setError, history])
 
   useEffect(() => {
     getUserHandler()

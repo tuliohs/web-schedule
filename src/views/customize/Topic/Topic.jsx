@@ -5,7 +5,7 @@ import { newTopic, removeTopicId, obterTemas, editTopic } from 'api/mySchedule'
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import 'components/Buttons/buttonHover.css'
-import DefaultContext from 'constants/data/DefaultContext'
+import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
 // components
 import ItemDialog from '../ItemDialog'
 import StepMenu from '../StepMenu'
@@ -64,8 +64,7 @@ export default function Topic() {
     const [topic, setTopic] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const { setMessage, empty, setEmpty } = useContext(DefaultContext);
-    console.log('setMessage', setMessage)
+    const { setMessage, empType, setEmpType } = useContext(DefaultContext);
 
     const getTopics = useCallback(async () => {//show topics without data
         await obterTemas()
@@ -85,6 +84,9 @@ export default function Topic() {
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getTopics()
+                console.log('empType', empType)
+                if (empType === EEmpty.Topic)
+                    setEmpType(EEmpty.Category)
             })
             .catch(e => setMessage({ type: 'danger', text: e }))
     }
@@ -95,6 +97,8 @@ export default function Topic() {
                 .then(res => {
                     setMessage({ type: 'sucess', text: res?.data?.message })
                     getTopics()
+                    if (topic.length === 0)
+                        setEmpType(EEmpty.Category)
                 })
                 .catch(e => setMessage({ type: 'danger', text: e }))
         })

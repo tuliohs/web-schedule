@@ -2,9 +2,8 @@ import React from "react";
 
 // components
 
-export default function CardPageVisits() {
-
-  const relativeProp = "" // relative
+export default function CardSocialTraffic() {
+  const relativeProp = ""
   return (
     <>
       <div className={relativeProp + " flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"}>
@@ -12,7 +11,7 @@ export default function CardPageVisits() {
           <div className="flex flex-wrap items-center">
             <div className={relativeProp + " w-full px-4 max-w-full flex-grow flex-1"}>
               <h3 className="font-semibold text-base text-gray-800">
-                Main Review
+                Social traffic
               </h3>
             </div>
             <div className={relativeProp + " w-full px-4 max-w-full flex-grow flex-1 text-right"}>
@@ -28,96 +27,121 @@ export default function CardPageVisits() {
         <div className="block w-full overflow-x-auto">
           {/* Projects table */}
           <table className="items-center w-full bg-transparent border-collapse">
-            <thead>
+            <thead className="thead-light">
               <tr>
                 <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">
-                  Review name
+                  Referral
                 </th>
                 <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">
-                  Points
+                  Visitors
                 </th>
-                <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">
-                  Unique
-                </th>
-                <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">
-                  Rate
-                </th>
+                <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left min-w-140-px"></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  english
+                  Facebook
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  4,569
+                  1,480
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  340
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  <i className="fas fa-arrow-up text-green-500 mr-4"></i>
-                  46,53%
+                  <div className="flex items-center">
+                    <span className="mr-2">60%</span>
+                    <div className={relativeProp + " w-full"}>
+                      <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
+                        <div
+                          style={{ width: "60%" }}
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  science
+                  Facebook
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  3,985
+                  5,480
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  319
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                  46,53%
+                  <div className="flex items-center">
+                    <span className="mr-2">70%</span>
+                    <div className={relativeProp + " w-full"}>
+                      <div className="overflow-hidden h-2 text-xs flex rounded bg-green-200">
+                        <div
+                          style={{ width: "70%" }}
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  language
+                  Google
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  3,513
+                  4,807
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  294
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                  36,49%
+                  <div className="flex items-center">
+                    <span className="mr-2">80%</span>
+                    <div className={relativeProp + " w-full"}>
+                      <div className="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
+                        <div
+                          style={{ width: "80%" }}
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  complementary context
+                  Instagram
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  2,050
+                  3,678
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  147
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  <i className="fas fa-arrow-up text-green-500 mr-4"></i>
-                  50,87%
+                  <div className="flex items-center">
+                    <span className="mr-2">75%</span>
+                    <div className={relativeProp + " w-full"}>
+                      <div className="overflow-hidden h-2 text-xs flex rounded bg-blue-200">
+                        <div
+                          style={{ width: "75%" }}
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  profile
+                  twitter
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  1,795
+                  2,645
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  190
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                  <i className="fas fa-arrow-down text-red-500 mr-4"></i>
-                  46,53%
+                  <div className="flex items-center">
+                    <span className="mr-2">30%</span>
+                    <div className={relativeProp + " w-full"}>
+                      <div className="overflow-hidden h-2 text-xs flex rounded bg-orange-200">
+                        <div
+                          style={{ width: "30%" }}
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>

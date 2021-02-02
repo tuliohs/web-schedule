@@ -20,7 +20,7 @@ import Landing from "views/Landing.js";
 import LandingOld from "views/LandingOld.js";
 import Profile from "views/Profile.js";
 
-import DefaultContext, { TMessage, DefaultProvider, EEmpty } from 'constants/data/DefaultContext'
+import DefaultContext, { TMessage, EEmpty } from 'constants/data/DefaultContext'
 import { StoreProvider } from 'constants/data/StoreContext'
 import AlertDynamic from 'components/Notifications/AlertDynamic'
 import RoutesPrivate from 'utils/Private/RoutesPrivate'

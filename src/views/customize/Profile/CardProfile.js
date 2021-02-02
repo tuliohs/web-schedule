@@ -83,21 +83,21 @@ export default function CardProfile({ setValues, values, image }) {
               <div className="flex justify-center py-4 lg:pt-4 pt-8">
                 <div className="mr-4 p-3 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                    22
+                    0
                   </span>
-                  <span className="text-sm text-gray-500">Friends</span>
+                  <span className="text-sm text-gray-500">Reviews</span>
                 </div>
                 <div className="mr-4 p-3 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                    10
+                    0
                   </span>
-                  <span className="text-sm text-gray-500">Photos</span>
+                  <span className="text-sm text-gray-500">Topics</span>
                 </div>
                 <div className="lg:mr-4 p-3 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                    89
+                    0
                   </span>
-                  <span className="text-sm text-gray-500">Comments</span>
+                  <span className="text-sm text-gray-500">Items</span>
                 </div>
               </div>
             </div>

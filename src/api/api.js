@@ -19,6 +19,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
+  timeout: 5 * 1000
 })
 
 api.interceptors.response.use(
@@ -34,16 +35,17 @@ api.interceptors.response.use(
 
     // You can even test for a response code
     // and try a new request before rejecting the promise
-
-    if (
-      error.request._hasError === true &&
-      error.request._response.includes('connect')
+    if (error?.toString()?.includes('timeout')) {
+      return Promise.reject("O tempo da solicitação foi esgotado, tente novamente")
+    }
+    if (error?.toString()?.includes('Network') ||
+      (error.request._hasError === true &&
+        error.request._response.includes('connect'))
     ) {
-
       return Promise.reject('Não foi possível conectar aos nossos servidores, sem conexão a internet')
     }
 
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       //const requestConfig = error.config
 
       // O token JWT expirou

@@ -204,9 +204,6 @@ export default class ScreenCapture extends Component {
             isMouseDown
         } = this.state;
 
-        console.log()
-
-
         if (!on) return this.renderChild();
 
         return (

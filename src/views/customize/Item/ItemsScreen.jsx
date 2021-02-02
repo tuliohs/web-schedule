@@ -29,8 +29,12 @@ export default function ItemsScreen() {
         setData(c.data)
     }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
 
-    const selectFirstCategory = async () => { setCurrentCat(dados.filter(x => x.topic?._id === currentTopic).find(x => x !== undefined)?._id) }
-    const selectFirstTopic = async () => { setCurrentTopic(topic[0]?._id) }
+    const selectFirstCategory = useCallback(async () => {
+        setCurrentCat(dados.filter(x => x.topic?._id === currentTopic).find(x => x !== undefined)?._id)
+    }, [currentTopic, dados])
+    const selectFirstTopic = useCallback(async () => {
+        setCurrentTopic(topic[0]?._id)
+    }, [topic])
 
     useEffect(() => {
         const getTopics = async () => await obterTemas().then(c => {
@@ -45,12 +49,12 @@ export default function ItemsScreen() {
         if (!currentTopic) selectFirstTopic()
         else selectFirstCategory()
         //const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
-    }, [topic, currentTopic])
+    }, [topic, currentTopic, selectFirstTopic, selectFirstCategory])
 
     useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default
         if (!currentCat)
             selectFirstCategory()
-    }, [currentTopic, dados, currentCat])
+    }, [currentTopic, dados, currentCat, selectFirstCategory])
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela
         const filterTable = async () => { setTabdata(dados.filter(x => x?._id === currentCat && x.topic?._id === currentTopic).map(a => { return a.items })) }
@@ -71,7 +75,7 @@ export default function ItemsScreen() {
                 getDados()
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
 
-    const removeItemHandler = async () =>
+    const removeItemHandler = async () => {
         submitDialog({
             clickYes: async () => await removeItem({ categoryId: currentCat, itemId: itemCurrentAction._id })
                 .then(res => {
@@ -80,7 +84,7 @@ export default function ItemsScreen() {
                 })
                 .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         })
-
+    }
     const changeItemHandler = async ({ columnId, value, }) => {
         let itemSend = itemCurrentAction
         itemSend[columnId] = value
@@ -93,7 +97,7 @@ export default function ItemsScreen() {
 
     const _topic = topic.filter(a => a._id === currentTopic)[0]?.title
     const _category = dados?.filter(a => a._id === currentCat)[0]?.title ?? '...'
-    const topic_category = _topic || '' + '> ' + _category
+    const topic_category = `${_topic || ''}> ${_category}`
 
     return (
         <>

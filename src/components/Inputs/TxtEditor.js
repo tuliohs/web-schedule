@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, createRef } from "react";
 import { RichUtils } from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -161,7 +161,6 @@ export default function TxtEditor({ setEditorState, editorState }) {
           <button onClick={handlerHide}>expand</button>
         </div>}
         <div className="editors">
-          {console.log(editorState)}
           <Editor
             ref={editor}
             editorState={editorState}

@@ -27,11 +27,10 @@ export default function Statistics() {
     const [avLineChart, setAvLineChart] = useState(false)
 
     const { empType } = useContext(DefaultContext);
-    console.log('s', empType, EEmpty.Valid)
     useEffect(() => {
         if (empType === EEmpty.Valid)
             setAvLineChart(true)
-    }, [])
+    }, [empType])
 
     return (
         <>

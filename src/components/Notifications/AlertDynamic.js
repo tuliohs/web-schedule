@@ -3,7 +3,6 @@ import React from "react";
 const AlertDynamic = ({ showAlert, setShowAlert, message, seconds = 5 }) => {
 
     React.useEffect(() => {
-        if (!setShowAlert) return
         const intervalo = setInterval(() => {
             setShowAlert(false);
         }, seconds * 1000) //Substitui componentDidAmount
@@ -11,7 +10,6 @@ const AlertDynamic = ({ showAlert, setShowAlert, message, seconds = 5 }) => {
     }, [seconds, setShowAlert]);
 
     const cor_grau = message?.type === 'sucess' ? 'bg-green-500' : 'bg-red-600'
-    console.log(message, 'message')
 
     return (
         <>

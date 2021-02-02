@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@types/draft-js": "^0.10.44",
+    "@types/mongodb": "^3.6.3",
     "@types/react-draft-wysiwyg": "^1.13.1",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7"

@@ -1,11 +1,9 @@
 import React, { useState, useContext, FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from 'react-router-dom';
 
-import { recoveryPass } from 'api/user.api.js'
+import { recoveryPass } from 'api/user.api'
 import { Header, UserInput } from './auth.utils'
 
-import StoreContext from 'constants/data/StoreContext'
 import DefaultContext from 'constants/data/DefaultContext'
 
 function initialState() {
@@ -17,8 +15,6 @@ const ForgotPass: FunctionComponent = () => {
   const [error, setError] = useState('');
 
   const { setMessage, } = useContext(DefaultContext);
-  const { setToken, setUser } = useContext(StoreContext);
-  const history = useHistory();
 
   const onChange: Function = (event: any): void => {
     const { value, name } = event.target;

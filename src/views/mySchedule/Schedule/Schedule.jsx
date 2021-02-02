@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import moment from 'moment'
 import { newRevision, obterScheduleItems, obterTemas } from 'api/mySchedule'
+import { EditorState } from "draft-js";
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext from 'constants/data/DefaultContext'
@@ -13,7 +14,6 @@ import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import { LabelStateColor } from '../Next/Next'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
-import DefaultDropDown from './DefaultDropDown'
 export const items = [
     { id: 1, value: "Beginner" },
     { id: 2, value: "Easy" },
@@ -21,7 +21,7 @@ export const items = [
     { id: 4, value: "Hard" },
     { id: 5, value: "Challenging" }]
 const CardContent = ({ categoryId, item, revision }) => {
-    const [level, setLevel] = useState('')
+    //const [level, setLevel] = useState('')
     return (
         <div className="w-full md:w-4/12 px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -62,7 +62,7 @@ export default function Schedule() {
     const [loading, setLoading] = useState(true)
 
     const [revisionDate, setRevisionDate] = useState(new Date());
-    const [revisonNote, setRevisionNote] = useState(null)
+    const [revisonNote, setRevisionNote] = useState(EditorState.createEmpty())
 
     const [curr, setCurr] = useState({})
     const [currentTopic, setCurrentTopic] = useState(null)
@@ -93,7 +93,8 @@ export default function Schedule() {
         <>
             {data.length === 0 ? <Loading loading={loading} /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
                 <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal}
-                    text={revisonNote} setText={setRevisionNote} revisionDate={revisionDate} setRevisionDate={setRevisionDate}
+                    revisionDate={revisionDate} editorState={revisonNote} setEditorState={setRevisionNote}
+                    setRevisionDate={setRevisionDate}
                     item={data.filter(a => a?._id === curr?.categoryId)[0]?.items.filter(c => c?._id === curr?.itemId)}
                     action={async () => {
                         setShowModal(false)
@@ -102,7 +103,7 @@ export default function Schedule() {
                             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                     }} />
                 <div className="relative" style={{ marginLeft: 0, marginRight: 'auto' }} >
-                    <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.description }))} />
+                    <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />
 
                 </div>
                 {data.filter(a => a?.topic?._id === currentTopic)

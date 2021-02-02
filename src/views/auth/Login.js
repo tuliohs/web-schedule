@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 
-import { login } from 'api/user.api.js'
+import { login } from 'api/user.api'
 import { Header, UserInput } from './auth.utils'
 
 import StoreContext from 'constants/data/StoreContext'

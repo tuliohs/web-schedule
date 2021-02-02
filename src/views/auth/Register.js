@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useHistory, Link } from 'react-router-dom';
 
-import { register } from 'api/user.api.js'
+import { register } from 'api/user.api'
 import StoreContext from 'constants/data/StoreContext'
 import DefaultContext from 'constants/data/DefaultContext'
 import { Header, UserInput } from './auth.utils'

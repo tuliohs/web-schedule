@@ -11,7 +11,7 @@ export default function CardSocialTraffic() {
           <div className="flex flex-wrap items-center">
             <div className={relativeProp + " w-full px-4 max-w-full flex-grow flex-1"}>
               <h3 className="font-semibold text-base text-gray-800">
-                Social traffic
+                Month traffic
               </h3>
             </div>
             <div className={relativeProp + " w-full px-4 max-w-full flex-grow flex-1 text-right"}>
@@ -30,10 +30,10 @@ export default function CardSocialTraffic() {
             <thead className="thead-light">
               <tr>
                 <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">
-                  Referral
+                  Level
                 </th>
                 <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">
-                  Visitors
+                  Number
                 </th>
                 <th className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left min-w-140-px"></th>
               </tr>
@@ -41,7 +41,7 @@ export default function CardSocialTraffic() {
             <tbody>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  Facebook
+                  Monday
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   1,480
@@ -62,7 +62,7 @@ export default function CardSocialTraffic() {
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  Facebook
+                  Sunday
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   5,480
@@ -83,7 +83,7 @@ export default function CardSocialTraffic() {
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  Google
+                  One Weekday
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   4,807
@@ -104,7 +104,7 @@ export default function CardSocialTraffic() {
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  Instagram
+                  Wednesday
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   3,678
@@ -125,7 +125,7 @@ export default function CardSocialTraffic() {
               </tr>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left">
-                  twitter
+                  Thursday
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
                   2,645
