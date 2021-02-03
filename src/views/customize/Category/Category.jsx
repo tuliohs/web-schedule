@@ -9,33 +9,10 @@ import ItemDialog from '../ItemDialog'
 import { submitDialog } from '../Topic/Topic'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
+import CardCategory from './CardCategory'
 
-import DeleteIcon from '@material-ui/icons/Delete';
 import { useHistory } from "react-router";
 
-const CardContent = ({ editHandler, category, removeHandler }) => {
-    return (
-        <div className="w-full md:w-4/12 px-4 text-center">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="px-4 py-5 flex-auto">
-
-                    <h6 className="text-xl font-semibold">{category?.title}</h6>
-                    <p className="mt-2 mb-4 text-gray-600">{category?.description}</p>
-                    <p className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4">{category?.detail?.state}</p>
-
-                    <div className="items-center flex flex-col">
-                        <div className="mt-2 ml-4 flex flex-row justify-center" style={{ width: '10%', justifyContent: 'space-around' }}>
-                            <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(category?._id, category.title)} /></i>
-                            <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
-                                receivedItems={category}
-                                title="Edit Topic" addItemHandler={editHandler} /> </i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
 
 export default function Category() {
 
@@ -115,6 +92,7 @@ export default function Category() {
     //    a()
     //}, [currentCat, currentTopic, dados])
 
+    console.log(topic.map(c => ({ id: c._id, value: c.title })))
     return (
         <>
             <StepMenu defaultStepNum={1} />
@@ -137,8 +115,9 @@ export default function Category() {
                 </div>
                 <div className="w-full mb-12 px-4 flex flex-wrap justify-center" >
                     {dados?.length === 0 ? <Loading loading={loading} /> : dados?.filter(w => w.topic?._id === currentTopic).map(c => (
-                        <CardContent key={c._id} category={c}
+                        <CardCategory key={c._id} category={c}
                             removeHandler={removeCategoryHandler} editHandler={editCategoryHandler}
+                            itemsAssociated={topic.map(c => ({ id: c._id, value: c.title }))}
                         />
                     ))}
                 </div>

@@ -11,6 +11,7 @@ import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 import IconDropdown from './Item/IconDropdown'
+import DefaultDropDown from '../mySchedule/Schedule/DefaultDropDown'
 
 //import FileBase from 'react-file-base64';
 import { getBase64 } from 'utils/getBase64'
@@ -22,10 +23,11 @@ const initialItem = {
     iconName: ''
 }
 
-const ItemDialog = ({ btnLabel, addItemHandler, receivedItems = {}, type = "add", title,
+const ItemDialog = ({ btnLabel = "", addItemHandler, receivedItems = {}, type = "add", title,
     switchState, setSwitchState, labelSwitch,
+    itemsAssociated,
     buttonItem,
-    showIcon, transparent = false }) => {
+    showIcon = false, transparent = false }) => {
 
     const [imageObj, setImageObj] = useState({})
     const [itemSc, setItemSc] = useState(receivedItems)
@@ -53,12 +55,7 @@ const ItemDialog = ({ btnLabel, addItemHandler, receivedItems = {}, type = "add"
 
     const color = 'teal-'
     const grau = 500
-    console.log(buttonItem, 'buttonItem')
-    //useEffect(() => {
-    //    //if (buttonItem)
-    //    //    handleClickOpen()
-    //    buttonItem.current.click()
-    //}, [buttonItem])
+    console.log(itemsAssociated, 'itemsAssociated')
     return (
         <div>
             {type === "edit" ? <EditIcon onClick={handleClickOpen} /> :
@@ -85,6 +82,7 @@ const ItemDialog = ({ btnLabel, addItemHandler, receivedItems = {}, type = "add"
                                 itemSc={itemSc}
                                 setItemSc={setItemSc} />
                         }
+                        <DefaultDropDown items={itemsAssociated} />
 
                     </div>
                     {/*<DialogContentText>{subTitle}</DialogContentText>*/}

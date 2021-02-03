@@ -1,11 +1,12 @@
 
 
-import React from 'react';
+import React, { FunctionComponent, SetStateAction } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { Instance } from '@popperjs/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,14 +20,30 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 80,
   },
 }));
+type TItemDropDown = {
+  id: string,
+  value: string
+}
 
-export default function DefaultDropDown({ name, items, state, setState, refer, allItems = false, firsrOrDefault = false }) {
+interface IDropDownDefault {
+  name: string,
+  items: Array<TItemDropDown>,
+  state: string,
+  setState: React.Dispatch<SetStateAction<string>>,
+  refer: any,
+  allItems: boolean,
+  firsrOrDefault: boolean
+}
 
+const DefaultDropDown: FunctionComponent<IDropDownDefault> = ({ name,
+  items, state, setState, refer,
+  allItems = false, firsrOrDefault = false }) => {
+  console.log(items, 'items')
   const classes = useStyles();
   const [age, setAge] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setAge(event.target.value);
   };
 
@@ -81,3 +98,5 @@ export default function DefaultDropDown({ name, items, state, setState, refer, a
     </div >
   );
 }
+
+export default DefaultDropDown
