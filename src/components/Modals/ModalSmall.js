@@ -5,7 +5,7 @@ import "./ModalSmall.css"
 import "./DatePicker.less"
 import TxtEditor from 'components/Inputs/TxtEditor'
 
-export default function ModalSmall({ title = null, content = null, showModal, setShowModal, editorState, setEditorState, action, revisionDate, setRevisionDate, item = null }) {
+export default function ModalSmall({ title, content = null, showModal, setShowModal, editorState, setEditorState, action, revisionDate, setRevisionDate, item = null }) {
     return (
         <>
             {showModal ? (

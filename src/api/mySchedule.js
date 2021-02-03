@@ -1,14 +1,17 @@
 import { URL } from 'constants/config/url'
 import api from './api'
+import { stateToHTML } from 'draft-js-export-html';
 
 export const newRevision = async ({ curr, revisonNote, revisionDate }) => {
+
+    let note = stateToHTML(revisonNote.getCurrentContent())
     return await api.put(URL.REVIEW, {
         filter: {
             categoryId: curr.categoryId,
             itemId: curr.itemId
         },
         content: {
-            note: revisonNote,
+            note: note,
             revisionDate: revisionDate
         }
     })
@@ -25,10 +28,7 @@ export const addItem = async ({ filter, content }) => {
             categoryId: filter.categoryId,
             //itemId: curr.itemId
         },
-        content: {
-            title: content.title,
-            description: content.description
-        }
+        content: content
     })
 }
 export const removeItem = async ({ categoryId, itemId }) => {

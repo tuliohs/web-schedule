@@ -4,7 +4,6 @@ import { obterNextSchedule, newRevision } from 'api/mySchedule'
 import moment from 'moment'
 import axios from 'axios'
 import { EditorState /*, convertToRaw*/ } from "draft-js";
-import { stateToHTML } from 'draft-js-export-html';
 //import { Animated } from "react-animated-css";
 
 //components
@@ -21,15 +20,21 @@ import HourglassFullTwoTone from '@material-ui/icons/HourglassFullTwoTone';
 
 const Styles = styled.div`
 
+/*
 width: 75px;
-height: 68px;
+height: 68px; 
+    top: -3px;
+    right: -3px; 
+    */
+width: 35px;
+height: 38px;
     overflow: hidden;
     position: absolute;
     top: -3px;
     right: -3px; 
 
 .ribbon:hover{
-    font-size: 15px;
+    font-size: 8px;
     opacity:0.7;
 }
 
@@ -38,7 +43,7 @@ height: 68px;
     font-size: 0px;
     display: block;
     font-family: 'Segoe UI',Arial, sans-serif;
-    font-weight: 600;
+    font-weight: 300;
     color: #fff;
     text-align: center;
     -webkit-transform: rotate(45deg);
@@ -269,7 +274,7 @@ export default function Next() {
 
     const newReviewModal = useCallback(async () => {
         setShowModal(false)
-        await newRevision({ curr: curr, revisonNote: stateToHTML(revisonNote.getCurrentContent()), revisionDate: revisionDate })
+        await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
             .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
             .catch(e => setMessage({ type: 'danger', text: e?.message }))
         setRevisionNote(null)

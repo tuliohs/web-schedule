@@ -116,10 +116,13 @@ const Revision: FunctionComponent<TCurrentItem> = () => {
                         </div>
                         <h6 className="text-xl font-semibold">{currentItem.title}</h6>
                         <p className="mt-2 mb-4 text-gray-600">{currentItem.description}</p>
-                        {currentItem?.title ? <div className="divhoverbutton" style={{ width: "20%" }}>
-                            <a className="ahoverbutton" href="#/" onClick={callModal}>
-                                <span className="spanhoverbutton">New Revision</span></a>
-                        </div> : null}
+                        {currentItem?.title ? <button className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-teal-500 active:bg-teal-600 ease-linear transition-all duration-150`}
+                            type="button"
+                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                            onClick={callModal}
+                        >New Revision</button>
+
+                            : null}
                     </div>
                 </div>
                 {

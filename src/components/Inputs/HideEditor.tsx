@@ -10,7 +10,7 @@ interface EditorProps {
   setHide: any
 }
 
-const HideEditor: FunctionComponent<EditorProps> = ({ editorState, onChange, setHide }) => {
+const HideEditor: FunctionComponent<EditorProps> = ({ /*editorState, onChange,*/ setHide }) => {
 
   //const addStar: Function = (): void => {
   //  const contentState = Modifier.replaceText(

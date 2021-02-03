@@ -14,10 +14,10 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 
-export const submitDialog = async ({ clickYes }) => {
+export const submitDialog = async ({ clickYes, label }) => {
     return confirmAlert({
         //title: 'Confirm to submit',
-        message: 'Are you sure want you to delete.',
+        message: 'Are you sure want you to delete ' + label,
         buttons: [
             { label: 'Yes', onClick: () => clickYes() },
             { label: 'No', onClick: () => { return false } }
@@ -43,7 +43,7 @@ const CardContent = ({ topic, removeHandler, editHandler }) => {
                             <h6 className="text-xl font-semibold">{topic?.title}</h6>
                             <p className="mt-2 mb-4 text-gray-600">{topic?.description}</p>
                             <div className="mt-2 ml-4 flex flex-row justify-center" style={{ width: '10%', justifyContent: 'space-around' }}>
-                                <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(topic._id)} /></i>
+                                <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(topic._id, topic?.title)} /></i>
                                 <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
                                     title='Edit Topic' receivedItems={topic}
                                     addItemHandler={editHandler} /> </i>
@@ -91,7 +91,7 @@ export default function Topic() {
             .catch(e => setMessage({ type: 'danger', text: e }))
     }
 
-    const removeTopicHandler = async (id) => {
+    const removeTopicHandler = async (id, title) => {
         submitDialog({
             clickYes: async () => await removeTopicId({ topicId: id })
                 .then(res => {
@@ -101,6 +101,7 @@ export default function Topic() {
                         setEmpType(EEmpty.Category)
                 })
                 .catch(e => setMessage({ type: 'danger', text: e }))
+            , label: 'the topic "' + title + '"'
         })
     }
     const editTopicHandler = async ({ item, image }) => {
@@ -131,7 +132,10 @@ export default function Topic() {
                         {
                             topic?.length === 0
                                 ? <Loading loading={loading} /> :
-                                topic.map(c => <CardContent key={c._id} topic={c} removeHandler={removeTopicHandler} editHandler={editTopicHandler} getTopics={getTopics} />)
+                                topic.map(c => <CardContent key={c._id} topic={c}
+                                    removeHandler={removeTopicHandler}
+                                    editHandler={editTopicHandler}
+                                    getTopics={getTopics} />)
                         }
                     </div>
                     <Empty />

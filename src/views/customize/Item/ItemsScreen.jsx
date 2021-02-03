@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { createRef, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, } from 'api/mySchedule'
 
@@ -11,6 +11,7 @@ import StepMenu from '../StepMenu'
 import { submitDialog } from '../Topic/Topic'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
+import { useLocation } from "react-router";
 
 export default function ItemsScreen() {
 
@@ -18,12 +19,13 @@ export default function ItemsScreen() {
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
     const [loading, setLoading] = useState(true)
-
-    const { setMessage } = useContext(DefaultContext);
-
     const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
     const [itemCurrentAction, setItemCurrentAction] = useState({})
+
+    const { setMessage } = useContext(DefaultContext);
+    let location = useLocation()
+    const buttonItem = createRef(null)
 
     const getDados = useCallback(async () => await obterScheduleItems().then(c => {
         setData(c.data)
@@ -57,9 +59,24 @@ export default function ItemsScreen() {
     }, [currentTopic, dados, currentCat, selectFirstCategory])
 
     useEffect(() => {// quando a categoria for alterada => filtrar a tabela
-        const filterTable = async () => { setTabdata(dados.filter(x => x?._id === currentCat && x.topic?._id === currentTopic).map(a => { return a.items })) }
+        const filterTable = async () => {
+            setTabdata(dados.filter(x => x?._id === currentCat && x.topic?._id === currentTopic).map(a => { return a.items }))
+            if (currentCat) //voltar para a categoria quando adicionar um item
+                setCurrentCat(currentCat)
+        }
         filterTable()
     }, [currentCat, currentTopic, dados])
+
+    useEffect(() => {
+        if (location.state?.addDefault) {
+            console.log(buttonItem.current, 'current')
+
+            setCurrentCat(location.state?.categoryId)
+            buttonItem.current && buttonItem.current.click()
+            //location.state.addDefault=false
+        }
+
+    }, [buttonItem])
 
     //const addcatHandler = async (e) => {
     //    await newCategory({ title: e?.title, description: e?.description, topicId: currentTopic })
@@ -68,12 +85,14 @@ export default function ItemsScreen() {
     //            getDados()
     //        }).catch(er => setMessage({ type: 'danger', text: er?.toString() }))
     //}
-    const addItemHandler = async ({ item, image }) =>
-        await addItem({ filter: { categoryId: currentCat }, content: { title: item?.title, description: item?.description } })
+    const addItemHandler = async ({ item, image }) => {
+        location.state.addDefault = false;
+        await addItem({ filter: { categoryId: currentCat }, content: { title: item?.title, description: item?.description, iconName: item?.iconName } })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getDados()
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+    }
 
     const removeItemHandler = async () => {
         submitDialog({
@@ -83,6 +102,7 @@ export default function ItemsScreen() {
                     getDados()
                 })
                 .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+            , label: 'the item "' + itemCurrentAction?.title + '"'
         })
     }
     const changeItemHandler = async ({ columnId, value, }) => {
@@ -123,6 +143,7 @@ export default function ItemsScreen() {
                                 removeItemHandler={removeItemHandler}
                                 setItemCurrentAction={setItemCurrentAction}
                                 changeItemHandler={changeItemHandler}
+                                buttonItem={buttonItem}
                                 title="Items" data={Object.values(tabdata[0] || {})} />}
                             {tabdata?.length === 0 ? <Loading loading={loading} /> : null}
                         </div>

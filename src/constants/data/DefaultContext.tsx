@@ -1,7 +1,7 @@
 import React, { createContext } from 'react'
 
 export type TMessage = {
-    type: 'sucess' | 'danger',
+    type: 'sucess' | 'danger' | 'info',
     text: string
 }
 export enum EEmpty {

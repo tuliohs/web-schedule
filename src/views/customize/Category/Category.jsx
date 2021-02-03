@@ -11,6 +11,7 @@ import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useHistory } from "react-router";
 
 const CardContent = ({ editHandler, category, removeHandler }) => {
     return (
@@ -24,7 +25,7 @@ const CardContent = ({ editHandler, category, removeHandler }) => {
 
                     <div className="items-center flex flex-col">
                         <div className="mt-2 ml-4 flex flex-row justify-center" style={{ width: '10%', justifyContent: 'space-around' }}>
-                            <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(category?._id)} /></i>
+                            <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(category?._id, category.title)} /></i>
                             <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
                                 receivedItems={category}
                                 title="Edit Topic" addItemHandler={editHandler} /> </i>
@@ -39,11 +40,13 @@ const CardContent = ({ editHandler, category, removeHandler }) => {
 export default function Category() {
 
     const { setMessage } = useContext(DefaultContext);
+    const history = useHistory()
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
     const [currentTopic, setCurrentTopic] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [switchState, setSwitchState] = React.useState(false)
 
     //const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
@@ -57,11 +60,18 @@ export default function Category() {
         await newCategory({ item: item, image: image, topicId: currentTopic })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
-                getDados()
+                //console.log(res.data?.res._id)
+                if (switchState)
+                    history.push({
+                        pathname: '/customize/lab/item',
+                        state: { addDefault: true, categoryId: res.data?.res._id }
+                    })
+                else
+                    getDados()
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }
 
-    const removeCategoryHandler = async (id) => {
+    const removeCategoryHandler = async (id, title) => {
         submitDialog({
             clickYes: async () => await removeCategoryId({ categoryId: id })
                 .then(res => {
@@ -69,6 +79,7 @@ export default function Category() {
                     getDados()
                 })
                 .catch(e => setMessage({ type: 'danger', text: e }))
+            , label: 'the category "' + title + '"'
         })
     }
     const editCategoryHandler = async ({ item, image }) =>
@@ -99,12 +110,10 @@ export default function Category() {
         a()
     }, [currentTopic, dados, currentCat])
 
-
     //useEffect(() => {// quando a categoria for alterada => filtrar a tabela
     //    const a = async () => { setTabdata(dados.filter(x => x._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
     //    a()
     //}, [currentCat, currentTopic, dados])
-
 
     return (
         <>
@@ -118,7 +127,12 @@ export default function Category() {
                     </span>
                     {/*---------BUTTON ADD CATEGORY--------------*/}
                     <div >
-                        <ItemDialog btnLabel="Add Category" addItemHandler={addcatHandler} />
+                        <ItemDialog btnLabel="Add Category"
+                            title="Add Category"
+                            addItemHandler={addcatHandler}
+                            switchState={switchState}
+                            setSwitchState={setSwitchState}
+                        />
                     </div>
                 </div>
                 <div className="w-full mb-12 px-4 flex flex-wrap justify-center" >

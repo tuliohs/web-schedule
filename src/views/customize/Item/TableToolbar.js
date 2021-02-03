@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 
 import ItemDialog from '../ItemDialog'
 import clsx from 'clsx'
@@ -36,19 +36,21 @@ const TableToolbar = props => {
     const {
         numSelected,
         addItemHandler,
+        buttonItem,
         //deleteUserHandler,
         //preGlobalFilteredRows,
         //setGlobalFilter,
         //globalFilter,
         title
     } = props
+
     return (
         <Toolbar
             className={clsx(classes.root, {
                 [classes.highlight]: numSelected > 0,
             })}
         >
-            <ItemDialog transparent={true} addItemHandler={addItemHandler} />
+            <ItemDialog buttonItem={buttonItem} transparent={true} title="Add Item" showIcon={true} addItemHandler={addItemHandler} />
             {numSelected > 0 ? (
                 <Typography
                     className={classes.title}

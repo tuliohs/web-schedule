@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useRef, useState, useContext, useCallback } from "react";
 import { Link } from 'react-router-dom'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -14,45 +14,14 @@ import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import { LabelStateColor } from '../Next/Next'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
+import CardSchedule from './CardSchedule'
+
 export const items = [
     { id: 1, value: "Beginner" },
     { id: 2, value: "Easy" },
     { id: 3, value: "Normal" },
     { id: 4, value: "Hard" },
     { id: 5, value: "Challenging" }]
-const CardContent = ({ categoryId, item, revision }) => {
-    //const [level, setLevel] = useState('')
-    return (
-        <div className="w-full md:w-4/12 px-4 text-center">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="px-4 py-5 flex-auto">
-                    <div className="flex">
-                        <div style={{ width: "80%", marginLeft: "10%" }}>
-                            <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
-                                <i className="fas fa-retweet"></i>
-                            </div></div>
-
-                        <Link className="relative w-auto pl-4 flex-initial"
-                            to={{ pathname: "revision", state: { item: item, categoryId: categoryId } }}
-                        >
-                            < ExitToAppIcon />
-                        </Link>
-                    </div>
-                    <h6 className="text-xl font-semibold">{item?.title}</h6>
-                    <p className="mt-2 mb-4 text-gray-600">{item?.description}</p>
-                    <LabelStateColor state={item?.detail?.state} color={item?.detail?.color} />
-                    {/*<DefaultDropDown items={items} firsrOrDefault={true} state={level} setState={setLevel} />*/}
-
-                    {!item?.detail?.lastDateReview ? null : <p className="mt-2 mb-4 text-gray-600">Last Revision in <b>{moment(item.detail.lastDateReview).format('DD/MM/YYYY HH:mm')}</b></p>}
-                    {/*<button class="button-rgb" type="button">NEW REVISION</button>*/}
-                    <div className="divhoverbutton">
-                        <a className="ahoverbutton" href="#/" onClick={revision}><span className="spanhoverbutton">New Revision</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
 export default function Schedule() {
 
     const { setMessage, } = useContext(DefaultContext);
@@ -71,9 +40,11 @@ export default function Schedule() {
     const callModal = () => {
         setRevisionDate(new Date())
         setShowModal(true)
+        setRevisionNote(EditorState.createEmpty())
     }
+    const getItems = useCallback(async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [])
+
     useEffect(() => {
-        const getItems = async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
         getItems()
         const getTopics = async () => await obterTemas().then(c => {
             setTopic(c.data)
@@ -99,7 +70,10 @@ export default function Schedule() {
                     action={async () => {
                         setShowModal(false)
                         await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
-                            .then(c => setMessage({ type: 'sucess', text: c?.data?.message }))
+                            .then(c => {
+                                setMessage({ type: 'sucess', text: c?.data?.message })
+                                getItems()
+                            })
                             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
                     }} />
                 <div className="relative" style={{ marginLeft: 0, marginRight: 'auto' }} >
@@ -115,7 +89,7 @@ export default function Schedule() {
                             <hr className="my-6 md:min-w-full" />
                             <div className="flex justify-center items-center flex-wrap">
                                 {c.items.map((x, index) => (
-                                    <CardContent key={index} item={x} categoryId={c._id} revision={() => {
+                                    <CardSchedule key={index} item={x} categoryId={c._id} revision={() => {
                                         setCurr({ categoryId: c._id, itemId: x._id })
                                         callModal()
                                     }} />

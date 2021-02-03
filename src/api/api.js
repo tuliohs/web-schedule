@@ -19,7 +19,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
-  timeout: 5 * 1000
+  timeout: process.env.NODE_ENV !== "development" ? 5000 : null
 })
 
 api.interceptors.response.use(
