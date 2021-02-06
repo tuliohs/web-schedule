@@ -1,9 +1,9 @@
-import React, { createRef } from 'react'
+import React from 'react'
 import { useTable, useExpanded } from 'react-table'
 import TableToolbar from './TableToolbar'
 import TableDropdown from './TableDropdown'
 
-import { LabelStateColor } from 'views/mySchedule/Next/Next'
+import { LabelStateColor } from 'utils/LabelStateColor'
 
 // Create an editable cell renderer
 const EditableCell = ({ value: initialValue, row: { index }, column: { id, editavel = true }, updateMyData,// This is a custom function that we supplied to our table instance
@@ -37,7 +37,7 @@ function Table({ columns, data, renderRowSubComponent, setItemCurrentAction, rem
         rows,
         prepareRow,
         visibleColumns,
-        state: { expanded },
+        //state: { expanded },
         //page,
         //canPreviousPage,
         //canNextPage,
@@ -81,8 +81,9 @@ function Table({ columns, data, renderRowSubComponent, setItemCurrentAction, rem
                             <th {...column.getHeaderProps()} className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-blue-800 text-blue-300 border-blue-700">{column.render('Header')}</th>
                         ))}
                         <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-blue-800 text-blue-300 border-blue-700" >
-                            STATUS
-                            </th>
+                            Icon</th>
+                        <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-blue-800 text-blue-300 border-blue-700" >
+                            STATUS</th>
                         <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-blue-800 text-blue-300 border-blue-700" />
                     </tr>
                 ))}
@@ -96,6 +97,11 @@ function Table({ columns, data, renderRowSubComponent, setItemCurrentAction, rem
                                 {row.cells.map(cell => {
                                     return <td {...cell.getCellProps()} className="">{cell.render('Cell')}</td>
                                 })}
+                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left flex items-center">
+                                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+                                        <i className={"fas fa-" + (row?.original.iconName || "retweet")}></i>
+                                    </div>
+                                </th>
                                 <th>
                                     <LabelStateColor state={row?.original.detail.state} color={row.original.detail.color} />
                                 </th>
@@ -126,6 +132,7 @@ function Table({ columns, data, renderRowSubComponent, setItemCurrentAction, rem
 }
 
 function TableEdit({ data, title, addItemHandler, setItemCurrentAction, buttonItem, removeItemHandler, changeItemHandler }) {
+
     const columns = React.useMemo(
         () => [
             {

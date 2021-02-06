@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useEffect } from "react";
+import React, { FunctionComponent, SetStateAction, useEffect } from "react";
 import { createPopper } from "@popperjs/core";
 
 const AvaiableIcons = [
@@ -20,12 +20,12 @@ function getRandom(max: number) {
 }
 
 interface IIcon {
-  setItemSc: any,
+  setItemSc: React.Dispatch<SetStateAction<any>>,
   itemSc: any,
-  readonly [fieldName: string]: "iconName",
+  readonly fieldName?: string,
 
 }
-const IconDropdown: FunctionComponent<IIcon> = ({ setItemSc, itemSc, fieldName }) => {
+const IconDropdown: FunctionComponent<IIcon> = ({ setItemSc, itemSc, fieldName = "iconName" }) => {
   // dropdown props
 
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -42,7 +42,7 @@ const IconDropdown: FunctionComponent<IIcon> = ({ setItemSc, itemSc, fieldName }
     setDropdownPopoverShow(false);
   };
 
-  const changeIcon = (icon: string) => setItemSc({ ...itemSc, ["iconName"]: icon })
+  const changeIcon = (icon: string) => setItemSc({ ...itemSc, [fieldName]: icon })
   useEffect(() => changeIcon(AvaiableIcons[getRandom(AvaiableIcons.length - 1)].faicon), []);
 
   return (

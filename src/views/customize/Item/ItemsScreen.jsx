@@ -1,4 +1,4 @@
-import React, { createRef, useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { createRef, useCallback, useContext, useEffect, useState } from "react";
 
 import { obterScheduleItems, obterTemas, addItem, removeItem, changeItem, } from 'api/mySchedule'
 
@@ -86,8 +86,12 @@ export default function ItemsScreen() {
     //        }).catch(er => setMessage({ type: 'danger', text: er?.toString() }))
     //}
     const addItemHandler = async ({ item, image }) => {
-        location.state.addDefault = false;
-        await addItem({ filter: { categoryId: currentCat }, content: { title: item?.title, description: item?.description, iconName: item?.iconName } })
+        console.log(item, 'sim')
+        if (location?.state?.addDefault)
+            location.state.addDefault = false;
+        await addItem({
+            filter: { categoryId: currentCat }, content: { title: item?.title, description: item?.description, iconName: item?.iconName, level: item?.level }
+        })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getDados()

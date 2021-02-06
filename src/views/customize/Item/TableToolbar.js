@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React from 'react'
 
 import ItemDialog from '../ItemDialog'
 import clsx from 'clsx'
@@ -50,7 +50,9 @@ const TableToolbar = props => {
                 [classes.highlight]: numSelected > 0,
             })}
         >
-            <ItemDialog buttonItem={buttonItem} transparent={true} title="Add Item" showIcon={true} addItemHandler={addItemHandler} />
+            <ItemDialog buttonItem={buttonItem}
+                transparent={true} title="Add Item"
+                showIcon={true} addItemHandler={addItemHandler} />
             {numSelected > 0 ? (
                 <Typography
                     className={classes.title}

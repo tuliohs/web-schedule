@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState, useContext, useCallback } from "react";
-import { Link } from 'react-router-dom'
 
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import moment from 'moment'
 import { newRevision, obterScheduleItems, obterTemas } from 'api/mySchedule'
 import { EditorState } from "draft-js";
 
@@ -11,17 +8,10 @@ import DefaultContext from 'constants/data/DefaultContext'
 // components
 import ModalSmall from 'components/Modals/ModalSmall'
 import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
-import { LabelStateColor } from '../Next/Next'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 import CardSchedule from './CardSchedule'
 
-export const items = [
-    { id: 1, value: "Beginner" },
-    { id: 2, value: "Easy" },
-    { id: 3, value: "Normal" },
-    { id: 4, value: "Hard" },
-    { id: 5, value: "Challenging" }]
 export default function Schedule() {
 
     const { setMessage, } = useContext(DefaultContext);
@@ -42,7 +32,9 @@ export default function Schedule() {
         setShowModal(true)
         setRevisionNote(EditorState.createEmpty())
     }
-    const getItems = useCallback(async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [])
+    const getItems = useCallback(async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
+
+
 
     useEffect(() => {
         getItems()
@@ -60,6 +52,8 @@ export default function Schedule() {
         a()
     }, [topic, currentTopic])
 
+
+    console.log(data.filter(a => a?.topic?._id === currentTopic)?.length)
     return (
         <>
             {data.length === 0 ? <Loading loading={loading} /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
@@ -89,16 +83,18 @@ export default function Schedule() {
                             <hr className="my-6 md:min-w-full" />
                             <div className="flex justify-center items-center flex-wrap">
                                 {c.items.map((x, index) => (
-                                    <CardSchedule key={index} item={x} categoryId={c._id} revision={() => {
-                                        setCurr({ categoryId: c._id, itemId: x._id })
-                                        callModal()
-                                    }} />
+                                    <CardSchedule key={index} item={x} categoryId={c._id}
+                                        setMessage={setMessage}
+                                        revision={() => {
+                                            setCurr({ categoryId: c._id, itemId: x._id })
+                                            callModal()
+                                        }} />
                                 ))}
                             </div>
                         </div>
                     ))}
             </div>}
-            <Empty />
+            <Empty itemPageLength={data.filter(a => a?.topic?._id === currentTopic)?.length} />
         </>
     );
 }

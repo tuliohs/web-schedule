@@ -6,7 +6,7 @@ import { ProfilePicture } from './CardProfile'
 import { Link } from 'react-router-dom';
 // components
 
-export default function CardSettings({ setValues, onChange, values, onSave, title = "My account", showImage = false, linkLater }) {
+export default function CardSettings({ setValues, onChange, values, onSave, title = "My account", showImage = false, linkLater = "" }) {
     const changeImage = ({ field, value }) => {
         setValues({
             ...values,

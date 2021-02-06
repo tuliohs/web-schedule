@@ -59,9 +59,7 @@ export const removeCategoryId = async ({ categoryId }) => {
 
 export const editCategory = async ({ item, image }) => {
     return await api.put(URL.MYSCHEDULE, {
-        _id: item._id,
-        title: item.title,
-        description: item.description,
+        element: item,
         image: image
     })
 }

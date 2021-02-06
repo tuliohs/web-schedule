@@ -19,5 +19,6 @@ export const URL = {
     USER: `${base}/v1/auth/user`,
     RECPASS: `${base}/v1/auth/recpass`,
     EMPTY: `${base}/v1/schedule/empty`,
+    UPLOAD_TCI: `${base}/v1/file/imptci`,
 }
 

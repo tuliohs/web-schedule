@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const AlertDynamic = ({ showAlert, setShowAlert, message, seconds = 5 }) => {
+const AlertDynamic = ({ showAlert, setShowAlert, message, secondMessage, setSecondsMessage }) => {
 
-    React.useEffect(() => {
+    useEffect(() => {
         const intervalo = setInterval(() => {
             setShowAlert(false);
-        }, seconds * 1000) //Substitui componentDidAmount
+            setSecondsMessage(5)
+        }, secondMessage * 1000) //Substitui componentDidAmount
         return () => clearInterval(intervalo) //Substitui componentWillUnmount
-    }, [seconds, setShowAlert]);
+    }, [secondMessage, setShowAlert]);
+
 
     const cor_grau = message?.type === 'sucess' ? 'bg-green-500' : 'bg-red-600'
 

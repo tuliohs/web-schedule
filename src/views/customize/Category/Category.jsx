@@ -24,8 +24,6 @@ export default function Category() {
     const [currentTopic, setCurrentTopic] = useState(null)
     const [loading, setLoading] = useState(true)
     const [switchState, setSwitchState] = React.useState(false)
-
-    //const [tabdata, setTabdata] = useState()
     const [currentCat, setCurrentCat] = useState(null)
 
     const getDados = useCallback(async () =>
@@ -47,7 +45,6 @@ export default function Category() {
                     getDados()
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }
-
     const removeCategoryHandler = async (id, title) => {
         submitDialog({
             clickYes: async () => await removeCategoryId({ categoryId: id })
@@ -59,13 +56,13 @@ export default function Category() {
             , label: 'the category "' + title + '"'
         })
     }
-    const editCategoryHandler = async ({ item, image }) =>
+    const editCategoryHandler = async ({ item, image }) => {
         await editCategory({ item: item, image: image })
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getDados()
             }).catch(e => setMessage({ type: 'danger', text: e }))
-
+    }
     useEffect(() => {
         const getTopics = async () => await obterTemas().then(c => {
             setTopic(c.data)
@@ -110,18 +107,20 @@ export default function Category() {
                             addItemHandler={addcatHandler}
                             switchState={switchState}
                             setSwitchState={setSwitchState}
+                            labelSwitch="Default Item"
                         />
                     </div>
                 </div>
                 <div className="w-full mb-12 px-4 flex flex-wrap justify-center" >
                     {dados?.length === 0 ? <Loading loading={loading} /> : dados?.filter(w => w.topic?._id === currentTopic).map(c => (
                         <CardCategory key={c._id} category={c}
-                            removeHandler={removeCategoryHandler} editHandler={editCategoryHandler}
+                            removeHandler={removeCategoryHandler}
+                            editHandler={editCategoryHandler}
                             itemsAssociated={topic.map(c => ({ id: c._id, value: c.title }))}
                         />
                     ))}
                 </div>
-                <Empty />
+                <Empty itemPageLength={dados?.filter(w => w.topic?._id === currentTopic)?.length} />
             </div>}
         </>
     );

@@ -1,11 +1,11 @@
-import React, { createRef } from "react";
+import React, { createRef, FunctionComponent, useState } from "react";
 
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import styled from 'styled-components'
 import CardLetter from "components/Cards/CardLetter";
 //import FileBase from 'react-file-base64';
-import { getBase64 } from 'utils/getBase64'
-
+import { getBase64, TImageObj } from 'utils/getBase64'
+import { TUser } from "api/user.api";
 // components
 export const StylePhotoProfile = styled.div`
 
@@ -35,9 +35,17 @@ input{
   align-items: center;
 }
 `
-export const ProfilePicture = ({ image, values, changeImage, avatarCircle = true }) => {
-  const refer = createRef()
-  const fileClick = () => refer.current.click()
+
+interface IPicture {
+  image: string,
+  values: TUser,
+  changeImage: (values: TImageObj) => void,
+  avatarCircle?: boolean
+}
+
+export const ProfilePicture: FunctionComponent<IPicture> = ({ image, values, changeImage, avatarCircle = true }) => {
+  const refer: any = createRef()
+  const fileClick: any = () => refer.current.click()
   return (
     <div className="w-full px-4 flex justify-center">
       <StylePhotoProfile >
@@ -47,37 +55,65 @@ export const ProfilePicture = ({ image, values, changeImage, avatarCircle = true
               <img onClick={fileClick}
                 alt="..."
                 src={image}
-                className={avatarCircle && "shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"}
+                style={{
+                }}
+                className={!avatarCircle ? "" : "shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"}
               /> : <CardLetter letter={values?.firstName} />}
           </div>
           <i >
             < CameraAltIcon style={{ fontSize: 66 }} onClick={fileClick} />
-            <input type="file" id="file-input" ref={refer} onChange={e => getBase64({ event: e, changeImage: changeImage })}
+            <input type="file" id="file-input" ref={refer} onChange={e => getBase64(e, changeImage)}
             />
           </i>
         </div>
       </StylePhotoProfile>
+
     </div>)
 }
+interface ICardProfile {
+  setValues: any,
+  values: TUser,
+  image?: string
+}
 
-export default function CardProfile({ setValues, values, image }) {
+const CardProfile: FunctionComponent<ICardProfile> = ({ setValues, values, image = "" }) => {
 
+  const changeImage = (value: TImageObj) => setValues({ ...values, ["imageData"]: value.imageData })
+  const removeImage = () => setValues({ ...values, ["imageData"]: "" })
 
-  const changeImage = ({ field, value }) => {
-    setValues({
-      ...values,
-      [field]: value
-    })
-  }
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
+      <div
+        className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16"
+      >
         <div className="px-6">
+
           <div className="flex flex-wrap justify-center">
-            <ProfilePicture image={image}
-              values={values}
-              changeImage={changeImage}
-            />
+            <div className="flex flex-row ">
+              <ProfilePicture image={image}
+                values={values}
+                changeImage={changeImage}
+              />
+              {/*<div className="relative justify-end mx-auto">
+              <i className=" mx-auto fa fa-times" aria-hidden="true"></i>
+
+            </div>*/}
+              <div className="flex flex-row  "
+                style={{
+                  alignItems: "flex-end",
+                  //justifyContent: "right",
+                  marginBlockStart: "auto",
+                  marginBlockEnd: 0,
+                  marginInlineEnd: 0,
+                  marginInlineStart: "auto"
+                }}
+              >
+                <i
+                  onClick={() => removeImage()}
+                  className="relative text-white p-1 shadow-lg rounded-full bg-red-400
+               fas fa-times fa-xs"></i>
+              </div>
+            </div>
 
             <div className="w-full px-4 text-center mt-20">
               <div className="flex justify-center py-4 lg:pt-4 pt-8">
@@ -144,3 +180,5 @@ export default function CardProfile({ setValues, values, image }) {
     </>
   );
 }
+
+export default CardProfile

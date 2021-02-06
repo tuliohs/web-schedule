@@ -14,7 +14,7 @@ const ForgotPass: FunctionComponent = () => {
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState('');
 
-  const { setMessage, } = useContext(DefaultContext);
+  const { setMessage, setSecondsMessage } = useContext(DefaultContext);
 
   const onChange: Function = (event: any): void => {
     const { value, name } = event.target;
@@ -29,6 +29,7 @@ const ForgotPass: FunctionComponent = () => {
       return setError('The typed emails are not the same');
     await recoveryPass(values).then(a => {
       setMessage({ type: 'sucess', text: a.data.message })
+      setSecondsMessage(20)
       //return history.push('/myschedule/schedule')
     }).catch(er => {
       //console.log(er.message)

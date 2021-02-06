@@ -1,10 +1,10 @@
 import api from './api'
 import { URL } from 'constants/config/url'
 
-type TUser = {
+export type TUser = {
     firstName?: string,
     lastName?: string,
-    email: string,
+    email?: string,
     emailRepeat?: string,
     password?: string,
     passwordRepeat?: string,

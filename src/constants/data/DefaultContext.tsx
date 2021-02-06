@@ -17,7 +17,8 @@ interface IDefaultProps {
     message: TMessage,
     setMessage: React.Dispatch<React.SetStateAction<TMessage>>,
     empType: EEmpty,
-    setEmpType: React.Dispatch<React.SetStateAction<EEmpty>>
+    setEmpType: React.Dispatch<React.SetStateAction<EEmpty>>,
+    setSecondsMessage: React.Dispatch<React.SetStateAction<number>>,
 }
 
 export var DefaultContext = createContext({} as IDefaultProps)

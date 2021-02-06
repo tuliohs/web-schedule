@@ -1,22 +1,23 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 import ItemDialog from '../ItemDialog'
 import DeleteIcon from '@material-ui/icons/Delete';
+import { TItemDropDown } from 'components/Dropdowns/DefaultDropDown'
 
-export type TItem = {
+export type TElement = {
     _id: string,
     title: string,
     description: string,
     detail: {
         state: string
-    }
+    },
+    topic: TElement
 }
-
 interface ICardCateg {
-    editHandler: string,
-    category: TItem,
+    editHandler: Function,
+    category: TElement,
     removeHandler: Function,
-    itemsAssociated: string
+    itemsAssociated: Array<TItemDropDown>
 }
 
 const CardCategory: FunctionComponent<ICardCateg> = ({ editHandler, category, removeHandler, itemsAssociated }) => {
@@ -34,11 +35,13 @@ const CardCategory: FunctionComponent<ICardCateg> = ({ editHandler, category, re
                             <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(category?._id, category.title)} /></i>
                             <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
                                 receivedItems={category}
-                                showIcon={true}
                                 itemsAssociated={itemsAssociated}
-
-                                title="Edit Category" addItemHandler={editHandler} /> </i>
-
+                                showAssociated={true} title="Edit Category"
+                                addItemHandler={editHandler}
+                                fieldAssociated="topic"
+                                subFieldAssociated="_id"
+                                defaultElment={category.topic._id}
+                            /> </i>
                         </div>
                     </div>
                 </div>

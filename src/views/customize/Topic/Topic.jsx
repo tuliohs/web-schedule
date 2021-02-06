@@ -46,7 +46,9 @@ const CardContent = ({ topic, removeHandler, editHandler }) => {
                                 <i className="m-2 mt-2 mb-4 ">  < DeleteIcon onClick={() => removeHandler(topic._id, topic?.title)} /></i>
                                 <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
                                     title='Edit Topic' receivedItems={topic}
-                                    addItemHandler={editHandler} /> </i>
+                                    addItemHandler={editHandler}
+
+                                /> </i>
                             </div>
                         </div>
 

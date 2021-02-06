@@ -40,12 +40,15 @@ const App = () => {
     const [showAlert, setShowAlert] = useState<boolean>(false);
 
     const [message, setMessage] = useState<TMessage>(defaultMessage);
+
+    const [secondMessage, setSecondsMessage] = useState<number>(5);
+
     useEffect(() => {
         if (message !== defaultMessage)
             setShowAlert(true)
     }, [message])
     return (
-        <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage, empType, setEmpType }}>
+        <DefaultContext.Provider value={{ showAlert, setShowAlert, setSecondsMessage, message, setMessage, empType, setEmpType }}>
             {/*inicio das rotas*/}
             <Router>
                 <StoreProvider>
@@ -75,7 +78,9 @@ const App = () => {
                     </Switch>
                 </StoreProvider>
             </Router>
-            <AlertDynamic showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
+            <AlertDynamic showAlert={showAlert}
+                secondMessage={secondMessage} setSecondsMessage={setSecondsMessage}
+                setShowAlert={setShowAlert} message={message} />
         </DefaultContext.Provider>)
 }
 

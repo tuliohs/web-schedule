@@ -125,28 +125,8 @@ export default function Sidebar() {
                 {/* Navigation */}
 
                 <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-                  <li className="items-center">
-                    <Link
-                      className={
-                        "text-xs uppercase py-3 font-bold block " +
-                        (window.location.href.indexOf("/admin/dashboard") !== -1
-                          ? "text-blue-500 hover:text-blue-600"
-                          : "text-gray-800 hover:text-gray-600")
-                      }
-                      to="/admin/dashboard"
-                    >
-                      <i
-                        className={
-                          "fas fa-tv mr-2 text-sm " +
-                          (window.location.href.indexOf("/admin/dashboard") !== -1
-                            ? "opacity-75"
-                            : "text-gray-400")
-                        }
-                      ></i>{" "}
-                  Dashboard
-                </Link>
-                  </li>
-
+                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/Home" name="Admin" />
+                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/dashboard" name="Dashboard" />
                   <li className="items-center">
                     <Link
                       className={

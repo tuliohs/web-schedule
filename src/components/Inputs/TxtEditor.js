@@ -169,7 +169,7 @@ export default function TxtEditor({ setEditorState, editorState }) {
             toolbarClassName="toolbarClassName"
             wrapperClassName="wrapperClassName"
             editorClassName="editorClassName"
-            toolbar={{ options: ['blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'embedded', 'emoji', 'image', 'remove', 'history', 'inline'] }}
+            toolbar={{ options: ['link', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'embedded', 'emoji', 'image', 'remove', 'history', 'inline'] }}
             toolbarCustomButtons={[<HideEditor setHide={handlerHide} />]}
             toolbarHidden={!showOptions}
           />
