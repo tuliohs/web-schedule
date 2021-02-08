@@ -18,8 +18,7 @@ type TFileInfo = {
 export const getBase64 = function (event: React.ChangeEvent<HTMLInputElement>,
     changeImage: (values: TImageObj) => void): void {
     //function adaptada da biblioteca "react-file-base64"
-    // get the files
-    console.log('w', changeImage)
+    // get the files 
     let files: any = event.target.files;
 
     // Process each file

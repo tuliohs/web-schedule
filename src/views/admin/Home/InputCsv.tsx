@@ -9,9 +9,9 @@ const CSVReader2 = () => {
     const handleOnDrop = (data: any) => {
         setFileData(data)
 
-        console.log('---------------------------');
-        console.log(data);
-        console.log('---------------------------');
+        //console.log('---------------------------');
+        //console.log(data);
+        //console.log('---------------------------');
     };
 
     const handleOnError = (err: any, file: any, inputElem: any, reason: any) => {
@@ -19,9 +19,9 @@ const CSVReader2 = () => {
     };
 
     const handleOnRemoveFile = (data: any) => {
-        console.log('---------------------------');
-        console.log(data);
-        console.log('---------------------------');
+        //console.log('---------------------------');
+        //console.log(data);
+        //console.log('---------------------------');
     };
 
     const sendData = () => {

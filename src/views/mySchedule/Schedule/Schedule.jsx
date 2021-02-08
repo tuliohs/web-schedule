@@ -52,8 +52,6 @@ export default function Schedule() {
         a()
     }, [topic, currentTopic])
 
-
-    console.log(data.filter(a => a?.topic?._id === currentTopic)?.length)
     return (
         <>
             {data.length === 0 ? <Loading loading={loading} /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>

@@ -14,6 +14,7 @@ import Admin from "layouts/Admin.js";
 import Schedule from "layouts/Schedule.js";
 import Auth from "layouts/Auth.js";
 import Customize from 'layouts/Customize'
+import Explore from 'layouts/Explore'
 
 // views without layouts
 import Landing from "views/Landing.js";
@@ -59,6 +60,9 @@ const App = () => {
                         </RoutesPrivate>
                         <RoutesPrivate path="/myschedule"  >
                             <Schedule />
+                        </RoutesPrivate>
+                        <RoutesPrivate path="/explore"  >
+                            <Explore />
                         </RoutesPrivate>
                         <RoutesPrivate path="/admin"  >
                             <Admin />

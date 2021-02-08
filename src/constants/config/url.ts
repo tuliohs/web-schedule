@@ -9,6 +9,7 @@ else
 export const URL = {
     BASE: base,
     MYSCHEDULE: `${base}/v1/categorySchedule`,
+    PUBLICITEMS: `${base}/v1/schedule/public`,
     REVIEW: `${base}/v1/revision`,
     TOPIC: `${base}/v1/topic`,
     ITEM: `${base}/v1/categorySchedule/item`,

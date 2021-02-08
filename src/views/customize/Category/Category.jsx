@@ -89,7 +89,6 @@ export default function Category() {
     //    a()
     //}, [currentCat, currentTopic, dados])
 
-    console.log(topic.map(c => ({ id: c._id, value: c.title })))
     return (
         <>
             <StepMenu defaultStepNum={1} />

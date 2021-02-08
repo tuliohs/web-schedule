@@ -92,11 +92,9 @@ export default function Sidebar() {
               <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/schedule" name="Schedule" />
               <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/next" name="Next" faIcon="stopwatch" />
               <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/revision" name="Revision" faIcon="history" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/statistics" name="Statistics" faIcon="chart-bar" />
             </ul>
 
             {/*---------------------------------CUSTOMIZE-------------------------------------*/}
-
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
@@ -104,11 +102,19 @@ export default function Sidebar() {
               Customize
             </h6>
             {/* Navigation */}
-
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <ItemBar setCollapseShow={setCollapseShow} path="/customize/lab/topic" name="Laboratory" faIcon="flask" />
               <ItemBar setCollapseShow={setCollapseShow} path="/customize/profile" name="Profile" faIcon="id-card" />
+            </ul>
 
+            {/*---------------------------------EXPLORE-------------------------------------*/}
+            <hr className="my-4 md:min-w-full" />
+            {/* Heading */}
+            <h6 className="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+              Explore
+            </h6>  <ul className="md:flex-col md:min-w-full flex flex-col list-none">
+              <ItemBar setCollapseShow={setCollapseShow} path="/explore/factory" name="Factory" faIcon="globe" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/explore/statistics" name="Statistics" faIcon="chart-bar" />
             </ul>
 
 

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 //components
 import HorizontalTimeLine from './HorizontalTimeLine'
-import { TNext } from 'views/mySchedule/Schedule/Types'
+import { TNext } from 'constants/Types'
 import LabelStateColor from 'utils/LabelStateColor'
 
 import PublicIcon from '@material-ui/icons/Public';
@@ -123,7 +123,6 @@ const CardNext: FunctionComponent<TCardNext> = ({ item, revisionHanlder/*, showC
         //e.preventDefault();
         const apiKey = 'AIzaSyA8vljIcmebx3rfSfxZ2fv_32CKTeHGp3A'
         const mechanism = '30fdb3668b1bd72bc'
-        console.log('worldSearch', worldSearch)
         let go = worldSearch.replace(' ', '+')
         await axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${mechanism}&q=${go}`)
             .then(c => {

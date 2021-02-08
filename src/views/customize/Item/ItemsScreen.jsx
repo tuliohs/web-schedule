@@ -69,7 +69,6 @@ export default function ItemsScreen() {
 
     useEffect(() => {
         if (location.state?.addDefault) {
-            console.log(buttonItem.current, 'current')
 
             setCurrentCat(location.state?.categoryId)
             buttonItem.current && buttonItem.current.click()
@@ -86,7 +85,6 @@ export default function ItemsScreen() {
     //        }).catch(er => setMessage({ type: 'danger', text: er?.toString() }))
     //}
     const addItemHandler = async ({ item, image }) => {
-        console.log(item, 'sim')
         if (location?.state?.addDefault)
             location.state.addDefault = false;
         await addItem({

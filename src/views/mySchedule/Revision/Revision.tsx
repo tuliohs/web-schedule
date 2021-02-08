@@ -55,9 +55,7 @@ const Revision: FunctionComponent<TCurrentItem> = () => {
     const emptyValues: TCurrentItem = { categoryId: "", itemId: "", title: "", description: "", }
     const [currentItem, setCurrentItem] = useState<TCurrentItem>(emptyValues)
     useEffect(() => {
-        console.log(currentItem, 'currentItem')
         if (currentItem === emptyValues) {
-            console.log(location, 'location')
             setCurrentItem({
                 categoryId: location.state?.categoryId,
                 itemId: location.state?.item._id,

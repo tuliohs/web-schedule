@@ -8,11 +8,10 @@ import HeaderDefault from "components/Headers/HeaderDefault.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
-import Schedule from 'views/mySchedule/Schedule/Schedule'
-import Revision from 'views/mySchedule/Revision/Revision'
-import Next from 'views/mySchedule/Next/Next'
+import Statistics from 'views/Explore/Statistics/Statistics'
+import Factory from 'views/Explore/Factory/Factory'
 
-export default function MySchedule() {
+export default function Explore() {
     return (
         <>
             <Sidebar />
@@ -22,10 +21,9 @@ export default function MySchedule() {
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
-                        <Route path="/myschedule/schedule" exact component={Schedule} />
-                        <Route path="/myschedule/revision" exact component={Revision} />
-                        <Route path="/myschedule/next" exact component={Next} />
-                        <Redirect from="/myschedule" to="/myschedule/schedule" />
+                        <Route path="/explore/factory" exact component={Factory} />
+                        <Route path="/explore/statistics" exact component={Statistics} />
+                        <Redirect from="/explore" to="/explore/factory" />
                     </Switch>
                     <FooterAdmin />
                 </div>

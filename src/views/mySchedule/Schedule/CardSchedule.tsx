@@ -7,7 +7,7 @@ import moment from 'moment'
 import 'components/Buttons/buttonHover.css'
 // components
 import { LabelStateColor } from 'utils/LabelStateColor'
-import { TItem } from "./Types";
+import { TItem } from "../../../constants/Types";
 import DefaultDropDown, { TItemDropDown } from "components/Dropdowns/DefaultDropDown";
 import { changeItem } from "api/mySchedule";
 

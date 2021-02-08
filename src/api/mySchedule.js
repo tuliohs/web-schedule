@@ -18,6 +18,9 @@ export const newRevision = async ({ curr, revisonNote, revisionDate }) => {
 }
 export const obterRevisionsId = async (location) => { return await api.get(`${URL.REVIEW}/${location?.categoryId}/${location?.itemId}`) }
 
+//Items in table format
+export const obterPublicItems = async () => { return await api.get(URL.PUBLICITEMS) }
+
 export const obterScheduleItems = async () => { return await api.get(URL.MYSCHEDULE) }
 
 export const obterTemas = async () => { return await api.get(URL.TOPIC) }
@@ -77,12 +80,9 @@ export const removeTopicId = async ({ topicId }) => {
 }
 
 export const editTopic = async ({ item, image }) => {
-    return await api.put(URL.TOPIC, {
-        _id: item._id,
-        title: item.title,
-        description: item.description,
-        image: image
-    })
+    item['imageName'] = image.imageName
+    item['imageData'] = image.imageData
+    return await api.put(URL.TOPIC, item)
 }
 
 export const obterAllRevision = async () => { return await api.get(URL.REVIEW) }

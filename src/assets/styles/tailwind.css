@@ -1230,6 +1230,10 @@ img, video {
   border-width: 1px;
 }
 
+.border-0-5 {
+  border-width: 0.5px;
+}
+
 .border-t-0 {
   border-top-width: 0;
 }
@@ -1312,6 +1316,10 @@ img, video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
 }
 
 .flex-1 {
@@ -1472,6 +1480,10 @@ img, video {
 
 .list-none {
   list-style-type: none;
+}
+
+.m-1 {
+  margin: 0.1rem;
 }
 
 .m-2 {
@@ -1724,6 +1736,10 @@ img, video {
 }
 
 .max-w-210-px {
+  max-width: 210px;
+}
+
+.max-w-3-px {
   max-width: 210px;
 }
 

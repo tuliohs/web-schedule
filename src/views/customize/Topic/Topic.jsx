@@ -14,6 +14,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 
+import DialogContentText from '@material-ui/core/DialogContentText'
+import Switch from '@material-ui/core/Switch'
+import Tooltip from '@material-ui/core/Tooltip'
+
+
 export const submitDialog = async ({ clickYes, label }) => {
     return confirmAlert({
         //title: 'Confirm to submit',
@@ -25,7 +30,29 @@ export const submitDialog = async ({ clickYes, label }) => {
     });
 };
 
-const CardContent = ({ topic, removeHandler, editHandler }) => {
+const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
+    const [switchPublic, setSwitchPublic] = useState(topic.public)
+    const [switchShowAuthor, setSwitchShowAuthor] = useState(topic.showAuthor)
+
+    const changePublic = () => {
+        topic['public'] = !topic.public
+        if (!topic.public) {  //desabilitar show autor caso o topcio não seja publico
+            topic['showAuthor'] = false
+            setSwitchShowAuthor(false)
+
+        }
+        setSwitchPublic(!switchPublic)
+        editHandler({ item: topic, image: { imageData: topic.imageData, imageName: topic.imageName } })
+            .then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
+            .catch(e => setMessage({ type: 'danger', text: e }))
+    }
+    const changeShowAuthor = () => {
+        topic['showAuthor'] = !topic.showAuthor
+        setSwitchShowAuthor(!switchShowAuthor)
+        editHandler({ item: topic, image: { imageData: topic.imageData, imageName: topic.imageName } })
+            .then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
+            .catch(e => setMessage({ type: 'danger', text: e }))
+    }
     return (
         <div className="w-full  px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -47,10 +74,33 @@ const CardContent = ({ topic, removeHandler, editHandler }) => {
                                 <i className="m-2 mt-2 mb-4 "> <ItemDialog type="edit"
                                     title='Edit Topic' receivedItems={topic}
                                     addItemHandler={editHandler}
-
                                 /> </i>
                             </div>
                         </div>
+                        <div className="items-center flex flex-col">
+                            <DialogContentText>Public</DialogContentText>
+                            <Tooltip title="Public">
+                                <Switch
+                                    checked={topic?.public}
+                                    onChange={changePublic}
+                                    value="addMultiple"
+                                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                />
+                            </Tooltip>
+                            {switchPublic &&
+                                <><DialogContentText>Show Authorship</DialogContentText>
+                                    <Tooltip title="Public">
+                                        <Switch
+                                            checked={topic?.showAuthor}
+                                            onChange={changeShowAuthor}
+                                            value="addMultiple"
+                                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                        />
+                                    </Tooltip></>
+                            }
+
+                        </div>
+
 
                     </div>
 
@@ -86,7 +136,6 @@ export default function Topic() {
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getTopics()
-                console.log('empType', empType)
                 if (empType === EEmpty.Topic)
                     setEmpType(EEmpty.Category)
             })
@@ -137,7 +186,9 @@ export default function Topic() {
                                 topic.map(c => <CardContent key={c._id} topic={c}
                                     removeHandler={removeTopicHandler}
                                     editHandler={editTopicHandler}
-                                    getTopics={getTopics} />)
+                                    getTopics={getTopics}
+                                    setMessage={setMessage}
+                                />)
                         }
                     </div>
                     <Empty />

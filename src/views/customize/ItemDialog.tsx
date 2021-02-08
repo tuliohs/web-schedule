@@ -66,18 +66,15 @@ const ItemDialog: FunctionComponent<TDialog> = ({ btnLabel = "",
     const handleClose = () => setOpen(false)
 
     const handleAdd = async () => {
-        console.log('at', itemSc)
         //if (showAssociated && itemDropDown) //se houver item da assoação selecionada
         //     handleSubFieldChange(fieldAssociated, subFieldAssociated)
         if (type !== "edit") setItemSc(initialItem)
         addItemHandler({ item: itemSc, image: imageObj })
         setOpen(false)
     }
-    console.log(itemSc)
     const handleChange = (name: string) => (target: { target: any }) => setItemSc({ ...itemSc, [name]: target.target.value })
     //const handleSubFieldChange = (field: any, subField: any, value: any) => setItemSc({ ...itemSc, [field]: { [subField]: value } })
     const handleSubFieldChange = useCallback((field: string, subField?: any, value?: string) => {
-        console.log(field, subField, value)
         if (subField) setItemSc({ ...itemSc, [field]: { [subField]: value } })
         else setItemSc({ ...itemSc, [field]: value })
     }, [])
