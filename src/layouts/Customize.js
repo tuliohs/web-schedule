@@ -20,7 +20,7 @@ export default function Customize() {
     return (
         <>
             <Sidebar />
-            <div className="relative md:ml-64 bg-gray-200">
+            <div className="relative md:ml-48 bg-gray-200">
                 <AdminNavbar />
                 {/* Header */}
                 <HeaderDefault />

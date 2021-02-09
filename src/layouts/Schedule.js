@@ -16,10 +16,11 @@ export default function MySchedule() {
     return (
         <>
             <Sidebar />
-            <div className="relative md:ml-64 bg-gray-200">
+            <div className="relative md:ml-48 bg-gray-200">
                 <AdminNavbar />
                 {/* Header */}
                 <HeaderDefault />
+
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
                         <Route path="/myschedule/schedule" exact component={Schedule} />
