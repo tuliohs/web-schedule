@@ -220,7 +220,8 @@ export default function StepMenu({ defaultStepNum = 0 }) {
 
     }
     return (
-        <div className={classes.root}>
+        <div className={classes.root}
+        >
             {/*--------------BASCIC STEPS*/}
             {/*<Stepper alternativeLabel activeStep={activeStep}>
                 {steps.map((c) => (
@@ -234,11 +235,13 @@ export default function StepMenu({ defaultStepNum = 0 }) {
                 ))}
             </Stepper>*/}
             {/*----------------MODERN STEPS*/}
-            <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
+            <Stepper
+                style={{ padding: 0, marginBottom: 48 }}
+                alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
                 {steps.map((c) => (
                     <Step key={c.label}>
                         <StepLabel StepIconComponent={QontoStepIcon} onClick={() => stepHandler(c)}>
-                            <Link to={c.rediectTo}>
+                            <Link to={c.rediectTo} style={{ color: "lightgray" }} >
                                 {c.label}
                             </Link>
                         </StepLabel>

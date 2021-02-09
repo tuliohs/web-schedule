@@ -5,6 +5,13 @@ import InputCsv from "views/admin/Home/InputCsv";
 import DonwloaderCsv from './Home/DownloaderCsv'
 import { obterScheduleItems } from 'api/mySchedule'
 
+
+{/*className="z-10"*/ }
+//OLD STYLES  NECESSARY
+//className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
+//className="bg-cover pb-16 relative content-center items-center justify-center min-h-screen-75"
+
+
 export default function Admin() {
 
     const [allCatgs, setAllCategs] = useState()
@@ -13,28 +20,35 @@ export default function Admin() {
     const getAllCategories = async () => {
         await obterScheduleItems()
             .then(c => {
-
+                console.log(c.data)
                 for (var cat of c.data) {
                     for (var ite of cat.items) {
-                        items.push({
-                            "Topic Title": cat.topic.title,
-                            "Topic Description": cat.topic.description,
-                            "Category Title": cat.title,
-                            "Category Description": cat.description,
-                            "Item Title": ite.title,
-                            "Item Description": ite.description,
-                        })
-                        //a.atualizadoEm,
-                        //a.criadoEm,
-                        //a.description,
-                        //a.items,
-                        //a.title,
-                        //a.topic,
-                        //a.description,
-                        //a.detail,
-                        //a.imageName,
-                        //a.revisions,
-                        //a.title
+                        if (ite?.revisions?.length > 0)
+                            for (var rev of ite?.revisions) {
+                                items.push({
+                                    "Topic Title": cat.topic.title,
+                                    "Topic Description": cat.topic.description,
+                                    "Category Title": cat.title,
+                                    "Category Description": cat.description,
+                                    "Item Title": ite.title,
+                                    "Item Description": ite.description,
+                                    "Revision Create": rev.createDate,
+                                    "Revision Note": rev?.note?.replace(/;/g, ""),//semicolon replace
+                                    "Revision Date": rev.revisionDate
+                                })
+                            }
+                        else
+                            items.push({
+                                "Topic Title": cat.topic.title,
+                                "Topic Description": cat.topic.description,
+                                "Category Title": cat.title,
+                                "Category Description": cat.description,
+                                "Item Title": ite.title,
+                                "Item Description": ite.description,
+                                "Revision Create": "",
+                                "Revision Note": "",
+                                "Revision Date": ""
+                            })
                     }
                 }
 
@@ -44,7 +58,7 @@ export default function Admin() {
     }
 
 
-
+    console.log('rt', allCatgs)
     const modelImport = [
         {
             "Topic Title": null,

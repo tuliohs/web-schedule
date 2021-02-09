@@ -4,6 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { defaultTheme, TTheme } from 'constants/themes/themeTypes'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -30,12 +31,18 @@ export default function ControlledOpenSelect({ name, items, state, setState, ref
   const handleOpen = () => setOpen(true)
   const disabled = items?.length === 0
 
+  const theme = defaultTheme
+  const tema = `bg-${theme.color}-${theme?.grau} text-${theme.fontColor} text-${theme.fontSize}`
+
   return (
-    <div className={(disabled ? 'opacity-80' : '') + " text-white font-bold text-sm px-6 py-3 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-teal-500 active:bg-teal-600 ease-linear transition-all duration-150"}>
+    <div className={(disabled ? 'opacity-80' : '') + ` font-bold text-sm px-6 py-3 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1
+    ${tema /*bg-teal-500 text-white active:bg-teal-600 */}
+    
+    ease-linear transition-all duration-150`}>
       <FormControl disabled={disabled} className={classes.formControl}>
         <InputLabel
           style={{
-            color: 'white',
+            color: theme.color,
             fontFamily: 'inherit',
           }}
           id="demo-controlled-open-select-label">{name}</InputLabel>
@@ -48,7 +55,7 @@ export default function ControlledOpenSelect({ name, items, state, setState, ref
           value={age}
           onChange={handleChange}
           style={{
-            color: 'white',
+            color: theme.color,
             fontFamily: 'inherit',
           }}
         >
@@ -59,7 +66,8 @@ export default function ControlledOpenSelect({ name, items, state, setState, ref
               ref={refer}
               value={c.id}
               style={{
-                color: c.id === state ? 'white' : '', backgroundColor: '#38b2ac',
+                color: c.id === state ? theme.color : '',
+                // backgroundColor: '#38b2ac',
                 padding: 10,
                 fontFamily: 'inherit',
                 margin: 0

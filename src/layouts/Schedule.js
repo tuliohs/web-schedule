@@ -17,7 +17,7 @@ export default function MySchedule() {
         <>
             <Sidebar />
             <div className="relative md:ml-48 bg-gray-200">
-                <AdminNavbar />
+                <AdminNavbar label="My Schedule" />
                 {/* Header */}
                 <HeaderDefault />
 

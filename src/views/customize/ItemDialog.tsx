@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 import IconDropdown from './Item/IconDropdown'
 import DefaultDropDown from '../../components/Dropdowns/DefaultDropDown'
+import DefaultButton from '../../components/Buttons/DefaultButton'
 import { listLevels } from 'views/mySchedule/Schedule/CardSchedule'
 
 import { TItemDropDown } from 'components/Dropdowns/DefaultDropDown'
@@ -97,21 +98,25 @@ const ItemDialog: FunctionComponent<TDialog> = ({ btnLabel = "",
         setItemSc({ ...itemSc, ["level"]: levelDropDown })
     }, [fieldAssociated, handleSubFieldChange, subFieldAssociated, itemDropDown, levelDropDown])
 
-    const color = 'teal-'
-    const grau = 500
     return (
         <div>
             {type === "edit" ? <EditIcon onClick={handleClickOpen} /> :
-                <Tooltip title="Add">
-                    <button
-                        ref={buttonItem}
-                        className={transparent ? "" : `text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
-                        type="button"
-                        style={{ textAlign: 'left', justifyContent: 'flex-start' }}
-                        onClick={handleClickOpen}
-                    ><i className="fas px-6"><AddIcon /></i>
-                        {btnLabel}</button>
-                </Tooltip>}
+                //<Tooltip title="Add">
+                //<button
+                //    ref={buttonItem}
+                //    className={transparent ? "" : `text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-${color + grau} active:bg-${color + (grau + 100)} ease-linear transition-all duration-150`}
+                //    type="button"
+                //    style={{ textAlign: 'left', justifyContent: 'flex-start' }}
+                //    onClick={handleClickOpen}
+                //><i className="fas px-6"><AddIcon /></i>
+
+                //    {btnLabel}</button>
+                <DefaultButton onClick={handleClickOpen} label={btnLabel}
+                    refBt={buttonItem} transparent={transparent}
+                    children={<i className="fas px-1 pr-4"><AddIcon /></i>}
+                />
+                //</Tooltip>*/}
+            }
             <Dialog open={open} onClose={handleClose}
                 aria-labelledby="form-dialog-title"
             >

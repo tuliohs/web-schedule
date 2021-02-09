@@ -2,11 +2,66 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // components
-
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
+import backgroundImg from 'assets/landing/write-type.jpg'
+import styled from 'styled-components'
 
-const slogan = "Joining Persistence With Strategy"
+const Styles = styled.div`
+
+
+
+.section-dark {
+  background-color: #0b1011;
+}
+.page-header { 
+  background-position: center center;
+  background-size: cover;
+  min-height: 90vh;
+  max-height: 999px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filter::after {
+  background-color: rgba(0, 0, 0, 0.5);
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.p-after::after{
+  position: absolute;
+}
+.moving-clouds {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 250.625em;
+  height: 43.75em;
+  -webkit-animation: cloudLoop 80s linear infinite;
+  animation: cloudLoop 80s linear infinite;
+  
+}
+
+@keyframes cloudLoop{   0%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+                        100%{-webkit-transform:translate3d(-50%,0,0);
+                        transform:translate3d(-50%,0,0)}
+                    }
+`
+
+
+
+const slogan = "Learning Based in Not Forgetion"// "Joining Persistence With Strategy"
 const initText = "Understand how the power of joining persistence with strategy can make you learn everything"
 export default function Landing() {
   let moreDetails = false;
@@ -14,29 +69,44 @@ export default function Landing() {
     <>
       <Navbar transparent />
       <main>
-        <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
-          <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
-            }}
-          >
-            <span
-              id="blackOverlay"
-              className="w-full h-full absolute opacity-75 bg-black"
-            ></span>
-          </div>
-          <div className="container relative mx-auto">
-            <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-                <div className="pr-12">
-                  <h1 className="text-white font-semibold text-5xl">{slogan}</h1>
-                  <p className="mt-4 text-lg text-gray-300">{initText}</p>
+        <>
+          <Styles>
+            <div
+              className="
+             section-dark absolute  top-0 w-full h-full relative pt-32 pb-48 flex
+             content-center items-center justify-center min-h-screen-75 page-header
+              "
+              style={{
+                backgroundImage: `url(${backgroundImg})`,
+                backgroundColor: "black",
+                //opacity: "0.5"
+              }}
+            >
+              <div className="filter" />
+              <div className="content-center absolute z-50">
+                <div className="container relative mx-auto">
+                  <div className="items-center flex flex-wrap">
+                    <div className="w-full lg:w-9/12 px-4 ml-auto mr-auto text-center">
+                      <div className="pr-12">
+                        <h1 className="p-after text-white font-semibold text-5xl">{slogan}</h1>
+                        <p className="mt-4 text-lg text-gray-300">{initText}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <div
+                className="moving-clouds"
+                style={{
+                  backgroundImage: "url(" + require("assets/img/clouds.png") + ")",
+                }}
+              />
             </div>
-          </div>
+          </Styles>
+          {/*<span
+              id="blackOverlay"
+              className="w-full h-full absolute opacity-75 bg-black"
+            ></span>*/}
           <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
             style={{ transform: "translateZ(0)" }}
@@ -56,14 +126,16 @@ export default function Landing() {
               ></polygon>
             </svg>
           </div>
-        </div>
+        </>
 
-        <section className="pb-20 bg-gray-300 -mt-24">
+        <section className="pb-20 pt-16 bg-gray-300 -mt-24  ">
           <div className="container mx-auto px-4">
-            <div className="flex flex-wrap">
-              <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
+            <div className="flex flex-wrap ">
+
+              <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center ">
+                <div
+                  className="z-40 relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto " >
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       <i className="fas fa-chart-bar"></i>
                     </div>
@@ -78,7 +150,7 @@ export default function Landing() {
               </div>
 
               <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="z-40 relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                       <i className="fas fa-retweet"></i>
@@ -93,7 +165,7 @@ export default function Landing() {
               </div>
 
               <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="z-40 relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
                       <i className="fas fa-calculator"></i>

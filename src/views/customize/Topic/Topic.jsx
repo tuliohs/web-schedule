@@ -60,12 +60,12 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
         <div className="w-full  px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
-                    <div style={{ justifyContent: 'center' }} className="items-center text-center flex">
+                    <div style={{ justifyContent: 'center' }} className="items-center  text-center flex">
 
                         <div className="items-center text-center" >
                             <div className="flex flex-wrap justify-center">
                                 <div className=" sm:w-4/12 px-4">
-                                    <img src={topic?.imageData} alt="..." className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
+                                    <img src={topic?.imageData} className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
                                 to={{ pathname: "category", state: { topicId: topic._id } }}
                             >
                                 <DefaultButton label="Show Categories" fontSize="xs"
-                                    theme={{ color: "gray", grau: "400", fontColor: "gray-600" }}
+                                    theme={{ color: "white", grau: "200", fontColor: "gray-600" }}
                                     padding="px-2" upper={false}
                                 />
                             </Link>
@@ -93,6 +93,8 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
                             <DialogContentText>Public</DialogContentText>
                             <Tooltip title="Public">
                                 <Switch
+                                    color="primary"
+                                    size="small"
                                     checked={topic?.public}
                                     onChange={changePublic}
                                     value="addMultiple"
@@ -100,9 +102,11 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
                                 />
                             </Tooltip>
                             {switchPublic &&
-                                <><DialogContentText>Show Authorship</DialogContentText>
+                                <><DialogContentText >Show Authorship</DialogContentText>
                                     <Tooltip title="Public">
                                         <Switch
+                                            size="small"
+                                            color="primary"
                                             checked={topic?.showAuthor}
                                             onChange={changeShowAuthor}
                                             value="addMultiple"
@@ -182,7 +186,10 @@ export default function Topic() {
         <>
             <StepMenu defaultStepNum={0} />
             <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
-                <div className=" mb-6"  >
+                <div className=" mb-6 flex"  >
+                    <span className=" text-gray-800 flex mr-5 text-2xl font-bold">
+                        Laboratory
+                    </span>
                     {/*---------BUTTON ADD TOPIC*/}
                     <ItemDialog addItemHandler={addTopicHandler}
                         title='Add Topic'

@@ -54,44 +54,50 @@ export default function Schedule() {
 
     return (
         <>
-            {data.length === 0 ? <Loading loading={loading} /> : <div className="flex flex-wrap" style={{ justifyContent: "center" }}>
-                <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal}
-                    revisionDate={revisionDate} editorState={revisonNote} setEditorState={setRevisionNote}
-                    setRevisionDate={setRevisionDate}
-                    item={data.filter(a => a?._id === curr?.categoryId)[0]?.items.filter(c => c?._id === curr?.itemId)}
-                    action={async () => {
-                        setShowModal(false)
-                        await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
-                            .then(c => {
-                                setMessage({ type: 'sucess', text: c?.data?.message })
-                                getItems()
-                            })
-                            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-                    }} />
-                <div className="relative" style={{ marginLeft: 0, marginRight: 'auto' }} >
-                    <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />
+            {data.length === 0 ? <Loading loading={loading} /> :
+                <>
 
-                </div>
-                {data.filter(a => a?.topic?._id === currentTopic)
-                    .map((c, index) => (
-                        <div key={index} className="w-full text-center relative">
-                            {/* Heading */}
-                            <h6 className="text-white  uppercase font-bold  bg-blue-600 ">{c.description}</h6>
-                            {/* Divider */}
-                            <hr className="my-6 md:min-w-full" />
-                            <div className="flex justify-center items-center flex-wrap">
-                                {c.items.map((x, index) => (
-                                    <CardSchedule key={index} item={x} categoryId={c._id}
-                                        setMessage={setMessage}
-                                        revision={() => {
-                                            setCurr({ categoryId: c._id, itemId: x._id })
-                                            callModal()
-                                        }} />
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-            </div>}
+                    <ModalSmall refer={atual} title="New Revision" setShowModal={setShowModal} showModal={showModal}
+                        revisionDate={revisionDate} editorState={revisonNote} setEditorState={setRevisionNote}
+                        setRevisionDate={setRevisionDate}
+                        item={data.filter(a => a?._id === curr?.categoryId)[0]?.items.filter(c => c?._id === curr?.itemId)}
+                        action={async () => {
+                            setShowModal(false)
+                            await newRevision({ curr: curr, revisonNote: revisonNote, revisionDate: revisionDate })
+                                .then(c => {
+                                    setMessage({ type: 'sucess', text: c?.data?.message })
+                                    getItems()
+                                })
+                                .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+                        }} />
+                    <div className="flex relative" style={{ marginLeft: 0, marginRight: 'auto' }} >
+                        <ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} />
+
+                    </div>
+                    <div className="flex flex-wrap" style={{ justifyContent: "center" }} >
+                        <div className="pt-8 w-full">
+                            {data.filter(a => a?.topic?._id === currentTopic)
+                                .map((c, index) => (
+                                    <div key={index} className="w-full text-center relative">
+                                        {/* Heading */}
+                                        <h6 className="text-white w-full text-lg bg-primary ">{c.description} </h6>
+                                        {/* Divider */}
+                                        <hr className="my-6 md:min-w-full" />
+                                        <div className="flex justify-center items-center flex-wrap">
+                                            {c.items.map((x, index) => (
+                                                <CardSchedule key={index} item={x} categoryId={c._id}
+                                                    setMessage={setMessage}
+                                                    revision={() => {
+                                                        setCurr({ categoryId: c._id, itemId: x._id })
+                                                        callModal()
+                                                    }} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}</div>
+                    </div>
+                </>
+            }
             <Empty itemPageLength={data.filter(a => a?.topic?._id === currentTopic)?.length} />
         </>
     );

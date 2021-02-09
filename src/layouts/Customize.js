@@ -21,7 +21,7 @@ export default function Customize() {
         <>
             <Sidebar />
             <div className="relative md:ml-48 bg-gray-200">
-                <AdminNavbar />
+                <AdminNavbar label="Customize" />
                 {/* Header */}
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">

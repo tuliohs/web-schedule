@@ -173,15 +173,15 @@ const CardNext: FunctionComponent<TCardNext> = ({ item, revisionHanlder/*, showC
                     <i style={{ marginLeft: 'auto', marginRight: 8 }} onClick={detailHandler}><PublicIcon /></i>
                     <i onClick={reviewsHandler}><HourglassFullTwoTone /></i>
 
-                    <form>
+                    {/*<form>
                         <div className="relative flex w-full flex-wrap items-stretch mb-3">
                             <input type="text" onChange={e => setWorldSearch(e.target.value)} placeholder="Search" className="px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pr-10" />
                             <button onClick={() => searchWord()} type="submit" className="absolute z-10 h-full leading-snug font-normal text-center text-gray-400 bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-2 py-1">
                                 <div> <i className=" fas fa-search"></i></div>
                             </button >
                         </div>
-                    </form>
-                    <div id="pesquisa">
+                    </form>*/}
+                    {/*<div id="pesquisa">
                         {
                             itemsPesquisa?.map((c: any) => (
                                 <div key={c?.cacheId}>
@@ -191,7 +191,7 @@ const CardNext: FunctionComponent<TCardNext> = ({ item, revisionHanlder/*, showC
                                 </div>
                             ))
                         }
-                    </div>
+                    </div>*/}
                 </div>
                 {!showDetail && !showRevisions ? null :
                     <span className="mt-2 mb-2 text-gray-600 m-4">{'Description : ' + item?.item?.description}</span>}

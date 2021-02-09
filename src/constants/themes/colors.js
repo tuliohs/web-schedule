@@ -6,7 +6,7 @@ export const SOCIAL = {
 
 export const THEME = {
   THEME: '#FE2472',
-  PRIMARY: "#3182ce", //rosa'#FE2472', //(verdeagua#368c8c)
+  PRIMARY: '#2A3F54',  //"#3182ce", //rosa'#FE2472', //(verdeagua#368c8c)
   DARK_PRIMARY: '#F4075C',
   LIGHT_PRIMARY: '#FF8AB9',
   BRIGHT_PRIMARY: '#FFD1E4',
