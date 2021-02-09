@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from 'react-router-dom'
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';

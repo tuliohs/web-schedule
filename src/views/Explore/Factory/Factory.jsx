@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 
 import { obterPublicItems } from 'api/mySchedule'
+import { forkTopic } from 'api/schedule.api'
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
@@ -20,6 +21,13 @@ export default function Factory() {
     const [loading, setLoading] = useState(true)
 
     const { setMessage } = useContext(DefaultContext);
+
+
+    const ToggleForkTopic = async ({ topicId }) => {
+        console.log(topicId, 'factory')
+        await forkTopic(topicId).then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
+            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+    }
 
     const getCategories = useCallback(async () => {//show topics without data
         await obterPublicItems()
@@ -44,6 +52,9 @@ export default function Factory() {
     //            setTopic(c.data)
     //        }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     //}, [setMessage])
+
+
+
 
     useEffect(() => {
 
@@ -73,6 +84,7 @@ export default function Factory() {
                             //    categories={catgs?.filter(y => y.topic?._id === c._id)}
                             //    getTopics={getTopics} />)
                             topic.map(c => <CardPost key={c._id} topic={c}
+                                ToggleForkTopic={ToggleForkTopic}
                                 categories={catgs?.filter(y => y.topic?._id === c._id)}
                             />)
                     }

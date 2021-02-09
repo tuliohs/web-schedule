@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, useCallback } from "react";
 
 import { newTopic, removeTopicId, obterTemas, editTopic } from 'api/mySchedule'
 
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom'
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
@@ -13,10 +13,13 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
+import DefaultButton from 'components/Buttons/DefaultButton'
 
 import DialogContentText from '@material-ui/core/DialogContentText'
 import Switch from '@material-ui/core/Switch'
 import Tooltip from '@material-ui/core/Tooltip'
+
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 export const submitDialog = async ({ clickYes, label }) => {
@@ -76,6 +79,15 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
                                     addItemHandler={editHandler}
                                 /> </i>
                             </div>
+                            <Link className="relative w-auto pl-4 flex-initial"
+                                to={{ pathname: "category", state: { topicId: topic._id } }}
+                            >
+                                <DefaultButton label="Show Categories" fontSize="xs"
+                                    theme={{ color: "gray", grau: "400", fontColor: "gray-600" }}
+                                    padding="px-2" upper={false}
+                                />
+                            </Link>
+
                         </div>
                         <div className="items-center flex flex-col">
                             <DialogContentText>Public</DialogContentText>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const Header = ({ title }) => {
     return (
@@ -38,6 +38,9 @@ export const Header = ({ title }) => {
 }
 
 export const UserInput = ({ label, id, type, name, onChange, value, placeholder }) => {
+    const [passwordShow, setPasswordShow] = useState(false);
+    const togglePassword = () => setPasswordShow(!passwordShow)
+
     return (
         <div className="relative w-full mb-3">
             <label
@@ -50,11 +53,26 @@ export const UserInput = ({ label, id, type, name, onChange, value, placeholder 
                 className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder={placeholder}
                 id={id}
-                type={type}
+                type={type !== "password" ? type : !passwordShow ? "password" : "text"}
                 name={name}
                 onChange={onChange}
                 value={value ?? ''}
+                style={{
+                    position: 'relative',
+                    display: 'flex',
+                    marginBottom: '14px'
+                }}
             />
+            {type === "password" &&
+                <i
+                    onClick={togglePassword}
+                    className={"fas " + (!passwordShow ? "fa-eye" : "fa-eye-slash")}
+                    style={{
+                        position: 'absolute',
+                        top: '55%',
+                        right: '3%'
+                    }}
+                > </i>}
         </div>
     )
 }

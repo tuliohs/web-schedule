@@ -11,13 +11,14 @@ import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 import CardCategory from './CardCategory'
 
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 
 export default function Category() {
 
     const { setMessage } = useContext(DefaultContext);
     const history = useHistory()
+    let location = useLocation()
 
     const [dados, setData] = useState([])
     const [topic, setTopic] = useState([])
@@ -74,8 +75,9 @@ export default function Category() {
 
     useEffect(() => { //quando receber informações da api => selecionar o primeiro topico como default (Caso não haja nenhum intem previamente filtrado)
         if (currentTopic) return //não fazer ada quando já houver um item selecionado
-        const a = async () => { setCurrentTopic(topic[0]?._id) }
-        a()
+        if (location.state?.topicId) // filtrando pelo location caso exista
+            setCurrentTopic(location.state?.topicId)
+        else setCurrentTopic(topic[0]?._id)
     }, [topic, currentTopic])
 
     useEffect(() => {// quando o tema for alterado => selecionar a primeira categoria como default

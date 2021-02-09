@@ -40,7 +40,6 @@ export default function Login() {
       setValues(initialState);
     });
   }
-
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -57,7 +56,7 @@ export default function Login() {
                   <UserInput label="Email" id="email" name="email" type="text"  //change type for the email
                     onChange={onChange} value={values.email} placeholder="Email"
                   />
-                  <UserInput label="Password" id="password" type="password" name="password"
+                  <UserInput label="Password" id="password" name="password" type={"password"}
                     onChange={onChange} value={values.password} placeholder="Password"
                   />
                   {error && (

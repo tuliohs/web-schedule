@@ -12,6 +12,7 @@ export const URL = {
     PUBLICITEMS: `${base}/v1/schedule/public`,
     REVIEW: `${base}/v1/revision`,
     TOPIC: `${base}/v1/topic`,
+    TOPICFORK: `${base}/v1/topic/fork`,
     ITEM: `${base}/v1/categorySchedule/item`,
     SCHEDULE: `${base}/v1/schedule`,
     CHART: `${base}/v1/chart`,

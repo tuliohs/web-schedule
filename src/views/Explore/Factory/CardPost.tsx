@@ -18,6 +18,7 @@ type TCategory = {
 
 interface ICardFactory {
     topic: {
+        _id: string,
         title: string,
         description: string,
         imageData: string,
@@ -25,7 +26,8 @@ interface ICardFactory {
     },
     categories: Array<TCategory>,
     removeHandler: string,
-    editHandler: string
+    editHandler: string,
+    ToggleForkTopic: any
 }
 
 const Styles = styled.div`
@@ -62,7 +64,12 @@ max-width: 680px;
 `
 
 
-const CardPost: FunctionComponent<ICardFactory> = ({ topic, categories, removeHandler, editHandler }) => {
+const CardPost: FunctionComponent<ICardFactory> = ({ topic, categories, ToggleForkTopic, editHandler }) => {
+    console.log(topic._id, 'i')
+    console.log(topic)
+    const handleFork = async () => {
+        await ToggleForkTopic({ topicId: topic._id })
+    }
     return (
 
         <div className="relative">
@@ -134,16 +141,11 @@ const CardPost: FunctionComponent<ICardFactory> = ({ topic, categories, removeHa
                             }
                         </>
                     }
-
                     <div style={{ height: "20px" }} />
-
-
                     <div className="p-4">
-                        <button
+                        <button onClick={handleFork}
                         ><i className="fas fa-link"></i></button>
-
                     </div>
-
                 </div>
             </Styles>
 

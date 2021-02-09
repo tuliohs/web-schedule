@@ -6,6 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { defaultTheme, TTheme } from 'constants/themes/themeTypes';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -23,13 +24,6 @@ export type TItemDropDown = {
   id: string,
   value: string
 }
-
-export type TTheme = {
-  color?: "teal" | "gray" | "red" | "orange" | "yellow" | "green" | "teal" | "blue" | "indigo" | "purple" | "pink",
-  grau?: "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900",
-  fontColor?: "white" | "black" | "gray-200"
-}
-
 interface IDropDownDefault {
   name?: string,
   readonly items: Array<TItemDropDown>,
@@ -42,7 +36,7 @@ interface IDropDownDefault {
 }
 
 const DefaultDropDown: FunctionComponent<IDropDownDefault> = ({ name,
-  items, setState, refer, defaultElment = "", theme = { color: "teal", grau: "500", fontColor: "black" },
+  items, setState, refer, defaultElment = "", theme = defaultTheme,
   allItems = false, firsrOrDefault = false }) => {
   const classes = useStyles();
   //const dropDownRefer = createRef(null)
@@ -66,7 +60,7 @@ const DefaultDropDown: FunctionComponent<IDropDownDefault> = ({ name,
       setElement(defaultElment)
   }, [defaultElment])
 
-  const tema = "bg-" + theme.color + "-" + theme?.grau + " text-" + theme.fontColor
+  const tema = `bg-${theme.color}-${theme?.grau} text-${theme.fontColor} text-${theme.fontSize}`
   return (
     <div className={(items?.length === 0 ? 'opacity-80' : '') + tema + " font-bold text-sm px-2 rounded shadow hover:shadow-md outline-none focus:outline-none  ease-linear duration-150"}>
       <FormControl disabled={items?.length === 0} className={classes.formControl} >
