@@ -12,17 +12,17 @@ import ItemBar from 'components/Sidebar/LeftBar/ItemBar'
 export default function Sidebar() {
   const { user } = React.useContext(StoreContext);
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const theme = " bg-gray-200 "// "bg-white"
+
   return (
     <>
-      <nav className="relative md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between 
-       md:w-48
-        z-10 py-4 px-6">
+      <nav className={theme + "relative md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow-xl  flex flex-wrap items-center justify-between md:w-48    z-10 py-4 px-6"}>
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-no-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */}
           <button
             className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
             type="button"
-            onClick={() => setCollapseShow("bg-white m-2 py-3 px-6")}
+            onClick={() => setCollapseShow(theme + " m-2 py-3 px-6")}
           >
             <i className="fas fa-bars"></i>
           </button>
@@ -77,7 +77,7 @@ export default function Sidebar() {
                 <input
                   type="text"
                   placeholder="Search"
-                  className="px-3 py-2 h-12 border border-solid  border-gray-600 placeholder-gray-400 text-gray-700 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
+                  className={theme + "px-3 py-2 h-12 border border-solid  border-gray-600 placeholder-gray-400 text-gray-700 rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"}
                 />
               </div>
             </form>
@@ -106,7 +106,7 @@ export default function Sidebar() {
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <ItemBar setCollapseShow={setCollapseShow} path="/customize/lab/topic" name="Laboratory" faIcon="flask" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/customize/profile" name="Profile" faIcon="id-card" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/customize/profile" name="Profile" faIcon="user-circle" />
             </ul>
 
             {/*---------------------------------EXPLORE-------------------------------------*/}
@@ -118,8 +118,6 @@ export default function Sidebar() {
               <ItemBar setCollapseShow={setCollapseShow} path="/explore/factory" name="Factory" faIcon="globe" />
               <ItemBar setCollapseShow={setCollapseShow} path="/explore/statistics" name="Statistics" faIcon="chart-bar" />
             </ul>
-
-
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />

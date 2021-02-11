@@ -21,7 +21,7 @@ const ItemBar: FunctionComponent<MyProps> = ({ name, path, faIcon = "tv", setCol
         <li className="items-center">
             <Link
                 className={
-                    "text-xs uppercase py-3 font-bold block " +
+                    "text-sm py-1  block " +
                     (relativePath(location?.pathname) === relativePath(path)
                         ? "text-blue-500 hover:text-blue-600"
                         : "text-gray-800 hover:text-gray-600")
@@ -34,7 +34,7 @@ const ItemBar: FunctionComponent<MyProps> = ({ name, path, faIcon = "tv", setCol
                         `fas fa-${faIcon} mr-2 text-sm ` +
                         (relativePath(location?.pathname) === relativePath(path)
                             ? "opacity-75"
-                            : "text-gray-400")
+                            : "text-gray-500")
                     }
                 ></i>{" "}
                 {name}
