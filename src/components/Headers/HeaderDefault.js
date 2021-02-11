@@ -48,7 +48,7 @@ ul {
 `
 
 
-export default function HeaderDefault() {
+export default function HeaderDefault({ title }) {
     const cl = EModernColors;
     return (
         <>
@@ -59,7 +59,10 @@ export default function HeaderDefault() {
                         <div>
                             {/* Card stats */}
                             <div className="flex flex-wrap">
+                                {title && <h1 className="p-after text-white font-semibold text-5xl">{title}</h1>}
+
                                 <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+
                                     {/*<CardStats
                                     statSubtitle="PERFORMANCE"
                                     statTitle="49,65%"

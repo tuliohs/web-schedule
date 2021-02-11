@@ -12,11 +12,12 @@ import Login from "views/auth/Login.js";
 import ForgotPass from "views/auth/ForgotPass";
 import Register from "views/auth/Register.js";
 import RegisterComplet from "views/auth/RegisterComplet";
+import DefaultNavbar from "components/Navbars/DefaultNavbar/DefaultNavBar";
 
 export default function Auth() {
   return (
     <>
-      <Navbar transparent />
+      <DefaultNavbar showAcessBtn={false} />
       <main>
         <section className="relative w-full h-full py-40 min-h-screen">
           <div

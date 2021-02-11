@@ -21,6 +21,20 @@ import Tooltip from '@material-ui/core/Tooltip'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
+const Writes = {
+    en: {
+        messageTopicPublicTrue: "Will be public",
+        messageTopicPublicFalse: "it will only be private",
+        messageAuhorTrue: "Authorship will be shown",
+        messageAuhorFalse: "Authorship will no longer be shown",
+    },
+    pt: {
+        messageTopicPublicTrue: "Ficará Publico",
+        messageTopicPublicFalse: "Será somente privado",
+        messageAuhorTrue: "A autoria será mostrada",
+        messageAuhorFalse: "A autoria não será mais mostrada",
+    }
+}
 
 export const submitDialog = async ({ clickYes, label }) => {
     return confirmAlert({
@@ -42,18 +56,25 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
         if (!topic.public) {  //desabilitar show autor caso o topcio não seja publico
             topic['showAuthor'] = false
             setSwitchShowAuthor(false)
-
         }
         setSwitchPublic(!switchPublic)
         editHandler({ item: topic, image: { imageData: topic.imageData, imageName: topic.imageName } })
-            .then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
+            .then(res => {
+                let msgPublic = topic['public'] ? Writes.en.messageTopicPublicTrue : Writes.en.messageTopicPublicFalse
+                let msgType = topic['public'] ? 'sucess' : 'info'
+                setMessage({ type: msgType, text: msgPublic })
+            })
             .catch(e => setMessage({ type: 'danger', text: e }))
     }
     const changeShowAuthor = () => {
         topic['showAuthor'] = !topic.showAuthor
         setSwitchShowAuthor(!switchShowAuthor)
         editHandler({ item: topic, image: { imageData: topic.imageData, imageName: topic.imageName } })
-            .then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
+            .then(res => {
+                let msgAuthor = topic['showAuthor'] ? Writes.en.messageAuhorTrue : Writes.en.messageAuhorFalse
+                let msgType = topic['showAuthor'] ? 'sucess' : 'info'
+                setMessage({ type: msgType, text: msgAuthor })
+            })
             .catch(e => setMessage({ type: 'danger', text: e }))
     }
     return (

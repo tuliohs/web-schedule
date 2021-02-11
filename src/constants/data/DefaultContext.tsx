@@ -1,9 +1,6 @@
 import React, { createContext } from 'react'
+import { IMessage } from 'components/Notifications/AlertDynamic'
 
-export type TMessage = {
-    type: 'sucess' | 'danger' | 'info',
-    text: string
-}
 export enum EEmpty {
     Topic = "Topic",
     Category = "Category",
@@ -11,14 +8,9 @@ export enum EEmpty {
     Review = "Review",
     Valid = "Valid"
 }
-interface IDefaultProps {
-    showAlert: boolean,
-    setShowAlert: React.Dispatch<React.SetStateAction<boolean>>,
-    message: TMessage,
-    setMessage: React.Dispatch<React.SetStateAction<TMessage>>,
+interface IDefaultProps extends IMessage {
     empType: EEmpty,
     setEmpType: React.Dispatch<React.SetStateAction<EEmpty>>,
-    setSecondsMessage: React.Dispatch<React.SetStateAction<number>>,
 }
 
 export var DefaultContext = createContext({} as IDefaultProps)

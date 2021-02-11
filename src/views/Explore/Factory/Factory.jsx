@@ -5,6 +5,7 @@ import { forkTopic } from 'api/schedule.api'
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
+import StoreContext from 'constants/data/StoreContext'
 // components
 //import ItemDialog from '../ItemDialog'
 //import StepMenu from '../StepMenu'
@@ -13,6 +14,17 @@ import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 
 import CardPost from "views/Explore/Factory/CardPost";
+import { useHistory } from "react-router";
+
+const Writes = {
+    en: {
+        loginMessage: "Log in To copy a topic",
+        subTitle: "Explore",
+        acess: "Acess",
+        explore: "Explore"
+
+    }
+}
 
 export default function Factory() {
 
@@ -20,10 +32,16 @@ export default function Factory() {
     const [catgs, setCatgs] = useState([])
     const [loading, setLoading] = useState(true)
 
+    const history = useHistory()
     const { setMessage } = useContext(DefaultContext);
-
+    const { token } = useContext(StoreContext);
 
     const ToggleForkTopic = async ({ topicId }) => {
+        if (!token) {
+            history.push("/auth/login")
+            return setMessage({ type: 'info', text: Writes.en.loginMessage, timeExpire: 8 })
+        }
+
         console.log(topicId, 'factory')
         await forkTopic(topicId).then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
             .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
@@ -53,12 +71,7 @@ export default function Factory() {
     //        }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     //}, [setMessage])
 
-
-
-
     useEffect(() => {
-
-        //getTopics()
         getCategories()
     }, [getCategories])
 
@@ -90,7 +103,7 @@ export default function Factory() {
                     }
                 </div>
             </div>
-            <Empty />
+            {token && <Empty />}
         </>
     );
 }

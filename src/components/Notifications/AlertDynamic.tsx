@@ -1,23 +1,41 @@
-import React, { useEffect } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 
-const AlertDynamic = ({ showAlert, setShowAlert, message, secondMessage, setSecondsMessage }) => {
+
+enum ETipoTheme {
+    sucess = "bg-green-500",
+    danger = "bg-red-600",
+    info = "bg-blue-500",
+}
+
+export type TMessage = {
+    type: 'sucess' | 'danger' | 'info',
+    text: string,
+    timeExpire?: number
+}
+
+export interface IMessage {
+    message: TMessage,
+    setMessage: React.Dispatch<React.SetStateAction<TMessage>>,
+    setShowAlert: React.Dispatch<React.SetStateAction<boolean>>,
+    showAlert: boolean,
+}
+
+const AlertDynamic: FunctionComponent<IMessage> = ({ showAlert, setShowAlert, message }) => {
 
     useEffect(() => {
         const intervalo = setInterval(() => {
             setShowAlert(false);
-            setSecondsMessage(5)
-        }, secondMessage * 1000) //Substitui componentDidAmount
+        }, (message?.timeExpire || 5) * 1000) //Substitui componentDidAmount
         return () => clearInterval(intervalo) //Substitui componentWillUnmount
-    }, [secondMessage, setShowAlert]);
+    }, [setShowAlert]);
 
-
-    const cor_grau = message?.type === 'sucess' ? 'bg-green-500' : 'bg-red-600'
+    //const  cor_grau= message?.type === 'sucess' ? 'bg-green-500' : message?.type === 'info' ? 'bg-blue-500' : 'bg-red-600'
 
     return (
         <>
             {showAlert && message?.text ? (
                 <div
-                    className={`fixed text-white px-6 py-4 border-0 rounded ${cor_grau} mb-0 ml-0`}
+                    className={`${ETipoTheme[message?.type]} fixed text-white px-6 py-4 border-0 rounded mb-0 ml-0`}
                     style={{
                         position: 'fixed',
                         bottom: '10px',

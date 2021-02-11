@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 // components
 import Navbar from "components/Navbars/AuthNavbar.js";
+import DefaultNavbar from "components/Navbars/DefaultNavbar/DefaultNavBar";
+
 import Footer from "components/Footers/Footer.js";
 import backgroundImg from 'assets/landing/write-type.jpg'
 import styled from 'styled-components'
@@ -67,7 +69,9 @@ export default function Landing() {
   let moreDetails = false;
   return (
     <>
-      <Navbar transparent />
+      {/*<Navbar />*/}
+
+      <DefaultNavbar />
       <main>
         <>
           <Styles>
@@ -196,7 +200,7 @@ export default function Landing() {
                   A related concept is the strength of memory that refers to the durability
                   that memory traces in the brain.
                 </p>
-                <Link to="/" className="font-bold text-gray-800 mt-8">
+                <Link to="/myschedule/schedule" className="font-bold text-gray-800 mt-8">
                   Start Now!
                 </Link>
               </div>

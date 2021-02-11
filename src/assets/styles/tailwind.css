@@ -31,6 +31,26 @@ CUSTOM
   font-style: oblique;
 }
 
+.navbar-fixed-top {
+  -webkit-backface-visibility: hidden;
+}
+
+.btn {
+  padding: 2px 15px;
+  display: inline-block;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 500;
+  /*background-color: #0ac5d4;*/
+  border-radius: 50px;
+  color: white;
+  transition: all .2s ease;
+  background-color: #f32827;
+  border-color: #f32827;
+  opacity: 0.7;
+  color: white;
+}
+
 /**
  * Remove the margin in all browsers.
  */

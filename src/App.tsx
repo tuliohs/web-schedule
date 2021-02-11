@@ -21,13 +21,14 @@ import Landing from "views/Landing.js";
 import LandingOld from "views/LandingOld.js";
 import Profile from "views/Profile.js";
 
-import DefaultContext, { TMessage, EEmpty } from 'constants/data/DefaultContext'
+import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
 import { StoreProvider } from 'constants/data/StoreContext'
-import AlertDynamic from 'components/Notifications/AlertDynamic'
+import AlertDynamic, { TMessage } from 'components/Notifications/AlertDynamic'
 import RoutesPrivate from 'utils/Private/RoutesPrivate'
 import NotFound from 'utils/NotFound'
+import Public from 'views/Public'
 
-const defaultMessage: TMessage = { type: 'sucess', text: 'sucess' }
+const defaultMessage: TMessage = { type: 'sucess', text: 'sucess', timeExpire: 5 }
 const App = () => {
     //{ JS CONFIG
     //    "compilerOptions": {
@@ -42,14 +43,12 @@ const App = () => {
 
     const [message, setMessage] = useState<TMessage>(defaultMessage);
 
-    const [secondMessage, setSecondsMessage] = useState<number>(5);
-
     useEffect(() => {
         if (message !== defaultMessage)
             setShowAlert(true)
     }, [message])
     return (
-        <DefaultContext.Provider value={{ showAlert, setShowAlert, setSecondsMessage, message, setMessage, empType, setEmpType }}>
+        <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage, empType, setEmpType }}>
             {/*inicio das rotas*/}
             <Router>
                 <StoreProvider>
@@ -73,6 +72,7 @@ const App = () => {
                         </RoutesPrivate>
                         <Route path="/auth" component={Auth} />
                         <Route path="/profile" exact component={Profile} />
+                        <Route path="/public" exact component={Public} />
                         <Route path="/" exact component={Landing} />
                         {/* add redirect for first page */}
                         <Route path="*">
@@ -82,9 +82,7 @@ const App = () => {
                     </Switch>
                 </StoreProvider>
             </Router>
-            <AlertDynamic showAlert={showAlert}
-                secondMessage={secondMessage} setSecondsMessage={setSecondsMessage}
-                setShowAlert={setShowAlert} message={message} />
+            <AlertDynamic setMessage={setMessage} showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
         </DefaultContext.Provider>)
 }
 
