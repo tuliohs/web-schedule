@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-
-import { newTopic, removeTopicId, obterTemas, editTopic } from 'api/mySchedule'
-
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-import 'components/Buttons/buttonHover.css'
-import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
 // components
 import ItemDialog from '../ItemDialog'
 import StepMenu from '../StepMenu'
@@ -15,10 +11,12 @@ import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 import DefaultButton from 'components/Buttons/DefaultButton'
 
+import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
+import { newTopic, removeTopicId, obterTemas, editTopic } from 'api/mySchedule'
+
 import DialogContentText from '@material-ui/core/DialogContentText'
 import Switch from '@material-ui/core/Switch'
 import Tooltip from '@material-ui/core/Tooltip'
-
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const Writes = {
@@ -48,6 +46,8 @@ export const submitDialog = async ({ clickYes, label }) => {
 };
 
 const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
+
+    const { t } = useTranslation()
     const [switchPublic, setSwitchPublic] = useState(topic.public)
     const [switchShowAuthor, setSwitchShowAuthor] = useState(topic.showAuthor)
 
@@ -60,7 +60,7 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
         setSwitchPublic(!switchPublic)
         editHandler({ item: topic, image: { imageData: topic.imageData, imageName: topic.imageName } })
             .then(res => {
-                let msgPublic = topic['public'] ? Writes.en.messageTopicPublicTrue : Writes.en.messageTopicPublicFalse
+                let msgPublic = topic['public'] ? t("topic.mgsPublicTrue") : t("topic.mgsPublicFalse")
                 let msgType = topic['public'] ? 'sucess' : 'info'
                 setMessage({ type: msgType, text: msgPublic })
             })
@@ -71,7 +71,7 @@ const CardContent = ({ topic, removeHandler, editHandler, setMessage }) => {
         setSwitchShowAuthor(!switchShowAuthor)
         editHandler({ item: topic, image: { imageData: topic.imageData, imageName: topic.imageName } })
             .then(res => {
-                let msgAuthor = topic['showAuthor'] ? Writes.en.messageAuhorTrue : Writes.en.messageAuhorFalse
+                let msgAuthor = topic['showAuthor'] ? t("topic.mgsAuthorTrue") : t("topic.mgsAuthorFalse")
                 let msgType = topic['showAuthor'] ? 'sucess' : 'info'
                 setMessage({ type: msgType, text: msgAuthor })
             })

@@ -1,8 +1,75 @@
-import React from "react";
+import React, { useContext, useCallback, useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import { getUser } from 'api/user.api'
+import DefaultContext from 'constants/data/DefaultContext'
+import StoreContext from 'constants/data/StoreContext'
+
+import CardLetter from 'components/Cards/CardLetter'
+
+import UserDropdown from "components/Dropdowns/UserDropdown";
+import IconDropDown from 'components/Dropdowns/IconDropdown'
 
 export default function Navbar({ label = "Dashboard" }) {
+
+  const { i18n } = useTranslation()
+  const { removeToken, user, setUser } = useContext(StoreContext);
+  const [imageLanguage, setImageLanguage] = useState(require('assets/locales/en.png'))
+  const history = useHistory()
+  const { setMessage, } = useContext(DefaultContext);
+  const getUserHandler = useCallback(async () => {
+    await getUser()
+      .then(c => { setUser(c.data?.values) })
+      .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+  }, [setMessage, setUser])
+
+  const logoutHandler = e => {
+    e.preventDefault()
+    removeToken('token')
+  }
+
+  const editProfileHandler = e => {
+    e.preventDefault()
+    history.push('/customize/profile')
+  }
+
+  useEffect(() => {
+    //Fica verificando caso o user não esteja na memoria
+    if (user?.email) return
+    getUserHandler()
+  }, [getUserHandler, user])
+
+
+  const itemsDropUser = [
+    { label: " Edit Profile", action: editProfileHandler },
+    { label: " Logout", action: logoutHandler },
+  ]
+  const contentDropUser = (<span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
+    {user?.imageData ? <img
+      alt="..."
+      className="w-full rounded-full align-middle border-none shadow-lg"
+      src={user?.imageData}
+    /> : <CardLetter letter={user?.firstName} size="small" />}
+  </span>)
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng)
+    let newLng = itemsDroplanguage.filter(c => c.lng === lng)[0]?.icon
+    setImageLanguage(newLng)
+  }
+  const itemsDroplanguage = [
+    { lng: "en", label: "English", icon: require('assets/locales/en.png'), action: () => changeLanguage("en") },
+    { lng: "ptbr", label: "Portugues", icon: require('assets/locales/ptbr.png'), action: () => changeLanguage("ptbr") },
+  ]
+  const contentDroplanguage = (<span className="w-10 text-sm inline-flex items-center justify-between  ">
+    <img alt="..."
+      style={{ width: 20 }}
+      className=" border-none shadow-lg"
+      src={imageLanguage}
+    /><span>▼</span>
+  </span>)
+
   return (
     < >
       {/* Navbar */}
@@ -31,7 +98,12 @@ export default function Navbar({ label = "Dashboard" }) {
           </form>
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <UserDropdown />
+            <UserDropdown items={itemsDropUser} content={contentDropUser} />
+          </ul>
+          <ul className="flex-col md:flex-row list-none items-center m-2   md:flex">
+          </ul>
+          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
+            <UserDropdown items={itemsDroplanguage} content={contentDroplanguage} />
           </ul>
         </div>
       </nav>

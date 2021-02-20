@@ -20,7 +20,6 @@ export enum EPagePath {
     Schedule = "/myschedule/schedule",
 }
 
-
 //Verifica se o constexto está vazio e sugere inserção de conteudo
 const Empty: FunctionComponent<EmptyProps> = ({ itemPageLength = 0 }) => {
 
@@ -65,8 +64,8 @@ const Empty: FunctionComponent<EmptyProps> = ({ itemPageLength = 0 }) => {
         },
         Item: {
             emptype: EEmpty.Item, to: EPagePath.Item,
-            emptyInPage: <p className={pStyle}>Esse é o item que será revisado, vamos lá!</p>,
-            emptyOutPage: (<div className={pStyle}><p>Você está quase lá! Você já pode criar os items a serem revisados</p>
+            emptyInPage: <p className={pStyle}>Esse é o item que será revisado, vamos lá! Crie um item legal.</p>,
+            emptyOutPage: (<div className={pStyle}><p>Você está quase lá! Já pode criar os items a serem revisados</p>
                 <CliqueAqui to={EPagePath.Item} /></div>)
         },
         Review: {
@@ -82,7 +81,7 @@ const Empty: FunctionComponent<EmptyProps> = ({ itemPageLength = 0 }) => {
 
     const currentPagePath = history?.location?.pathname
     return (
-        <div className="bottom-0 fixed">
+        <div className={empType === EEmpty.Valid ? "" : "bottom-0 fixed bg-teal-500 text-white p-2"}>
             {empType === EEmpty.Valid ?
                 ///SE TIVER SIDO VALIDADO PELO SERVIDOR MAS A PAGINA ATUAL ESTÁ COM ITEMS VAZIOS
                 itemPageLength > 0 ? null :

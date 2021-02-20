@@ -21,7 +21,7 @@ export function getRandom(max: number) {
 }
 
 interface IIcon {
-  setItemSc: React.Dispatch<SetStateAction<any>>,
+  setItemSc: React.Dispatch<SetStateAction<any>> | any,
   itemSc: any,
   readonly fieldName?: string,
 
@@ -43,7 +43,10 @@ const IconDropdown: FunctionComponent<IIcon> = ({ setItemSc, itemSc, fieldName =
     setDropdownPopoverShow(false);
   };
 
-  const changeIcon = (icon: string) => setItemSc({ ...itemSc, [fieldName]: icon })
+  const changeIcon = (icon: string) => {
+    if (setItemSc)
+      setItemSc({ ...itemSc, [fieldName]: icon })
+  }
   useEffect(() => changeIcon(AvaiableIcons[getRandom(AvaiableIcons.length - 1)].faicon), []);
 
   return (
@@ -59,7 +62,7 @@ const IconDropdown: FunctionComponent<IIcon> = ({ setItemSc, itemSc, fieldName =
       >
 
         <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
-          <i className={"fas fa-" + itemSc.iconName}></i>
+          <i className={"fas fa-" + itemSc?.iconName}></i>
         </div>
       </a>
       <div

@@ -1,0 +1,8 @@
+{
+    "topic": {
+        "mgsPublicTrue": "now will be public",
+        "mgsPublicFalse": "it will only be private",
+        "mgsAuthorTrue": "Authorship will be shown",
+        "mgsAuthorFalse": "Authorship will no longer be shown"
+    }
+}

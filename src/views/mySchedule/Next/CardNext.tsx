@@ -140,9 +140,12 @@ const CardNext: FunctionComponent<TCardNext> = ({ item, revisionHanlder/*, showC
         <div className="items-center relative justify-center  flex ">
             <div style={{ maxWidth: '75rem' }} className=" flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="transparent relative px-4 py-5 flex-auto flex flex-row flex-wrap">
+                    {/*
+                    Marcador lateral
+                    
                     <Styles >
                         <div className={"ribbon " + (item?.detail?.nextIsToday ? "bg-gray-900" : "bg-blue-600")}>{item?.detail?.nextIsToday && 'Today'}</div>
-                    </Styles>
+                    </Styles>*/}
                     {/*<div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                         <i className="fas fa-retweet"></i>
                     </div>*/}

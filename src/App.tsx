@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect, Suspense, } from "react";
 
 import {
     BrowserRouter as Router, Route, Switch
@@ -48,44 +48,47 @@ const App = () => {
             setShowAlert(true)
     }, [message])
     return (
-        <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage, empType, setEmpType }}>
-            {/*inicio das rotas*/}
-            <Router>
-                <StoreProvider>
-                    <Switch>
-                        {/* add routes with layouts */}
-                        <RoutesPrivate path="/customize"  >
-                            <Customize />
-                        </RoutesPrivate>
-                        <RoutesPrivate path="/myschedule"  >
-                            <Schedule />
-                        </RoutesPrivate>
-                        <RoutesPrivate path="/explore"  >
-                            <Explore />
-                        </RoutesPrivate>
-                        <RoutesPrivate roles={["admin"]} path="/admin"  >
-                            <Admin />
-                        </RoutesPrivate>
-                        {/* add routes without layouts */}
-                        <RoutesPrivate roles={["admin"]} path="/landingold" exact  >
-                            <LandingOld />
-                        </RoutesPrivate>
-                        <RoutesPrivate roles={["admin"]} path="/profile" exact  >
-                            <Profile />
-                        </RoutesPrivate>
-                        <Route path="/auth" component={Auth} />
-                        <Route path="/public" exact component={Public} />
-                        <Route path="/" exact component={Landing} />
-                        {/* add redirect for first page */}
-                        <Route path="*">
-                            <NotFound />
-                        </Route>
-                        {/*<Redirect from="*" tyo="/" />*/}
-                    </Switch>
-                </StoreProvider>
-            </Router>
-            <AlertDynamic setMessage={setMessage} showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
-        </DefaultContext.Provider>)
+        <Suspense fallback="loading">
+            <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage, empType, setEmpType }}>
+                {/*inicio das rotas*/}
+                <Router>
+                    <StoreProvider>
+                        <Switch>
+                            {/* add routes with layouts */}
+                            <RoutesPrivate path="/customize"  >
+                                <Customize />
+                            </RoutesPrivate>
+                            <RoutesPrivate path="/myschedule"  >
+                                <Schedule />
+                            </RoutesPrivate>
+                            <RoutesPrivate path="/explore"  >
+                                <Explore />
+                            </RoutesPrivate>
+                            <RoutesPrivate roles={["admin"]} path="/admin"  >
+                                <Admin />
+                            </RoutesPrivate>
+                            {/* add routes without layouts */}
+                            <RoutesPrivate roles={["admin"]} path="/landingold" exact  >
+                                <LandingOld />
+                            </RoutesPrivate>
+                            <RoutesPrivate roles={["admin"]} path="/profile" exact  >
+                                <Profile />
+                            </RoutesPrivate>
+                            <Route path="/auth" component={Auth} />
+                            <Route path="/public" exact component={Public} />
+                            <Route path="/" exact component={Landing} />
+                            {/* add redirect for first page */}
+                            <Route path="*">
+                                <NotFound />
+                            </Route>
+                            {/*<Redirect from="*" tyo="/" />*/}
+                        </Switch>
+                    </StoreProvider>
+                </Router>
+                <AlertDynamic setMessage={setMessage} showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
+            </DefaultContext.Provider>
+
+        </Suspense>)
 }
 
 export default App

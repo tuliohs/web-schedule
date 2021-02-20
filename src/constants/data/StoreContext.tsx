@@ -1,17 +1,20 @@
 import React, { createContext, useState } from 'react'
 import Context from './StoreContext'
 import useStorage from 'utils/hooks/useStorage'
+import { TUser } from 'api/user.api'
 
-const StoreContext = createContext({
-  token: null,
-  setToken: (token) => { },
-  user: null,
-  setUser: (user) => { },
-})
+interface IDefaultProps {
+  token: string,
+  setToken: React.Dispatch<React.SetStateAction<string>>,
+  user: TUser,
+  setUser: React.Dispatch<React.SetStateAction<any>>,
+  removeToken: any,
+}
 
+const StoreContext = createContext({} as IDefaultProps)
 export default StoreContext;
 
-export const StoreProvider = ({ children }) => {
+export const StoreProvider: React.FC = ({ children }) => {
   const [token, setToken, removeToken] = useStorage('token')
 
   const [user, setUser] = useState({})
