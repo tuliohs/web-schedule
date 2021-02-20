@@ -1,5 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, SetStateAction, useCallback, useEffect, useState } from 'react'
-
+import React, { FunctionComponent, SetStateAction, useCallback, useEffect, useState } from 'react'
 import AddIcon from '@material-ui/icons/Add'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -16,7 +15,6 @@ import DefaultButton from '../../components/Buttons/DefaultButton'
 import { listLevels } from 'views/mySchedule/Schedule/CardSchedule'
 
 import { TItemDropDown } from 'components/Dropdowns/DefaultDropDown'
-
 //import FileBase from 'react-file-base64';
 import { getBase64, TImageObj } from 'utils/getBase64'
 import EditIcon from '@material-ui/icons/Edit';

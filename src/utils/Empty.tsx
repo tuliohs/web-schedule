@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import { EEmpty } from 'constants/data/DefaultContext'
 import { obterEmpty } from 'api/mySchedule'
-import Topic from 'views/customize/Topic/Topic';
+//import Topic from 'views/customize/Topic/Topic';
 
 interface EmptyProps {
     itemPageLength?: number
@@ -13,7 +13,7 @@ const Empty: FunctionComponent<EmptyProps> = ({ itemPageLength = 1 }) => {
 
     const [empType, setEmpType] = useState<EEmpty>(EEmpty.Valid)
     //-------Verifica se o contexo atual da pagina está empty
-    const [emptyPage, setEmptyPage] = useState<EEmpty>(EEmpty.Valid)
+    //const [emptyPage, setEmptyPage] = useState<EEmpty>(EEmpty.Valid)
     const history = useHistory()
 
 
@@ -65,26 +65,26 @@ const Empty: FunctionComponent<EmptyProps> = ({ itemPageLength = 1 }) => {
                     || (currentPagePath === '/myschedule/schedule' && tipos.Topic.emptyOutPage)
                 :
 
-                empType === EEmpty.Topic && (currentPagePath !== tipos.Topic.to ? tipos.Topic.emptyOutPage
-                    : tipos.Topic.emptyOutPage)
-                ||
-                empType === EEmpty.Category && (currentPagePath !== tipos.Category.to ?
-                    <div><p>Agora vamos criar uma categoria que será vinculada ao seu topico, </p>
-                        <Link to={tipos.Category.to} className="font-bold text-gray-800 mt-8">
-                            clique aqui
-            </Link></div> : tipos.Category.emptyInPage)
-                ||
-                empType === EEmpty.Item && (currentPagePath !== tipos.Item.to ?
-                    <div><p>Você está quase lá! Você já pode criar os items a serem revisados</p>
-                        <Link to={tipos.Item.to} className="font-bold text-gray-800 mt-8">
-                            clique aqui
-            </Link></div> : tipos.Item.emptyInPage)
-                ||
-                empType === EEmpty.Review && (currentPagePath !== tipos.Review.to ?
-                    <div><p>Tudo pronto! agora é só começar suas revisões </p>
-                        <Link to={tipos.Review.to} className="font-bold text-gray-800 mt-8">
-                            clique aqui
-            </Link></div> : tipos.Item.emptyInPage)
+                empType === EEmpty.Topic ? (currentPagePath !== tipos.Topic.to ? tipos.Topic.emptyOutPage
+                    : tipos.Topic.emptyOutPage) : null
+                        ||
+                        empType === EEmpty.Category ? (currentPagePath !== tipos.Category.to ?
+                            <div><p>Agora vamos criar uma categoria que será vinculada ao seu topico, </p>
+                                <Link to={tipos.Category.to} className="font-bold text-gray-800 mt-8">
+                                    clique aqui
+            </Link></div> : tipos.Category.emptyInPage) : null
+                            ||
+                            empType === EEmpty.Item ? (currentPagePath !== tipos.Item.to ?
+                                <div><p>Você está quase lá! Você já pode criar os items a serem revisados</p>
+                                    <Link to={tipos.Item.to} className="font-bold text-gray-800 mt-8">
+                                        clique aqui
+            </Link></div> : tipos.Item.emptyInPage) : null
+                                ||
+                                empType === EEmpty.Review ? (currentPagePath !== tipos.Review.to ?
+                                    <div><p>Tudo pronto! agora é só começar suas revisões </p>
+                                        <Link to={tipos.Review.to} className="font-bold text-gray-800 mt-8">
+                                            clique aqui
+            </Link></div> : tipos.Item.emptyInPage) : null
             }
         </>
     )

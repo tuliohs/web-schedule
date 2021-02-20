@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // components
-import Navbar from "components/Navbars/AuthNavbar.js";
+//import Navbar from "components/Navbars/AuthNavbar.js";
 import DefaultNavbar from "components/Navbars/DefaultNavbar/DefaultNavBar";
 
 import Footer from "components/Footers/Footer.js";

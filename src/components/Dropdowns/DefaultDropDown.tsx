@@ -1,6 +1,4 @@
-
-
-import React, { FunctionComponent, SetStateAction, useState, useEffect, createRef } from 'react';
+import React, { FunctionComponent, SetStateAction, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -54,11 +52,11 @@ const DefaultDropDown: FunctionComponent<IDropDownDefault> = ({ name,
       setState(items[0].id)
       setElement(items[0].value)
     }
-  }, [])
+  }, [firsrOrDefault, element, items, setState])
   useEffect(() => {
     if (defaultElment && !element && items?.length > 0)
       setElement(defaultElment)
-  }, [defaultElment])
+  }, [defaultElment, element, items])
 
   const tema = `bg-${theme.color}-${theme?.grau} text-${theme.fontColor} text-${theme.fontSize}`
   return (

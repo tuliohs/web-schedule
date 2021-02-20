@@ -39,7 +39,7 @@ const Writes = {
 export const submitDialog = async ({ clickYes, label }) => {
     return confirmAlert({
         //title: 'Confirm to submit',
-        message: 'Are you sure want you to delete ' + label,
+        message: label,
         buttons: [
             { label: 'Yes', onClick: () => clickYes() },
             { label: 'No', onClick: () => { return false } }
@@ -189,7 +189,7 @@ export default function Topic() {
                         setEmpType(EEmpty.Category)
                 })
                 .catch(e => setMessage({ type: 'danger', text: e }))
-            , label: 'the topic "' + title + '"'
+            , label: 'Are you sure want you to delete the topic "' + title + '"'
         })
     }
     const editTopicHandler = async ({ item, image }) => {

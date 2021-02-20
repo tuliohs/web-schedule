@@ -1,4 +1,4 @@
-import React, { createRef, FunctionComponent, useState } from "react";
+import React, { createRef, FunctionComponent } from "react";
 
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import styled from 'styled-components'
@@ -78,8 +78,9 @@ interface ICardProfile {
 
 const CardProfile: FunctionComponent<ICardProfile> = ({ setValues, values, image = "" }) => {
 
-  const changeImage = (value: TImageObj) => setValues({ ...values, ["imageData"]: value.imageData })
-  const removeImage = () => setValues({ ...values, ["imageData"]: "" })
+  const fieldName = "imageData"
+  const changeImage = (value: TImageObj) => setValues({ ...values, [fieldName]: value.imageData })
+  const removeImage = () => setValues({ ...values, [fieldName]: "" })
 
   return (
     <>

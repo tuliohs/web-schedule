@@ -1,12 +1,10 @@
 import styled from 'styled-components'
-import React, { useEffect, useState, useContext, useCallback, FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 
 import 'components/Buttons/buttonHover.css'
-import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
 // components
 //import ItemDialog from '../ItemDialog'
-//import StepMenu from '../StepMenu'
-import { confirmAlert } from 'react-confirm-alert'; // Import
+//import StepMenu from '../StepMenu' 
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { TItem } from "constants/Types";
 
@@ -68,7 +66,7 @@ const CardPost: FunctionComponent<ICardFactory> = ({ topic, categories, ToggleFo
     console.log(topic._id, 'i')
     console.log(topic)
     const handleFork = async () => {
-        await ToggleForkTopic({ topicId: topic._id })
+        await ToggleForkTopic({ topicId: topic._id, title: topic.title })
     }
     return (
 

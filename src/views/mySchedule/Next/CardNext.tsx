@@ -1,7 +1,6 @@
-import React, { useCallback, useRef, useState, useContext, createRef, FunctionComponent } from "react";
+import React, { useState, createRef, FunctionComponent } from "react";
 
 import moment from 'moment'
-import axios from 'axios'
 import styled from 'styled-components'
 
 //components
@@ -70,9 +69,9 @@ const CardNext: FunctionComponent<TCardNext> = ({ item, revisionHanlder/*, showC
     const [showDetail, setShowDetail] = useState(false)
     const [showRevisions, setShowRevisions] = useState(false)
     //const [fullPrint, setFullPrint] = useState(false)
-    const [worldSearch, setWorldSearch] = useState('')
+    //const [worldSearch, setWorldSearch] = useState('')
     //const [image, setImage] = useState(null)
-    const [itemsPesquisa, setItemsPesquisa] = useState([])
+    //const [itemsPesquisa, setItemsPesquisa] = useState([])
 
     const detailHandler = () => {
         setShowDetail(!showDetail)
@@ -119,17 +118,17 @@ const CardNext: FunctionComponent<TCardNext> = ({ item, revisionHanlder/*, showC
     //    //finally { setFullPrint(false) }
 
     //}
-    const searchWord = async () => {
-        //e.preventDefault();
-        const apiKey = 'AIzaSyA8vljIcmebx3rfSfxZ2fv_32CKTeHGp3A'
-        const mechanism = '30fdb3668b1bd72bc'
-        let go = worldSearch.replace(' ', '+')
-        await axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${mechanism}&q=${go}`)
-            .then(c => {
-                setItemsPesquisa(c?.data?.items)
-                console.log(c?.data?.items)
-            })
-    }
+    //const searchWord = async () => {
+    //    //e.preventDefault();
+    //    const apiKey = 'AIzaSyA8vljIcmebx3rfSfxZ2fv_32CKTeHGp3A'
+    //    const mechanism = '30fdb3668b1bd72bc'
+    //    let go = worldSearch.replace(' ', '+')
+    //    await axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${mechanism}&q=${go}`)
+    //        .then(c => {
+    //            setItemsPesquisa(c?.data?.items)
+    //            console.log(c?.data?.items)
+    //        })
+    //}
     const onClickReview = () => {
         setShowDetail(false)
         setShowRevisions(false)

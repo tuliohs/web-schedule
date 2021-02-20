@@ -104,7 +104,7 @@ export default function ItemsScreen() {
                     getDados()
                 })
                 .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-            , label: 'the item "' + itemCurrentAction?.title + '"'
+            , label: 'Are you sure want you to delete the item "' + itemCurrentAction?.title + '"'
         })
     }
     const changeItemHandler = async ({ columnId, value, }) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // components
 import InputCsv from "views/admin/Home/InputCsv";
@@ -6,7 +6,7 @@ import DonwloaderCsv from './Home/DownloaderCsv'
 import { obterScheduleItems } from 'api/mySchedule'
 
 
-{/*className="z-10"*/ }
+//className="z-10"
 //OLD STYLES  NECESSARY
 //className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
 //className="bg-cover pb-16 relative content-center items-center justify-center min-h-screen-75"

@@ -63,15 +63,17 @@ const App = () => {
                         <RoutesPrivate path="/explore"  >
                             <Explore />
                         </RoutesPrivate>
-                        <RoutesPrivate path="/admin"  >
+                        <RoutesPrivate roles={["admin"]} path="/admin"  >
                             <Admin />
                         </RoutesPrivate>
                         {/* add routes without layouts */}
-                        <RoutesPrivate path="/landingold" exact  >
+                        <RoutesPrivate roles={["admin"]} path="/landingold" exact  >
                             <LandingOld />
                         </RoutesPrivate>
+                        <RoutesPrivate roles={["admin"]} path="/profile" exact  >
+                            <Profile />
+                        </RoutesPrivate>
                         <Route path="/auth" component={Auth} />
-                        <Route path="/profile" exact component={Profile} />
                         <Route path="/public" exact component={Public} />
                         <Route path="/" exact component={Landing} />
                         {/* add redirect for first page */}

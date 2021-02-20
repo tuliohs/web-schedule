@@ -15,14 +15,15 @@ import Empty from 'utils/Empty'
 
 import CardPost from "views/Explore/Factory/CardPost";
 import { useHistory } from "react-router";
+import { submitDialog } from "views/customize/Topic/Topic";
 
 const Writes = {
     en: {
         loginMessage: "Log in To copy a topic",
         subTitle: "Explore",
         acess: "Acess",
-        explore: "Explore"
-
+        explore: "Explore",
+        confirmFork: 'Do you want add "RPLC1" to your topics?'
     }
 }
 
@@ -36,15 +37,17 @@ export default function Factory() {
     const { setMessage } = useContext(DefaultContext);
     const { token } = useContext(StoreContext);
 
-    const ToggleForkTopic = async ({ topicId }) => {
+    const ToggleForkTopic = async ({ topicId, title }) => {
         if (!token) {
             history.push("/auth/login")
             return setMessage({ type: 'info', text: Writes.en.loginMessage, timeExpire: 8 })
         }
-
-        console.log(topicId, 'factory')
-        await forkTopic(topicId).then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
-            .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+        submitDialog({
+            clickYes: async () => await forkTopic(topicId)
+                .then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
+                .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+            , label: Writes.en.confirmFork.replace("RPLC1", title)
+        })
     }
 
     const getCategories = useCallback(async () => {//show topics without data

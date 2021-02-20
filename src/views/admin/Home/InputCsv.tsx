@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { CSVReader } from 'react-papaparse';
 
 import { uploadTCI } from 'api/apiFile'

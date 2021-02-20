@@ -53,7 +53,7 @@ export default function Login() {
                   {/*<small>Or sign in with credentials</small>*/}
                 </div>
                 <form onSubmit={e => onSubmit(e)}>
-                  <UserInput label="Email" id="email" name="email" type="text"  //change type for the email
+                  <UserInput label="Email" id="a" name="email" type="text"  //change type for the email
                     onChange={onChange} value={values.email} placeholder="Email"
                   />
                   <UserInput label="Password" id="password" name="password" type={"password"}
@@ -89,15 +89,10 @@ export default function Login() {
             </div>
             <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
-                <a
-                  href="#pablo"
-                  //onClick={(e) => e.preventDefault()}
-                  className="text-gray-300"
-                >
-                  <Link to="/auth/forgotpass" className="text-gray-300">
-                    <small>Forgot password?</small>
-                  </Link>
-                </a>
+
+                <Link to="/auth/forgotpass" className="text-gray-300">
+                  <small>Forgot password?</small>
+                </Link>
               </div>
               <div className="w-1/2 text-right">
                 <Link to="/auth/register" className="text-gray-300">

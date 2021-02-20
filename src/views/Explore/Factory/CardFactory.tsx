@@ -1,18 +1,11 @@
-import React, { useEffect, useState, useContext, useCallback, FunctionComponent } from "react";
-
-import { newTopic, removeTopicId, obterTemas, editTopic } from 'api/mySchedule'
-
-import DeleteIcon from '@material-ui/icons/Delete';
+import React, { FunctionComponent } from "react";
 
 import 'components/Buttons/buttonHover.css'
 import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
 // components
 //import ItemDialog from '../ItemDialog'
-//import StepMenu from '../StepMenu'
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import Loading from 'utils/Loading'
-import Empty from 'utils/Empty'
+//import StepMenu from '../StepMenu' 
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css 
 import { TItem } from "constants/Types";
 
 
@@ -36,7 +29,7 @@ interface ICardFactory {
 
 const layoutColumn = false;
 
-const CardContent: FunctionComponent<ICardFactory> = ({ topic, categories, removeHandler, editHandler }) => {
+const CardContent: FunctionComponent<ICardFactory> = ({ topic, categories }) => {
     console.log('cats', categories)
 
 

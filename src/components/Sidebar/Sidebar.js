@@ -121,9 +121,9 @@ export default function Sidebar() {
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
 
-            {user?.email === '123' &&
+            {/* ADMIN ROUTES */}
+            {user?.role === 'admin' &&
               <>
                 <h6 className="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                   Admin Layout Pages

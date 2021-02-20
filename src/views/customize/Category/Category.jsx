@@ -54,7 +54,7 @@ export default function Category() {
                     getDados()
                 })
                 .catch(e => setMessage({ type: 'danger', text: e }))
-            , label: 'the category "' + title + '"'
+            , label: 'Are you sure want you to delete the category "' + title + '"'
         })
     }
     const editCategoryHandler = async ({ item, image }) => {

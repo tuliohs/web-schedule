@@ -63,7 +63,7 @@ const Revision: FunctionComponent<TCurrentItem> = () => {
                 description: location.state?.item.description
             })
         }
-    }, [location])
+    }, [location, currentItem])
 
     React.useEffect(() => {
         const aa = async () => {
