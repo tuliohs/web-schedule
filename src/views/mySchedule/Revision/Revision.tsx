@@ -8,6 +8,7 @@ import DefaultContext from 'constants/data/DefaultContext'
 import ModalSmall from 'components/Modals/ModalSmall'
 import RevisionTimeLine from './RevisionTimeLine'
 import Loading from 'utils/Loading'
+import Empty from "utils/Empty";
 
 //const CardContent = ({ title, description, revision }) => {
 //    return (
@@ -126,6 +127,7 @@ const Revision: FunctionComponent<TCurrentItem> = () => {
                 {
                     data?.length === 0 ? <Loading loading={loading} /> : <RevisionTimeLine itemRevision={data} />
                 }
+                <Empty itemPageLength={data?.length} />
             </div>
         </>
     );

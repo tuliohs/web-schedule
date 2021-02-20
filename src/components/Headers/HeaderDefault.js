@@ -79,7 +79,7 @@ export default function HeaderDefault({ title }) {
                     </div>
                 </div>
                 <Styles>
-                    <div class="ColorfulBorder__List-sc-1ouz2os-0 hiscDP flex">
+                    <div className="ColorfulBorder__List-sc-1ouz2os-0 hiscDP flex">
                         <div className="w-full p-1 dPnyfG"
                             style={{ backgroundColor: cl.blue }}
                         >

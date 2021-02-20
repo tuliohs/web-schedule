@@ -6,8 +6,11 @@ import { Link } from "react-router-dom";
 import DefaultNavbar from "components/Navbars/DefaultNavbar/DefaultNavBar";
 
 import Footer from "components/Footers/Footer.js";
-import backgroundImg from 'assets/landing/write-type.jpg'
+import backgroundHourGlass from 'assets/landing/hourglass.jpeg'
+import backgroundWriteType from 'assets/landing/write-type.jpg'
 import styled from 'styled-components'
+
+import { getRandom } from 'components/Dropdowns/IconDropdown'
 
 const Styles = styled.div`
 
@@ -61,6 +64,12 @@ const Styles = styled.div`
                     }
 `
 
+let arrayBackground = [
+  backgroundHourGlass,
+  backgroundWriteType
+]
+//gera uma umagem aleatoria que será mostrada no background
+const backgroundImg = arrayBackground[getRandom(arrayBackground.length - 1)]
 
 
 const slogan = "Learning Based in Not Forgetion"// "Joining Persistence With Strategy"

@@ -15,8 +15,9 @@ const AvaiableIcons = [
   { faicon: 'chart-pie' },
   { faicon: 'bolt' },
 ]
-function getRandom(max: number) {
-  return Math.floor(Math.random() * (max - 0))
+export function getRandom(max: number) {
+  let rand = Math.random()
+  return Math.floor(rand * (max + 1))
 }
 
 interface IIcon {

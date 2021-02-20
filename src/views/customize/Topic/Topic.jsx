@@ -160,11 +160,12 @@ export default function Topic() {
             .then(c => {
                 setLoading(false)
                 setTopic(c.data)
+                if (c.data.length > 0) setEmpType(EEmpty.Category)
+                else setEmpType(EEmpty.Topic)
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }, [setMessage])
 
     useEffect(() => {
-
         getTopics()
     }, [getTopics])
 
@@ -173,8 +174,6 @@ export default function Topic() {
             .then(res => {
                 setMessage({ type: 'sucess', text: res?.data?.message })
                 getTopics()
-                if (empType === EEmpty.Topic)
-                    setEmpType(EEmpty.Category)
             })
             .catch(e => setMessage({ type: 'danger', text: e }))
     }
@@ -185,8 +184,6 @@ export default function Topic() {
                 .then(res => {
                     setMessage({ type: 'sucess', text: res?.data?.message })
                     getTopics()
-                    if (topic.length === 0)
-                        setEmpType(EEmpty.Category)
                 })
                 .catch(e => setMessage({ type: 'danger', text: e }))
             , label: 'Are you sure want you to delete the topic "' + title + '"'
@@ -231,7 +228,7 @@ export default function Topic() {
                                 />)
                         }
                     </div>
-                    <Empty />
+                    <Empty itemPageLength={topic?.length} />
                 </div>
             </div>
         </>
