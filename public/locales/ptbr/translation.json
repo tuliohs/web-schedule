@@ -4,5 +4,10 @@
         "mgsPublicFalse": "Será somente privado",
         "mgsAuhorTrue": "A autoria será mostrada",
         "mgsAuhorFalse": "A autoria não será mais mostrada"
+    },
+    "navAdm": {
+        "title": "Forgetion",
+        "btAcess": "Acessar",
+        "btExplore": "Explore"
     }
 }

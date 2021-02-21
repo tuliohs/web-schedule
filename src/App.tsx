@@ -2,7 +2,7 @@
 import React, { useState, useEffect, Suspense, } from "react";
 
 import {
-    BrowserRouter as Router, Route, Switch
+    Router as Router, Route, Switch, BrowserRouter
 } from "react-router-dom";
 
 //icons slide bar
@@ -27,6 +27,7 @@ import AlertDynamic, { TMessage } from 'components/Notifications/AlertDynamic'
 import RoutesPrivate from 'utils/Private/RoutesPrivate'
 import NotFound from 'utils/NotFound'
 import Public from 'views/Public'
+import history from "utils/history";
 
 const defaultMessage: TMessage = { type: 'sucess', text: 'sucess', timeExpire: 5 }
 const App = () => {
@@ -49,45 +50,49 @@ const App = () => {
     }, [message])
     return (
         <Suspense fallback="loading">
+            {/*The tag Suspense was add because is required in i18*/}
             <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage, empType, setEmpType }}>
                 {/*inicio das rotas*/}
-                <Router>
-                    <StoreProvider>
-                        <Switch>
-                            {/* add routes with layouts */}
-                            <RoutesPrivate path="/customize"  >
-                                <Customize />
-                            </RoutesPrivate>
-                            <RoutesPrivate path="/myschedule"  >
-                                <Schedule />
-                            </RoutesPrivate>
-                            <RoutesPrivate path="/explore"  >
-                                <Explore />
-                            </RoutesPrivate>
-                            <RoutesPrivate roles={["admin"]} path="/admin"  >
-                                <Admin />
-                            </RoutesPrivate>
-                            {/* add routes without layouts */}
-                            <RoutesPrivate roles={["admin"]} path="/landingold" exact  >
-                                <LandingOld />
-                            </RoutesPrivate>
-                            <RoutesPrivate roles={["admin"]} path="/profile" exact  >
-                                <Profile />
-                            </RoutesPrivate>
-                            <Route path="/auth" component={Auth} />
-                            <Route path="/public" exact component={Public} />
-                            <Route path="/" exact component={Landing} />
-                            {/* add redirect for first page */}
-                            <Route path="*">
-                                <NotFound />
-                            </Route>
-                            {/*<Redirect from="*" tyo="/" />*/}
-                        </Switch>
-                    </StoreProvider>
-                </Router>
+                <BrowserRouter>
+                    {/*Router and history was add to usage fo the history outside functions*/}
+                    <Router history={history} >
+                        <StoreProvider>
+                            <Switch>
+                                {/* add routes with layouts */}
+                                <RoutesPrivate path="/customize"  >
+                                    <Customize />
+                                </RoutesPrivate>
+                                <RoutesPrivate path="/myschedule"  >
+                                    <Schedule />
+                                </RoutesPrivate>
+                                <RoutesPrivate path="/explore"  >
+                                    <Explore />
+                                </RoutesPrivate>
+                                <RoutesPrivate roles={["admin"]} path="/admin"  >
+                                    <Admin />
+                                </RoutesPrivate>
+                                {/* add routes without layouts */}
+                                <RoutesPrivate roles={["admin"]} path="/landingold" exact  >
+                                    <LandingOld />
+                                </RoutesPrivate>
+                                <RoutesPrivate roles={["admin"]} path="/profile" exact  >
+                                    <Profile />
+                                </RoutesPrivate>
+                                <Route path="/auth" component={Auth} />
+                                <Route path="/public" exact component={Public} />
+                                <Route path="/" exact component={Landing} />
+                                {/* add redirect for first page */}
+                                <Route path="*">
+                                    <NotFound />
+                                </Route>
+                                {/*<Redirect from="*" tyo="/" />*/}
+                            </Switch>
+                        </StoreProvider>
+                    </Router>
+                </BrowserRouter>
+
                 <AlertDynamic setMessage={setMessage} showAlert={showAlert} setShowAlert={setShowAlert} message={message} />
             </DefaultContext.Provider>
-
         </Suspense>)
 }
 

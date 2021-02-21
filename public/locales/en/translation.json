@@ -4,5 +4,10 @@
         "mgsPublicFalse": "it will only be private",
         "mgsAuthorTrue": "Authorship will be shown",
         "mgsAuthorFalse": "Authorship will no longer be shown"
+    },
+    "navAdm": {
+        "title": "Forgetion",
+        "btAcess": "Acess",
+        "btExplore": "Explore"
     }
 }

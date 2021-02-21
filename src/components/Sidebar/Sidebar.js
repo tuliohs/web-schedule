@@ -2,12 +2,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { itemsDropUser } from 'components/Navbars/AdminNavbar'
+import StoreContext from 'constants/data/StoreContext'
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown";
 import UserDropdown from "components/Dropdowns/UserDropdown";
-
-import StoreContext from 'constants/data/StoreContext'
-//Comentization Slide Bar
 import ItemBar from 'components/Sidebar/LeftBar/ItemBar'
+import DefaultButton from "components/Buttons/DefaultButton";
 
 export default function Sidebar() {
   const { user } = React.useContext(StoreContext);
@@ -121,7 +121,6 @@ export default function Sidebar() {
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
-
             {/* ADMIN ROUTES */}
             {user?.role === 'admin' &&
               <>
@@ -366,6 +365,22 @@ export default function Sidebar() {
                   </li>
                 </ul>
               </>}
+
+            {/* Divider */}
+            <hr className="my-4 md:min-w-full" />
+            {/*A classe md:hidden indica que será mostrado apenas em displays medios (dispositios moveis mobile responsive)*/}
+            <ul className="md:hidden">
+              {
+                itemsDropUser
+                  .filter(c => c.showSlideBar)
+                  .map(element => (
+                    <DefaultButton label={element.label}
+                      onClick={element.action}
+                    />
+                  ))
+              }
+            </ul>
+
           </div>
         </div>
       </nav>

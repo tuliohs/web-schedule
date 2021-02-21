@@ -38,7 +38,6 @@ export default function Customize() {
                         <Route path="/customize/profile" exact >
                             <Profile />
                         </Route>
-
                         {/*Excluido  porque  não estava peritindo o rediecionamento*/}
                         {/*<Redirect from="/customize" to="/customize/topic" />*/}
                     </Switch>

@@ -49,7 +49,7 @@ const UserDropdown = ({ items = [], content = null }) => {
               }}
             >
               <span>{element.label}</span>
-              <img alt="..." src={element.icon} style={{ width: 20 }} />
+              {element.icon && <img alt="..." src={element.icon} style={{ width: 20 }} />}
             </a>
           ))
         }

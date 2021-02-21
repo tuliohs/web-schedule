@@ -19,21 +19,6 @@ import Switch from '@material-ui/core/Switch'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const Writes = {
-    en: {
-        messageTopicPublicTrue: "Will be public",
-        messageTopicPublicFalse: "it will only be private",
-        messageAuhorTrue: "Authorship will be shown",
-        messageAuhorFalse: "Authorship will no longer be shown",
-    },
-    pt: {
-        messageTopicPublicTrue: "Ficará Publico",
-        messageTopicPublicFalse: "Será somente privado",
-        messageAuhorTrue: "A autoria será mostrada",
-        messageAuhorFalse: "A autoria não será mais mostrada",
-    }
-}
-
 export const submitDialog = async ({ clickYes, label }) => {
     return confirmAlert({
         //title: 'Confirm to submit',

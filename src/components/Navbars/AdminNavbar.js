@@ -1,38 +1,47 @@
-import React, { useContext, useCallback, useEffect, useState } from "react";
+import React, { useContext, useCallback, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 
-import { getUser } from 'api/user.api'
 import DefaultContext from 'constants/data/DefaultContext'
 import StoreContext from 'constants/data/StoreContext'
-
+import useStorage from 'utils/hooks/useStorage'
+import { getUser } from 'api/user.api'
+import history from 'utils/history'
+import storage from 'utils/storage'
 import CardLetter from 'components/Cards/CardLetter'
-
 import UserDropdown from "components/Dropdowns/UserDropdown";
-import IconDropDown from 'components/Dropdowns/IconDropdown'
+
+const logoutHandler = e => {
+  e.preventDefault()
+  storage.remove('token')
+  history.push('/')
+}
+
+const editProfileHandler = e => {
+  e.preventDefault()
+  history.push('/customize/profile')
+}
+
+export const itemsDropUser = [
+  { label: " Edit Profile", action: editProfileHandler, showSlideBar: false },
+  { label: " Logout", action: logoutHandler, showSlideBar: true },
+]
+
+
+
 
 export default function Navbar({ label = "Dashboard" }) {
 
   const { i18n } = useTranslation()
-  const { removeToken, user, setUser } = useContext(StoreContext);
-  const [imageLanguage, setImageLanguage] = useState(require('assets/locales/en.png'))
-  const history = useHistory()
+  const { user, setUser } = useContext(StoreContext);
+  const [language, setLanguage] = useStorage('lng')
   const { setMessage, } = useContext(DefaultContext);
+
+  //hook relacionadas ao dropdown de Usuario
   const getUserHandler = useCallback(async () => {
     await getUser()
       .then(c => { setUser(c.data?.values) })
       .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
   }, [setMessage, setUser])
-
-  const logoutHandler = e => {
-    e.preventDefault()
-    removeToken('token')
-  }
-
-  const editProfileHandler = e => {
-    e.preventDefault()
-    history.push('/customize/profile')
-  }
 
   useEffect(() => {
     //Fica verificando caso o user não esteja na memoria
@@ -40,11 +49,6 @@ export default function Navbar({ label = "Dashboard" }) {
     getUserHandler()
   }, [getUserHandler, user])
 
-
-  const itemsDropUser = [
-    { label: " Edit Profile", action: editProfileHandler },
-    { label: " Logout", action: logoutHandler },
-  ]
   const contentDropUser = (<span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
     {user?.imageData ? <img
       alt="..."
@@ -53,11 +57,17 @@ export default function Navbar({ label = "Dashboard" }) {
     /> : <CardLetter letter={user?.firstName} size="small" />}
   </span>)
 
+  useEffect(() => {
+    //Caso não esteja selecionado nenhum idioma
+    if (!language)
+      setLanguage("en")
+  }, [setLanguage, language])
+
   const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng)
-    let newLng = itemsDroplanguage.filter(c => c.lng === lng)[0]?.icon
-    setImageLanguage(newLng)
+    i18n.changeLanguage(lng) //change in session
+    setLanguage(lng) //change in local storage
   }
+
   const itemsDroplanguage = [
     { lng: "en", label: "English", icon: require('assets/locales/en.png'), action: () => changeLanguage("en") },
     { lng: "ptbr", label: "Portugues", icon: require('assets/locales/ptbr.png'), action: () => changeLanguage("ptbr") },
@@ -66,7 +76,7 @@ export default function Navbar({ label = "Dashboard" }) {
     <img alt="..."
       style={{ width: 20 }}
       className=" border-none shadow-lg"
-      src={imageLanguage}
+      src={itemsDroplanguage.filter(c => c.lng === language)[0]?.icon}
     /><span>▼</span>
   </span>)
 
@@ -97,10 +107,8 @@ export default function Navbar({ label = "Dashboard" }) {
             </div>
           </form>
           {/* User */}
-          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
+          <ul className="m-4 flex-col md:flex-row list-none items-center hidden md:flex">
             <UserDropdown items={itemsDropUser} content={contentDropUser} />
-          </ul>
-          <ul className="flex-col md:flex-row list-none items-center m-2   md:flex">
           </ul>
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
             <UserDropdown items={itemsDroplanguage} content={contentDroplanguage} />
