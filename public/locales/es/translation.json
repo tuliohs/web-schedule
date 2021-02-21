@@ -1,7 +1,7 @@
 {
     "bt": {
-        "acess": "Acessar",
-        "explore": "Explorar",
+        "acess": "Acess",
+        "explore": "Explore",
         "newRevision": "New Revision"
     },
     "topic": {
@@ -18,15 +18,15 @@
         "confirmFork": "Deseja adicionar 'RPLC1' aos seus topicos?"
     },
     "slidebar": {
-        "MySchedule": "Cronograma",
-        "Schedule": "Cronograma",
+        "MySchedule": "Programación",
+        "Schedule": "Programac",
         "Next": "Next",
-        "Revision": "Revisões",
-        "Customize": "Customização",
+        "Revision": "Revisiones",
+        "Customize": "Personalización",
         "Laboratory": "Laboratorio",
         "Profile": "Perfil",
         "Explore": "Explore",
-        "Statistics": "Estatísticas",
+        "Statistics": "Estadísticas",
         "Factory": "Fábrica"
     }
 }

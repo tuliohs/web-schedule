@@ -1,4 +1,9 @@
 {
+    "bt": {
+        "acess": "Acess",
+        "explore": "Explore",
+        "newRevision": "New Revision"
+    },
     "topic": {
         "mgsPublicTrue": "now will be public",
         "mgsPublicFalse": "it will only be private",
@@ -6,8 +11,23 @@
         "mgsAuthorFalse": "Authorship will no longer be shown"
     },
     "navAdm": {
-        "title": "Forgetion",
-        "btAcess": "Acess",
-        "btExplore": "Explore"
+        "title": "Forgetion"
+    },
+    "explore": {
+        "loginMsg": "Log in To copy a topic",
+        "confirmFork": "Do you want add 'RPLC1' to your topics?"
+    },
+    "slidebar": {
+        "MySchedule": "My Schedule",
+        "Schedule": "Schedule",
+        "Next": "Next",
+        "Revision": "Revisions",
+        "Customize": "Customize",
+        "Laboratory": "Laboratory",
+        "Profile": "Profile",
+        "Explore": "Explore",
+        "Statistics": "Statistics",
+        "Factory": "Factory",
+        "Admin": "DashBoard"
     }
 }

@@ -52,7 +52,7 @@ export default function DefaultNavbar({ showAcessBtn = true }) {
                                 <Link className="btn hover:text-gray-600  px-4 py-2 lg:py-4 flex
                                  items-center text-xs uppercase font-bold z-40"
                                     to="/public">
-                                    {t("navAdm.btExplore")}</Link>
+                                    {t("bt.explore")}</Link>
                             </li>
                         }
                         {!location?.pathname.includes("auth") &&
@@ -64,7 +64,7 @@ export default function DefaultNavbar({ showAcessBtn = true }) {
                                 lg:mr-1 lg:mb-0 ml-16 mb-3 ease-linear transition-all 
                                 duration-150"
                                     to="/myschedule/schedule"
-                                > {t("navAdm.btAcess")}</Link>
+                                > {t("bt.acess")}</Link>
                             </li>
                         }
                     </ul>

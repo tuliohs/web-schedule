@@ -1,52 +1,38 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
+import { useHistory } from "react-router";
+import { useTranslation } from 'react-i18next'
 
+import DefaultContext from 'constants/data/DefaultContext'
+import StoreContext from 'constants/data/StoreContext'
 import { obterPublicItems } from 'api/mySchedule'
 import { forkTopic } from 'api/schedule.api'
 
-import 'components/Buttons/buttonHover.css'
-import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
-import StoreContext from 'constants/data/StoreContext'
-// components
-//import ItemDialog from '../ItemDialog'
-//import StepMenu from '../StepMenu'
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
-
-import CardPost from "views/Explore/Factory/CardPost";
-import { useHistory } from "react-router";
 import { submitDialog } from "views/customize/Topic/Topic";
-
-const Writes = {
-    en: {
-        loginMessage: "Log in To copy a topic",
-        subTitle: "Explore",
-        acess: "Acess",
-        explore: "Explore",
-        confirmFork: 'Do you want add "RPLC1" to your topics?'
-    }
-}
+import CardPost from "views/Explore/Factory/CardPost";
 
 export default function Factory() {
 
+    const history = useHistory()
+    const { t } = useTranslation()
+    const { setMessage } = useContext(DefaultContext);
+    const { token } = useContext(StoreContext);
     const [topic, setTopic] = useState([])
     const [catgs, setCatgs] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const history = useHistory()
-    const { setMessage } = useContext(DefaultContext);
-    const { token } = useContext(StoreContext);
-
     const ToggleForkTopic = async ({ topicId, title }) => {
         if (!token) {
             history.push("/auth/login")
-            return setMessage({ type: 'info', text: Writes.en.loginMessage, timeExpire: 8 })
+            return setMessage({ type: 'info', text: t("explore.loginMsg"), timeExpire: 8 })
         }
         submitDialog({
             clickYes: async () => await forkTopic(topicId)
                 .then(res => setMessage({ type: 'sucess', text: res?.data?.message }))
                 .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-            , label: Writes.en.confirmFork.replace("RPLC1", title)
+            , label: t("explore.confirmFork").replace("RPLC1", title)
         })
     }
 

@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
 
 import { itemsDropUser, ContentDropUser, DropDownLanguage } from 'components/Navbars/AdminNavbar'
 import StoreContext from 'constants/data/StoreContext'
@@ -10,6 +11,8 @@ import ItemBar from 'components/Sidebar/LeftBar/ItemBar'
 import DefaultButton from "components/Buttons/DefaultButton";
 
 export default function Sidebar() {
+
+  const { t } = useTranslation()
   const { user } = React.useContext(StoreContext);
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const theme = " bg-gray-200 "// "bg-white"
@@ -87,13 +90,13 @@ export default function Sidebar() {
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              My Schedule
+              {t("slidebar.MySchedule")}
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/schedule" name="Schedule" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/next" name="Next" faIcon="stopwatch" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/revision" name="Revision" faIcon="history" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/schedule" name={t("slidebar.Schedule")} />
+              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/next" name={t("slidebar.Next")} faIcon="stopwatch" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/revision" name={t("slidebar.Revision")} faIcon="history" />
             </ul>
 
             {/*---------------------------------CUSTOMIZE-------------------------------------*/}
@@ -101,22 +104,22 @@ export default function Sidebar() {
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Customize
+              {t("slidebar.Customize")}
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <ItemBar setCollapseShow={setCollapseShow} path="/customize/lab/topic" name="Laboratory" faIcon="flask" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/customize/profile" name="Profile" faIcon="user-circle" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/customize/lab/topic" name={t("slidebar.Laboratory")} faIcon="flask" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/customize/profile" name={t("slidebar.Profile")} faIcon="user-circle" />
             </ul>
 
             {/*---------------------------------EXPLORE-------------------------------------*/}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Explore
+              {t("slidebar.Explore")}
             </h6>  <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <ItemBar setCollapseShow={setCollapseShow} path="/explore/factory" name="Factory" faIcon="globe" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/explore/statistics" name="Statistics" faIcon="chart-bar" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/explore/factory" name={t("slidebar.Factory")} faIcon="globe" />
+              <ItemBar setCollapseShow={setCollapseShow} path="/explore/statistics" name={t("slidebar.Statistics")} faIcon="chart-bar" />
             </ul>
 
             {/* Divider */}

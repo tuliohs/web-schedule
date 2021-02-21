@@ -37,6 +37,7 @@ export const DropDownLanguage = () => {
   const { i18n } = useTranslation()
   const [language, setLanguage] = useStorage('lng')
 
+  // Icons : https://findicons.com/icon/32320/spain
   useEffect(() => {
     //Caso não esteja selecionado nenhum idioma
     if (!language)
@@ -51,6 +52,7 @@ export const DropDownLanguage = () => {
   const itemsDroplanguage = [
     { lng: "en", label: "English", icon: require('assets/locales/en.png'), action: () => changeLanguage("en") },
     { lng: "ptbr", label: "Portugues", icon: require('assets/locales/ptbr.png'), action: () => changeLanguage("ptbr") },
+    { lng: "es", label: "Spanish", icon: require('assets/locales/es.png'), action: () => changeLanguage("es") },
   ]
   const contentDroplanguage = (<span className="w-10 text-sm inline-flex items-center justify-between  ">
     <img alt="..."
@@ -65,8 +67,9 @@ export const DropDownLanguage = () => {
   )
 }
 
-export default function Navbar({ label = "Dashboard" }) {
+export default function AdminNavbar({ keyNavTitle = "slidebar.Schedule" }) {
 
+  const { t } = useTranslation()
   const { user, setUser } = useContext(StoreContext);
   const { setMessage, } = useContext(DefaultContext);
 
@@ -95,7 +98,7 @@ export default function Navbar({ label = "Dashboard" }) {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            {label}
+            {t(keyNavTitle)}
           </a>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
