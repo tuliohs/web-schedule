@@ -25,9 +25,7 @@ const UserDropdown = ({ items = [], content = null }) => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        <div className="items-center flex">
-          {content}
-        </div>
+        {content}
       </a>
       <div
         ref={popoverDropdownRef}

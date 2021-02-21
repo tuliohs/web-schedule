@@ -10,52 +10,32 @@ import storage from 'utils/storage'
 import CardLetter from 'components/Cards/CardLetter'
 import UserDropdown from "components/Dropdowns/UserDropdown";
 
-const logoutHandler = e => {
+export const logoutHandler = e => {
   e.preventDefault()
   storage.remove('token')
   history.push('/')
 }
-
-const editProfileHandler = e => {
+export const editProfileHandler = e => {
   e.preventDefault()
   history.push('/customize/profile')
 }
-
 export const itemsDropUser = [
   { label: " Edit Profile", action: editProfileHandler, showSlideBar: false },
   { label: " Logout", action: logoutHandler, showSlideBar: true },
 ]
-
-
-
-
-export default function Navbar({ label = "Dashboard" }) {
-
-  const { i18n } = useTranslation()
-  const { user, setUser } = useContext(StoreContext);
-  const [language, setLanguage] = useStorage('lng')
-  const { setMessage, } = useContext(DefaultContext);
-
-  //hook relacionadas ao dropdown de Usuario
-  const getUserHandler = useCallback(async () => {
-    await getUser()
-      .then(c => { setUser(c.data?.values) })
-      .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
-  }, [setMessage, setUser])
-
-  useEffect(() => {
-    //Fica verificando caso o user não esteja na memoria
-    if (user?.email) return
-    getUserHandler()
-  }, [getUserHandler, user])
-
-  const contentDropUser = (<span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
+export const ContentDropUser = ({ user }) => {
+  return (<span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
     {user?.imageData ? <img
       alt="..."
       className="w-full rounded-full align-middle border-none shadow-lg"
       src={user?.imageData}
     /> : <CardLetter letter={user?.firstName} size="small" />}
   </span>)
+}
+
+export const DropDownLanguage = () => {
+  const { i18n } = useTranslation()
+  const [language, setLanguage] = useStorage('lng')
 
   useEffect(() => {
     //Caso não esteja selecionado nenhum idioma
@@ -79,6 +59,30 @@ export default function Navbar({ label = "Dashboard" }) {
       src={itemsDroplanguage.filter(c => c.lng === language)[0]?.icon}
     /><span>▼</span>
   </span>)
+
+  return (
+    <UserDropdown items={itemsDroplanguage} content={contentDroplanguage} />
+  )
+}
+
+export default function Navbar({ label = "Dashboard" }) {
+
+  const { user, setUser } = useContext(StoreContext);
+  const { setMessage, } = useContext(DefaultContext);
+
+  //hook relacionadas ao dropdown de Usuario
+  const getUserHandler = useCallback(async () => {
+    await getUser()
+      .then(c => { setUser(c.data?.values) })
+      .catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+  }, [setMessage, setUser])
+
+  useEffect(() => {
+    //Fica verificando caso o user não esteja na memoria
+    if (user?.email) return
+    getUserHandler()
+  }, [getUserHandler, user])
+
 
   return (
     < >
@@ -106,12 +110,12 @@ export default function Navbar({ label = "Dashboard" }) {
               />
             </div>
           </form>
-          {/* User */}
+          {/* User (hidden significa que não será mostrado em layoute responsivo) */}
           <ul className="m-4 flex-col md:flex-row list-none items-center hidden md:flex">
-            <UserDropdown items={itemsDropUser} content={contentDropUser} />
+            <UserDropdown items={itemsDropUser} content={<ContentDropUser user={user} />} />
           </ul>
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <UserDropdown items={itemsDroplanguage} content={contentDroplanguage} />
+            <DropDownLanguage />
           </ul>
         </div>
       </nav>
