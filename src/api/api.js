@@ -19,6 +19,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
+
   timeout: process.env.NODE_ENV !== "development" ? 10 * 1000 : null
 })
 
@@ -65,6 +66,7 @@ api.interceptors.request.use(
   config => {
     const token = storage.get('token')
     config.headers.Authorization = `Bearer ${token}`
+    config.headers.language = storage.get('lng')
     return Promise.resolve(config)
   },
   error => {

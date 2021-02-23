@@ -1,15 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useTranslation } from 'react-i18next'
 // components
 //import Navbar from "components/Navbars/AuthNavbar.js";
 import DefaultNavbar from "components/Navbars/DefaultNavbar/DefaultNavBar";
-
 import Footer from "components/Footers/Footer.js";
 import backgroundHourGlass from 'assets/landing/hourglass.jpeg'
 import backgroundWriteType from 'assets/landing/write-type.jpg'
 import styled from 'styled-components'
-
 import { getRandom } from 'components/Dropdowns/IconDropdown'
 
 const Styles = styled.div`
@@ -71,10 +69,10 @@ let arrayBackground = [
 //gera uma umagem aleatoria que será mostrada no background
 const backgroundImg = arrayBackground[getRandom(arrayBackground.length - 1)]
 
-
-const slogan = "Learning Based in Not Forgetion"// "Joining Persistence With Strategy"
-const initText = "Understand how the power of joining persistence with strategy can make you learn everything"
 export default function Landing() {
+
+  const { t } = useTranslation()
+
   let moreDetails = false;
   return (
     <>
@@ -101,8 +99,8 @@ export default function Landing() {
                   <div className="items-center flex flex-wrap">
                     <div className="w-full lg:w-9/12 px-4 ml-auto mr-auto text-center">
                       <div className="pr-12">
-                        <h1 className="p-after text-white font-semibold text-5xl">{slogan}</h1>
-                        <p className="mt-4 text-lg text-gray-300">{initText}</p>
+                        <h1 className="p-after text-white font-semibold text-5xl">{t("landing.slogan")}</h1>
+                        <p className="mt-4 text-lg text-gray-300">{t("landing.initText")}</p>
                       </div>
                     </div>
                   </div>
@@ -152,11 +150,9 @@ export default function Landing() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       <i className="fas fa-chart-bar"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Statistics</h6>
+                    <h6 className="text-xl font-semibold">{t("landing.lbCard1")}</h6>
                     <p className="mt-2 mb-4 text-gray-600">
-                      Make a complete diagnosis of your strengths and weaknesses using
-                      statistics.It will be very easy to find yourself
-                      and the constant evolution.
+                      {t("landing.txCard1")}
                     </p>
                   </div>
                 </div>
@@ -168,10 +164,9 @@ export default function Landing() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                       <i className="fas fa-retweet"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Revisions</h6>
+                    <h6 className="text-xl font-semibold">{t("landing.lbCard2")}</h6>
                     <p className="mt-2 mb-4 text-gray-600">
-                      Optimize your time with a history of all
-                      your revisions and there is no need to relearn.
+                      {t("landing.txCard2")}
                     </p>
                   </div>
                 </div>
@@ -183,11 +178,8 @@ export default function Landing() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
                       <i className="fas fa-calculator"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Automatic calculation</h6>
-                    <p className="mt-2 mb-4 text-gray-600">
-                      Automatic calculation of the periodicity of time between
-                      each new revision and new subject.
-                    </p>
+                    <h6 className="text-xl font-semibold">{t("landing.lbCard3")}</h6>
+                    <p className="mt-2 mb-4 text-gray-600">{t("landing.txCard3")}</p>
                   </div>
                 </div>
               </div>

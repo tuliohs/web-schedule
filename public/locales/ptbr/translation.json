@@ -28,5 +28,15 @@
         "Explore": "Explore",
         "Statistics": "Estatísticas",
         "Factory": "Fábrica"
+    },
+    "landing": {
+        "slogan": "Aprendizagem Baseada no Não Esquecimento",
+        "initText": "Entenda o poder da persistência em conjunto com a estratégia ... elas farão você aprender.",
+        "lbCard1": "Estatísticas",
+        "txCard1": "Faça um diagnóstico completo de seus pontos fortes e fracos usando estatísticas. Será muito fácil encontrar a si mesmo e a evolução constante.",
+        "lbCard2": "Revisões",
+        "txCard2": "Otimize seu tempo com um histórico de todas as suas revisões e não haverá necessidade de reaprender.",
+        "lbCard3": "Cálculo automático",
+        "txCard3": "Cálculo automático da periodicidade de tempo entre cada nova revisão e novo assunto."
     }
 }

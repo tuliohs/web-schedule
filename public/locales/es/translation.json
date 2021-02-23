@@ -1,22 +1,4 @@
 {
-    "bt": {
-        "acess": "Acess",
-        "explore": "Explore",
-        "newRevision": "New Revision"
-    },
-    "topic": {
-        "mgsPublicTrue": "Ficará Publico",
-        "mgsPublicFalse": "Será somente privado",
-        "mgsAuhorTrue": "A autoria será mostrada",
-        "mgsAuhorFalse": "A autoria não será mais mostrada"
-    },
-    "navAdm": {
-        "title": "Forgetion"
-    },
-    "explore": {
-        "loginMsg": "Faça login para copiar um Topico",
-        "confirmFork": "Deseja adicionar 'RPLC1' aos seus topicos?"
-    },
     "slidebar": {
         "MySchedule": "Programación",
         "Schedule": "Programac",

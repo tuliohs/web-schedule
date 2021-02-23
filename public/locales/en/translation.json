@@ -29,5 +29,15 @@
         "Statistics": "Statistics",
         "Factory": "Factory",
         "Admin": "DashBoard"
+    },
+    "landing": {
+        "slogan": "Learning Based in Not Forgetion",
+        "initText": "Understand how the power of joining persistence with strategy can make you learn everything",
+        "lbCard1": "Statistics",
+        "txCard1": "Make a complete diagnosis of your strengths and weaknesses using statistics.It will be very easy to find yourself and the constant evolution.",
+        "lbCard2": "Revisions",
+        "txCard2": "Optimize your time with a history of all your revisions and there will be no need to relearn.",
+        "lbCard3": "Automatic calculation",
+        "txCard3": "Automatic calculation of the periodicity of time between each new revision and new subject."
     }
 }
