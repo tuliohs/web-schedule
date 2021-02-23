@@ -213,7 +213,7 @@ export default function Topic() {
                                 />)
                         }
                     </div>
-                    <Empty itemPageLength={topic?.length} />
+                    {!loading && <Empty itemPageLength={topic?.length} />}
                 </div>
             </div>
         </>

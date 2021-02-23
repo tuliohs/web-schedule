@@ -98,7 +98,7 @@ export default function Schedule() {
                     </div>
                 </>
             }
-            <Empty itemPageLength={data.filter(a => a?.topic?._id === currentTopic)?.length} />
+            {!loading && <Empty itemPageLength={data.filter(a => a?.topic?._id === currentTopic)?.length} />}
         </>
     );
 }

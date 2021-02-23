@@ -98,7 +98,7 @@ export default function Next() {
                             //focusTextArea.current.focus()
                         }}
                     />)}
-                <Empty itemPageLength={data?.length} />
+                {!loading && <Empty itemPageLength={data?.length} />}
             </div>
         </>
     );

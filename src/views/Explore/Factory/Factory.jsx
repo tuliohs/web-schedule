@@ -92,7 +92,7 @@ export default function Factory() {
                     }
                 </div>
             </div>
-            {token && <Empty />}
+            {token && !loading && <Empty />}
         </>
     );
 }

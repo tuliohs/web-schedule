@@ -149,7 +149,7 @@ export default function ItemsScreen() {
                                 title="Items" data={Object.values(tabdata[0] || {})} />}
                             {tabdata?.length === 0 ? <Loading loading={loading} /> : null}
                         </div>
-                        <Empty itemPageLength={!tabdata ? 0 : tabdata[0]?.length} />
+                        {!loading && <Empty itemPageLength={!tabdata ? 0 : tabdata[0]?.length} />}
                     </div>
                 </div>
             }

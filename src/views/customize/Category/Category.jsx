@@ -121,7 +121,10 @@ export default function Category() {
                         />
                     ))}
                 </div>
-                <Empty itemPageLength={dados?.filter(w => w.topic?._id === currentTopic)?.length} />
+                {
+                    !loading &&
+                    <Empty itemPageLength={dados?.filter(w => w.topic?._id === currentTopic)?.length} />
+                }
             </div>}
         </>
     );

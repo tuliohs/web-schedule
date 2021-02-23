@@ -127,7 +127,7 @@ const Revision: FunctionComponent<TCurrentItem> = () => {
                 {
                     data?.length === 0 ? <Loading loading={loading} /> : <RevisionTimeLine itemRevision={data} />
                 }
-                <Empty itemPageLength={data?.length} />
+                {!loading && <Empty itemPageLength={data?.length} />}
             </div>
         </>
     );
