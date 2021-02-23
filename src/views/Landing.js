@@ -73,7 +73,7 @@ export default function Landing() {
 
   const { t } = useTranslation()
 
-  let moreDetails = false;
+  let moreDetails = true;
   return (
     <>
       {/*<Navbar />*/}
@@ -157,7 +157,7 @@ export default function Landing() {
                   </div>
                 </div>
               </div>
-
+              {/*Card 2*/}
               <div className="w-full md:w-4/12 px-4 text-center">
                 <div className="z-40 relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
@@ -171,7 +171,7 @@ export default function Landing() {
                   </div>
                 </div>
               </div>
-
+              {/*Card 3*/}
               <div className="pt-6 w-full md:w-4/12 px-4 text-center">
                 <div className="z-40 relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
@@ -185,6 +185,7 @@ export default function Landing() {
               </div>
             </div>
 
+            {/*Forgetion Curve*/}
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
                 <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
@@ -240,6 +241,7 @@ export default function Landing() {
           </div>
         </section>
         {moreDetails && <>
+          {/*Sessão 3*/}
           <section className="relative py-20">
             <div
               className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
@@ -263,11 +265,11 @@ export default function Landing() {
 
             <div className="container mx-auto px-4">
               <div className="items-center flex flex-wrap">
-                <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
+                <div className="w-full md:w-6/12 ml-auto mr-auto px-4">
                   <img
                     alt="..."
                     className="max-w-full rounded-lg shadow-lg"
-                    src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                    src={require("assets/landing/demontration/factory.png")}
                   />
                 </div>
                 <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
@@ -275,24 +277,22 @@ export default function Landing() {
                     <div className="text-blue-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blue-300">
                       <i className="fas fa-rocket text-xl"></i>
                     </div>
-                    <h3 className="text-3xl font-semibold">A growing company</h3>
+                    <h3 className="text-3xl font-semibold"> {t("landing.parag3title")} </h3>
                     <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                      The extension comes with three pre-built pages to help you
-                      get started faster. You can change the text and images and
-                      you're good to go.
-                  </p>
+                      {t("landing.parag3tx")}
+                    </p>
                     <ul className="list-none mt-6">
                       <li className="py-2">
                         <div className="flex items-center">
                           <div>
                             <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 mr-3">
-                              <i className="fas fa-fingerprint"></i>
+                              <i className="fas fa-edit"></i>
                             </span>
                           </div>
                           <div>
                             <h4 className="text-gray-600">
-                              Carefully crafted components
-                          </h4>
+                              {t("landing.parag3topic1")}
+                            </h4>
                           </div>
                         </div>
                       </li>
@@ -300,13 +300,13 @@ export default function Landing() {
                         <div className="flex items-center">
                           <div>
                             <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 mr-3">
-                              <i className="fab fa-html5"></i>
+                              <i className="fab fa-wpexplorer"></i>
                             </span>
                           </div>
                           <div>
                             <h4 className="text-gray-600">
-                              Amazing page examples
-                          </h4>
+                              {t("landing.parag3topic2")}
+                            </h4>
                           </div>
                         </div>
                       </li>
@@ -318,7 +318,7 @@ export default function Landing() {
                             </span>
                           </div>
                           <div>
-                            <h4 className="text-gray-600">Dynamic components</h4>
+                            <h4 className="text-gray-600">{t("landing.parag3topic3")}</h4>
                           </div>
                         </div>
                       </li>

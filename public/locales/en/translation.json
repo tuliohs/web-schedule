@@ -38,6 +38,11 @@
         "lbCard2": "Revisions",
         "txCard2": "Optimize your time with a history of all your revisions and there will be no need to relearn.",
         "lbCard3": "Automatic calculation",
-        "txCard3": "Automatic calculation of the periodicity of time between each new revision and new subject."
+        "txCard3": "Automatic calculation of the periodicity of time between each new revision and new subject.",
+        "parag3title": "A Modern Platform",
+        "parag3tx": "Dynamic and easy to use platform allowing a unique experience.",
+        "parag3topic1": "Customize Topics> Categories > Items",
+        "parag3topic2": "Explore Others Users Topics",
+        "parag3topic3": "Help for you to take off"
     }
 }
