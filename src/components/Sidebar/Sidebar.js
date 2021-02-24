@@ -30,12 +30,17 @@ export default function Sidebar() {
             <i className="fas fa-bars"></i>
           </button>
           {/* Brand */}
-          <a
+          {/*<a
             className="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0"
             href="/"
           >
             Forgetion
-          </a>
+          </a>*/}
+
+          <Link className=" md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 " to="/">
+            <img style={{ width: 40, margin: 'auto' }} alt="" src={require('assets/logo/logo_size_invert_blue.jpg')} />
+            {/*<img alt="" src={require('assets/logo/text-red.png')} />*/}
+          </Link>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">

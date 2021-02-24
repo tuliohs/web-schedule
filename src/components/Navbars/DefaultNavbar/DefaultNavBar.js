@@ -42,9 +42,12 @@ export default function DefaultNavbar({ showAcessBtn = true }) {
         <>
             <nav className={tema + " top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow"}>
                 <div className="w-full container px-4 mx-auto flex flex-wrap items-center justify-between">
-                    <a className=" text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase"
+                    {/*<a className=" text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase"
                         href="/">
                         {t("navAdm.title")}
+                    </a>*/}
+                    <a href="/">
+                        <img style={{ width: 40 }} alt="" src={require('assets/logo/logo_size_invert_red.jpg')} />
                     </a>
                     < ul className="flex flex-row lg:ml-auto">
                         {location?.pathname !== "/public" &&
