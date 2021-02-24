@@ -998,6 +998,12 @@ img, video {
   background-color: rgba(254, 215, 215, var(--bg-opacity));
 }
 
+.bg-red-300 {
+  --bg-opacity: 1;
+  background-color: #ef5466;
+  background-color: rgba(252, 129, 129, var(--bg-opacity));
+}
+
 .bg-red-400 {
   --bg-opacity: 1;
   background-color: #fc8181;

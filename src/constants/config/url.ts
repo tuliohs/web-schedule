@@ -1,7 +1,7 @@
 let base = ""
 if (process.env.NODE_ENV === "development") {
-    base = "http://localhost:9090"
-    //base = 'http://45.90.108.173:9090'
+    //base = "http://localhost:9090"
+    base = 'http://45.90.108.173:9090'
 }
 else
     base = 'http://45.90.108.173:9090'
