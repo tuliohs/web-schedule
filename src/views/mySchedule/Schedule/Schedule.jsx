@@ -11,6 +11,8 @@ import ControlledOpenSelect from 'components/Dropdowns/ControlledOpenSelect'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 import CardSchedule from './CardSchedule'
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 export default function Schedule() {
 
@@ -32,15 +34,16 @@ export default function Schedule() {
         setShowModal(true)
         setRevisionNote(EditorState.createEmpty())
     }
-    const getItems = useCallback(async () => await obterScheduleItems().then(c => setData(c.data)).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
-
+    const getItems = useCallback(async () => await obterScheduleItems().then(c => {
+        setData(c.data)
+        setLoading(false)
+    }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
 
 
     useEffect(() => {
         getItems()
         const getTopics = async () => await obterTemas().then(c => {
             setTopic(c.data)
-            setLoading(false)
         }).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getTopics()
     }, [setMessage])
@@ -51,6 +54,11 @@ export default function Schedule() {
         //const a = async () => { setCurrentTopic(dados.find(x => x !== undefined)?.topic?._id) }
         a()
     }, [topic, currentTopic])
+
+    useEffect(() => {
+        const inpStrHandler = async () => await inputStreamRouter(EPagePath.Schedule)
+        inpStrHandler()
+    }, [])
 
     return (
         <>

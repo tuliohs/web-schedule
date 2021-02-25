@@ -12,6 +12,8 @@ import Empty from 'utils/Empty'
 import CardCategory from './CardCategory'
 
 import { useHistory, useLocation } from "react-router";
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 
 export default function Category() {
@@ -30,6 +32,7 @@ export default function Category() {
     const getDados = useCallback(async () =>
         await obterScheduleItems().then(c => {
             setData(c.data)
+            setLoading(false)
         }).catch(e => setMessage({ type: 'danger', text: e?.toString() })), [setMessage])
 
     const addcatHandler = async ({ item, image }) => {
@@ -67,7 +70,6 @@ export default function Category() {
     useEffect(() => {
         const getTopics = async () => await obterTemas().then(c => {
             setTopic(c.data)
-            setLoading(false)
         }).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
@@ -90,6 +92,11 @@ export default function Category() {
     //    const a = async () => { setTabdata(dados.filter(x => x._id === currentCat && x.topic._id === currentTopic).map(a => { return a.items })) }
     //    a()
     //}, [currentCat, currentTopic, dados])
+    useEffect(() => {
+        const inpStrHandler = async () => await inputStreamRouter(EPagePath.Category)
+        inpStrHandler()
+    }, [])
+
 
     return (
         <>

@@ -18,6 +18,8 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import Switch from '@material-ui/core/Switch'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete';
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 export const submitDialog = async ({ clickYes, label }) => {
     return confirmAlert({
@@ -183,6 +185,11 @@ export default function Topic() {
             })
             .catch(e => setMessage({ type: 'danger', text: e }))
     }
+
+    useEffect(() => {
+        const inpStrHandler = async () => await inputStreamRouter(EPagePath.Topic)
+        inpStrHandler()
+    }, [])
 
 
     return (

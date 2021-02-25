@@ -12,6 +12,8 @@ import { submitDialog } from '../Topic/Topic'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 import { useLocation } from "react-router";
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 export default function ItemsScreen() {
 
@@ -41,7 +43,6 @@ export default function ItemsScreen() {
     useEffect(() => {
         const getTopics = async () => await obterTemas().then(c => {
             setTopic(c.data)
-            setLoading(false)
         }).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getDados()
         getTopics()
@@ -121,11 +122,16 @@ export default function ItemsScreen() {
     const _category = dados?.filter(a => a._id === currentCat)[0]?.title ?? '...'
     const topic_category = `${_topic || ''}> ${_category}`
 
+    useEffect(() => {
+        const inpStrHandler = async () => await inputStreamRouter(EPagePath.Item)
+        inpStrHandler()
+    }, [])
+
     return (
         <>
             <StepMenu defaultStepNum={2} />
             {
-                !dados ? <Loading /> : <div className="flex flex-wrap justify-center">
+                !dados ? <Loading loading={loading} /> : <div className="flex flex-wrap justify-center">
                     <div className="flex justify-between flex-row flex-1 m-4 aling-center text-center items-center" >
                         <div className="flex justify-between flex-row p-6 flex-wrap">
                             <div className="m-2"><ControlledOpenSelect name='Topic' state={currentTopic} setState={setCurrentTopic} items={topic.map(a => ({ id: a._id, value: a.title }))} /></div>

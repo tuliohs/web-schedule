@@ -5,13 +5,14 @@ import { useTranslation } from 'react-i18next'
 import DefaultContext from 'constants/data/DefaultContext'
 import StoreContext from 'constants/data/StoreContext'
 import { obterPublicItems } from 'api/mySchedule'
-import { forkTopic } from 'api/schedule.api'
+import { forkTopic, inputStreamRouter } from 'api/schedule.api'
 
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 import { submitDialog } from "views/customize/Topic/Topic";
 import CardPost from "views/Explore/Factory/CardPost";
+import { EPagePath } from "routes";
 
 export default function Factory() {
 
@@ -63,6 +64,11 @@ export default function Factory() {
     useEffect(() => {
         getCategories()
     }, [getCategories])
+
+    useEffect(() => {
+        const inpStrHandler = async () => await inputStreamRouter(EPagePath.Explore)
+        inpStrHandler()
+    }, [])
 
 
     return (

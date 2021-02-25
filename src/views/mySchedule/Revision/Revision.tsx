@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, FunctionComponent } from "react";
+import React, { useState, useContext, useEffect, FunctionComponent, useCallback } from "react";
 import { useLocation } from 'react-router-dom'
 import { obterRevisionsId, newRevision, obterAllRevision } from 'api/mySchedule'
 import { EditorState } from "draft-js";
@@ -9,6 +9,8 @@ import ModalSmall from 'components/Modals/ModalSmall'
 import RevisionTimeLine from './RevisionTimeLine'
 import Loading from 'utils/Loading'
 import Empty from "utils/Empty";
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 //const CardContent = ({ title, description, revision }) => {
 //    return (
@@ -51,7 +53,7 @@ const Revision: FunctionComponent<TCurrentItem> = () => {
 
     const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState(EditorState.createEmpty())
-    const [loading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const emptyValues: TCurrentItem = { categoryId: "", itemId: "", title: "", description: "", }
     const [currentItem, setCurrentItem] = useState<TCurrentItem>(emptyValues)
@@ -82,9 +84,15 @@ const Revision: FunctionComponent<TCurrentItem> = () => {
                     .then(c => {
                         setData(c.data)
                     }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
+            setLoading(false)
         }
         aa()
     }, [location, setMessage, currentItem])
+
+    useEffect(() => {
+        const inpStrHandler = async () => await inputStreamRouter(EPagePath.Review)
+        inpStrHandler()
+    }, [])
 
     const newRevisionHandler = async () => {
         setShowModal(false)

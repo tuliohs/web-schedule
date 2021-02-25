@@ -1,7 +1,7 @@
 let base = ""
 if (process.env.NODE_ENV === "development") {
-    //base = "http://localhost:9090"
-    base = 'http://45.90.108.173:9090'
+    base = "http://localhost:9090"
+    //base = 'http://45.90.108.173:9090'
 }
 else
     base = 'http://45.90.108.173:9090'
@@ -22,5 +22,6 @@ export const URL = {
     RECPASS: `${base}/v1/auth/recpass`,
     EMPTY: `${base}/v1/schedule/empty`,
     UPLOAD_TCI: `${base}/v1/file/imptci`,
+    INPUT_STREAM: `${base}/v1/schedule/inpstream`,
 }
 

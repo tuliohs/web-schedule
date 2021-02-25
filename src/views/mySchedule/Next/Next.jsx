@@ -11,6 +11,8 @@ import DefaultContext from 'constants/data/DefaultContext'
 import Loading from 'utils/Loading'
 import Empty from 'utils/Empty'
 import CardNext from './CardNext'
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -21,7 +23,7 @@ export default function Next() {
 
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [revisionDate, setRevisionDate] = useState(new Date());
     const [revisonNote, setRevisionNote] = useState(EditorState.createEmpty())
@@ -55,6 +57,12 @@ export default function Next() {
     React.useEffect(() => {
         nextHandler()
     }, [nextHandler])
+
+
+    React.useEffect(() => {
+        const inpStrHandler = async () => await inputStreamRouter(EPagePath.Next)
+        inpStrHandler()
+    }, [])
 
     const newReviewModal = useCallback(async () => {
         setShowModal(false)

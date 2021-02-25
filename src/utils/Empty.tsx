@@ -3,21 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 
 import { EEmpty } from 'constants/data/DefaultContext'
 import { obterEmpty } from 'api/mySchedule'
+import { EPagePath } from 'routes';
 //import Topic from 'views/customize/Topic/Topic';
 
 interface EmptyProps {
     itemPageLength: number
-}
-
-//Caminho das páginas
-export enum EPagePath {
-    Topic = "/customize/lab/topic",
-    Explore = "/explore/factory",
-    Category = "/customize/lab/category",
-    Item = "/customize/lab/item",
-    Review = "/myschedule/revision",
-    Next = "/myschedule/next",
-    Schedule = "/myschedule/schedule",
 }
 
 //Verifica se o constexto está vazio e sugere inserção de conteudo
