@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 export default function Profile() {
+  useEffect(() => {
+    const inpStrHandler = async () => await inputStreamRouter(EPagePath.Profile)
+    inpStrHandler()
+  }, [])
   return (
     <>
       <Navbar transparent />

@@ -17,8 +17,12 @@ import Customize from 'layouts/Customize'
 import Explore from 'layouts/Explore'
 
 // views without layouts
-import Landing from "views/Landing.js";
-import LandingOld from "views/LandingOld.js";
+import Landing from "views/others/Landing.js";
+import Policy from 'views/others/Policy'
+import Terms from 'views/others/Terms'
+
+//pages not usage
+import LandingOld from "views/others/LandingOld.js";
 import Profile from "views/Profile.js";
 
 import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
@@ -80,6 +84,8 @@ const App = () => {
                                 </RoutesPrivate>
                                 <Route path="/auth" component={Auth} />
                                 <Route path="/public" exact component={Public} />
+                                <Route path="/policy" exact component={Policy} />
+                                <Route path="/terms" exact component={Terms} />
                                 <Route path="/" exact component={Landing} />
                                 {/* add redirect for first page */}
                                 <Route path="*">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next'
 // components
@@ -9,6 +9,8 @@ import backgroundHourGlass from 'assets/landing/hourglass.jpeg'
 import backgroundWriteType from 'assets/landing/write-type.jpg'
 import styled from 'styled-components'
 import { getRandom } from 'components/Dropdowns/IconDropdown'
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 const Styles = styled.div`
 
@@ -138,6 +140,12 @@ const backgroundImg = arrayBackground[getRandom(arrayBackground.length - 2)]
 export default function Landing() {
   const { t } = useTranslation()
   const moreitems = false
+
+  useEffect(() => {
+    const inpStrHandler = async () => await inputStreamRouter(EPagePath.Landing)
+    inpStrHandler()
+  }, [])
+
   return (
     <>
       <DefaultNavbar />

@@ -5,6 +5,8 @@ import StoreContext from 'constants/data/StoreContext'
 import CardSettings from "../customize/Profile/CardSettings";
 import { getUser, changeUser } from 'api/user.api'
 import DefaultContext from 'constants/data/DefaultContext'
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 const defaultValues = {
   email: ''
@@ -40,6 +42,11 @@ export default function RegisterComplet() {
   useEffect(() => {
     getUserHandler()
   }, [getUserHandler])
+
+  useEffect(() => {
+    const inpStrHandler = async () => await inputStreamRouter(EPagePath.CompletRegister)
+    inpStrHandler()
+  }, [])
 
   async function onChange(event) {
     const { value, name } = event.target;

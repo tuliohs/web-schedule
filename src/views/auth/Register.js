@@ -1,10 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom';
 
 import { register } from 'api/user.api'
 import StoreContext from 'constants/data/StoreContext'
 import DefaultContext from 'constants/data/DefaultContext'
 import { Header, UserInput } from './auth.utils'
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 function initialState() {
   return { firstName: '', email: '', password: '', passwordRepeat: '' };
@@ -49,6 +51,10 @@ export default function Register() {
     });
   }
 
+  useEffect(() => {
+    const inpStrHandler = async () => await inputStreamRouter(EPagePath.Register)
+    inpStrHandler()
+  }, [])
   return (
     <>
       <div className="container mx-auto px-4 h-full">

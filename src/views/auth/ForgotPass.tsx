@@ -1,10 +1,12 @@
-import React, { useState, useContext, FunctionComponent } from "react";
+import React, { useState, useContext, FunctionComponent, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { recoveryPass } from 'api/user.api'
 import { Header, UserInput } from './auth.utils'
 
 import DefaultContext from 'constants/data/DefaultContext'
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 function initialState() {
   return { email: '', emailRepeat: '' };
@@ -38,6 +40,10 @@ const ForgotPass: FunctionComponent = () => {
     });
   }
 
+  useEffect(() => {
+    const inpStrHandler = async () => await inputStreamRouter(EPagePath.ForgetPass)
+    inpStrHandler()
+  }, [])
   return (
     <>
       <div className="container mx-auto px-4 h-full">

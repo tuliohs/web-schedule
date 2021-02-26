@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 
@@ -7,6 +7,8 @@ import { Header, UserInput } from './auth.utils'
 
 import StoreContext from 'constants/data/StoreContext'
 import DefaultContext from 'constants/data/DefaultContext'
+import { inputStreamRouter } from "api/schedule.api";
+import { EPagePath } from "routes";
 
 function initialState() {
   return { email: '', password: '' };
@@ -40,6 +42,12 @@ export default function Login() {
       setValues(initialState);
     });
   }
+
+  useEffect(() => {
+    const inpStrHandler = async () => await inputStreamRouter(EPagePath.Login)
+    inpStrHandler()
+  }, [])
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
