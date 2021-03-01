@@ -153,7 +153,7 @@ export default function ItemsScreen() {
                                 changeItemHandler={changeItemHandler}
                                 buttonItem={buttonItem}
                                 title="Items" data={Object.values(tabdata[0] || {})} />}
-                            {tabdata?.length === 0 ? <Loading loading={loading} /> : null}
+                            {tabdata?.length === undefined ? <Loading loading={loading} /> : null}
                         </div>
                         {!loading && <Empty itemPageLength={!tabdata ? 0 : tabdata[0]?.length} />}
                     </div>

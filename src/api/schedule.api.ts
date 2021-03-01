@@ -12,6 +12,6 @@ export const forkTopic = async (topicId: string) => {
 export const inputStreamRouter = async (route: EPagePath) => {
     return await api.post(URL.INPUT_STREAM, {
         route: route
-    })
+    }).catch(e => console.log(e))
 }
 

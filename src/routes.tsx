@@ -18,3 +18,5 @@ export enum EPagePath {
     ForgetPass = "/auth/forgotpass",
     Policy = "/policy",
 }
+
+

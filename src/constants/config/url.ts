@@ -1,10 +1,12 @@
 let base = ""
 if (process.env.NODE_ENV === "development") {
-    base = "http://localhost:9090"
+    //base = "http://localhost:9090"
     //base = 'http://45.90.108.173:9090'
+    base = 'http://45.90.108.173:9096'
 }
 else
-    base = 'http://45.90.108.173:9090'
+    base = 'https://forgetion.com'
+//base = "http://localhost:9090"
 
 export const URL = {
     BASE: base,

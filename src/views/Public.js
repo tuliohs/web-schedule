@@ -4,14 +4,14 @@ import FactorySCreen from "views/Explore/Factory/Factory";
 import DefaultNavbar from "components/Navbars/DefaultNavbar/DefaultNavBar";
 import FooterAdmin from "components/Footers/FooterAdmin";
 import HeaderDefault from "components/Headers/HeaderDefault";
-import { EPagePath } from "routes";
-import { inputStreamRouter } from "api/schedule.api";
+//import { EPagePath } from "routes";
+//import { inputStreamRouter } from "api/schedule.api";
 
 export default function Public() {
-    useEffect(() => {
-        const inpStrHandler = async () => await inputStreamRouter(EPagePath.PublicFactory)
-        inpStrHandler()
-    }, [])
+    //useEffect(() => { //o fluxo já é controlado na factory page
+    //    const inpStrHandler = async () => await inputStreamRouter(EPagePath.PublicFactory)
+    //    inpStrHandler()
+    //}, [])
     return (
         <div className="relative bg-gray-200">
             <DefaultNavbar showAcessBtn={false} />
