@@ -1,30 +1,27 @@
 import axios from 'axios'
 import storage from 'utils/storage'
-
-import https from 'https'
-const axRejUnauth = axios.create({
-  httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-  //baseURL: "https://jsonplaceholder.typicode.com/",
-  withCredentials: false,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  }
-});
-
+//import https from 'https'
+//const axRejUnauth = axios.create({
+//  httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+//  //baseURL: "https://jsonplaceholder.typicode.com/",
+//  withCredentials: false,
+//  headers: {
+//    'Access-Control-Allow-Origin': '*',
+//    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+//  }
+//});
 
 const api = axios.create({
   //baseURL: 'http://localhost:9090',
-  httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-  withCredentials: false,
+  //httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+  //withCredentials: false,
   headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    //'Access-Control-Allow-Origin': '*',
+    //'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
-
-  timeout: process.env.NODE_ENV !== "development" ? 10 * 1000 : null
+  //timeout: process.env.NODE_ENV !== "development" ? 10 * 1000 : null
 })
 
 api.interceptors.response.use(

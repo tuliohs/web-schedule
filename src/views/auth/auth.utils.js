@@ -1,16 +1,52 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login';//'react-facebook-login/dist/facebook-login-render-props' //
+import { facebookAuth } from 'api/user.api';
+import DefaultContext from 'constants/data/DefaultContext';
+import StoreContext from 'constants/data/StoreContext';
+import { useHistory } from 'react-router';
 //import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 
 export const Header = ({ title }) => {
+
+    const { setMessage, } = useContext(DefaultContext);
+    const { setToken, setUser, user } = useContext(StoreContext);
+
+    const history = useHistory();
+
     const responseGoogle = (response) => {
         console.log(response);
     }
-    const responseFacebook = (response) => {
+    const responseFacebook = async (response) => {
         console.log(response);
+        if (response?.status === "unknown") return
+        await facebookAuth(response).then(a => {
+            a.data.user.imageData = response?.picture?.data?.url
+            setUser(a.data?.user)
+            setToken(a?.data?.token)
+            //alterando a foto do facebook
+            return history.push('/myschedule/schedule')
+        }).catch(er => { setMessage({ type: 'danger', text: er?.toString() }) })
     }
+
+    //const [FBInstance, isReady] = useFacebook();
+
+    //const responseFacebook2 = () => {
+    //    FBInstance.getLoginStatus(resp => {
+    //        console.log(resp)
+
+    //        if (!resp?.authResponse) {
+    //            console.log('implementar auth')
+    //        }
+    //    })
+    //}
+
+
+
+
+
+
     return (
         <div className="rounded-t mb-0 px-6 py-6">
             <div className="text-center mb-3">
@@ -22,28 +58,35 @@ export const Header = ({ title }) => {
                 {/*<button
                     className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
+                    onClick={() => responseFacebook()}
                 >
                     <img
                         alt="..."
                         className="w-5 mr-1"
                         src={require("assets/img/github.svg")}
                     />
-        Github
-      </button>*/}
-                {/*<FacebookLogin
+            Github
+                        </button>*/}
+                <FacebookLogin
                     appId="1902019823291956"
-                    autoLoad={true}
+                    autoLoad={false}
                     fields="name,email,picture"
+                    icon="fa-facebook pr-4"
+                    textButton="Facebook"
+                    scope="public_profile,email"
                     //onClick={componentClicked}
-                    callback={responseFacebook} />*/}
+                    callback={responseFacebook}
+                    cssClass="active:bg-gray-100 bg-facebook text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2    shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+
+                />
                 {/*<GoogleLogin
                     clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                     buttonText="Login"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
-                />
-                <button
+                />*/}
+                {/*<button
                     className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
                 >

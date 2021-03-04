@@ -43,6 +43,7 @@ export default function Schedule() {
     useEffect(() => {
         getItems()
         const getTopics = async () => await obterTemas().then(c => {
+            console.log('sched', c)
             setTopic(c.data)
         }).catch(e => setMessage({ type: 'danger', text: e?.toString() })) //show topics without data
         getTopics()

@@ -39,3 +39,7 @@ export const changeUser = async (values: TUser) => {
 export const recoveryPass = async (values: TUser) => {
     return await api.post(URL.RECPASS, values)
 }
+
+export const facebookAuth = async (values: any) => {
+    return await api.post(URL.FACEBOOK, values)
+}

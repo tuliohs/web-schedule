@@ -35,7 +35,7 @@ const NotificationDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48"
         }
       >
-        <a
+        {/*<a
           href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
@@ -71,7 +71,7 @@ const NotificationDropdown = () => {
           onClick={(e) => e.preventDefault()}
         >
           Seprated link
-        </a>
+        </a>*/}
       </div>
     </>
   );
