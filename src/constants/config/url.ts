@@ -27,5 +27,6 @@ export const URL = {
     UPLOAD_TCI: `${base}/v1/file/imptci`,
     INPUT_STREAM: `${base}/v1/schedule/inpstream`,
     FACEBOOK: `${base}/v1/auth/facebook`,
+    MANAGERUSER: `${base}/v1/schedule/manage/user`,
 }
 

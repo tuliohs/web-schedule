@@ -77,7 +77,6 @@ export const Header = ({ title }) => {
                     //onClick={componentClicked}
                     callback={responseFacebook}
                     cssClass="active:bg-gray-100 bg-facebook text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2    shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-
                 />
                 {/*<GoogleLogin
                     clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"

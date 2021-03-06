@@ -15,3 +15,8 @@ export const inputStreamRouter = async (route: EPagePath) => {
     }).catch(e => console.log(e))
 }
 
+//MANAGE USERS
+export const managerUserGetAll = async () => {
+    return await api.get(URL.MANAGERUSER)
+}
+

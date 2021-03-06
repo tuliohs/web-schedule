@@ -43,7 +43,8 @@ export default function Register() {
     await register(values).then(a => {
       setUser(a.data?.user)
       setToken(a?.data?.token)
-      return history.push('/auth/register/complet')
+      //if(a.completRegistre)  return history.push('/auth/register/complet')
+      return history.push('/myschedule/schedule')
     }).catch(error => {
       setError(error.error)
       setMessage({ type: 'danger', text: error })
