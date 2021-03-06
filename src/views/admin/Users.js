@@ -42,7 +42,7 @@ function TableRow({ data }) {
             <td className="text-center">{data.itemsLength}</td>
             <td className="text-center">{data.revisionsLength}</td>
             <td>
-                <DefaultButton onClick={handlleDetail} label="Detail" theme={{ color: "pink", grau: "500", fontColor: "white" }} />
+                <DefaultButton onClick={handlleDetail} label="Detail" theme={{ color: "red", grau: "500", fontColor: "white" }} />
             </td>
             <td>
                 <DefaultButton onClick={handlleContent} l label="Content" theme={{ color: "teal", grau: "500" }} />

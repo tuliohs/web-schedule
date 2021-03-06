@@ -38,7 +38,9 @@ export default function Sidebar() {
           </a>*/}
 
           <Link className=" md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 " to="/">
-            <img style={{ width: 40, margin: 'auto' }} alt="" src={require('assets/logo/logo_size_invert_blue.jpg')} />
+            <img
+              style={{ width: 40, margin: 'auto', marginBottom: 2 }}
+              alt="" src={require('assets/logo/logo_size_invert_red.jpg')} />
             {/*<img alt="" src={require('assets/logo/text-red.png')} />*/}
           </Link>
           {/* User */}
@@ -142,6 +144,7 @@ export default function Sidebar() {
                 <ul className="md:flex-col md:min-w-full flex flex-col list-none">
                   <ItemBar setCollapseShow={setCollapseShow} path="/admin/Home" name="Admin" />
                   <ItemBar setCollapseShow={setCollapseShow} path="/admin/Users" name="Users" />
+                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/Trafic" name="Trafic" />
                   <ItemBar setCollapseShow={setCollapseShow} path="/admin/dashboard" name="Dashboard" />
                   <li className="items-center">
                     <Link
