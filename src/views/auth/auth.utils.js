@@ -29,24 +29,6 @@ export const Header = ({ title }) => {
             return history.push('/myschedule/schedule')
         }).catch(er => { setMessage({ type: 'danger', text: er?.toString() }) })
     }
-
-    //const [FBInstance, isReady] = useFacebook();
-
-    //const responseFacebook2 = () => {
-    //    FBInstance.getLoginStatus(resp => {
-    //        console.log(resp)
-
-    //        if (!resp?.authResponse) {
-    //            console.log('implementar auth')
-    //        }
-    //    })
-    //}
-
-
-
-
-
-
     return (
         <div className="rounded-t mb-0 px-6 py-6">
             <div className="text-center mb-3">
