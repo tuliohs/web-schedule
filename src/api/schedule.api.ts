@@ -25,4 +25,7 @@ export const inputStreamGetAll = async () => {
 export const managerUserGetAll = async () => {
     return await api.get(URL.MANAGERUSER)
 }
+export const managerUserChangeStatus = async (id: string) => {
+    return await api.put(URL.MANAGERUSER + '/' + id)
+}
 

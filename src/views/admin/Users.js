@@ -1,14 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from 'moment'
 // components
-import { managerUserGetAll } from "api/schedule.api";
+import { managerUserGetAll, managerUserChangeStatus } from "api/schedule.api";
 import DefaultContext from "constants/data/DefaultContext";
 import DefaultButton from "components/Buttons/DefaultButton";
 
 
-function TableRow({ data }) {
+function TableRow({ data, setMessage }) {
     const [showDetail, setShowDetail] = useState(false)
     const [showContent, setShowContent] = useState(false)
+    const [userStatus, setUserStatus] = useState(false)
+
+
     const handlleDetail = () => {
 
         setShowContent(false)
@@ -18,6 +21,14 @@ function TableRow({ data }) {
         setShowDetail(false)
         setShowContent(!showContent)
     }
+    const handleChangeStatusUser = (id) => {
+        managerUserChangeStatus(id)
+            .then(a => setUserStatus(a.data.active))
+            .catch(e => setMessage(e.message))
+    }
+    useEffect(() => {
+        setUserStatus(data.active)
+    }, [data])
     return (<>
         <tr
             className="pt-4"
@@ -36,13 +47,16 @@ function TableRow({ data }) {
             <td>{data.firstName + ' ' + data.lastname}</td>
             <td>{data.email}</td>
             <td>{moment(data.lastAcess).format('DD/MM/YYYY HH:mm')}</td>
-            <td>{data.active.toString()}</td>
             <td className="text-center">{data.Topic.length}</td>
             <td className="text-center">{data.Category.length}</td>
             <td className="text-center">{data.itemsLength}</td>
             <td className="text-center">{data.revisionsLength}</td>
+            <td className="text-center">
+                <DefaultButton onClick={() => handleChangeStatusUser(data._id)} label={!userStatus ? "Active" : "Desative"}
+                    theme={{ color: !userStatus ? "yellow" : "red", grau: "500", fontColor: "white" }} />
+            </td>
             <td>
-                <DefaultButton onClick={handlleDetail} label="Detail" theme={{ color: "red", grau: "500", fontColor: "white" }} />
+                <DefaultButton onClick={handlleDetail} label="Detail" theme={{ color: "indigo", grau: "500", fontColor: "white" }} />
             </td>
             <td>
                 <DefaultButton onClick={handlleContent} l label="Content" theme={{ color: "teal", grau: "500" }} />
@@ -93,19 +107,19 @@ export default function Users() {
                     <span className={`text-white font-bold uppercase p-3 text-sm px-6  rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 bg-blue-500 active:bg-teal-600 ease-linear transition-all duration-150`}
                         style={{ textAlign: 'left', justifyContent: 'flex-start' }}
                     >Total Usuários<span style={{ fontSize: 30, padding: 5, marginLeft: 8 }}
-                    >{users.length}</span></span>
+                    >{users.filter(a => a.active).length}</span></span>
                     <table className=" bg-white mt-6 p-4"
                         style={{ borderCollapse: 'initial' }}>
                         <thead>
-                            <tr><th>Photo</th><th>Name</th><th>Email</th><th>Last Acess</th><th>Active</th>
+                            <tr><th>Photo</th><th>Name</th><th>Email</th><th>Last Acess</th>
                                 <th>Topics</th><th>Catgs</th>
                                 <th>Items</th><th>Revs</th>
-                                <th>+</th><th>+</th>
+                                <th>°</th><th>°</th><th>°</th>
                             </tr>
                         </thead>
                         <tbody>
                             {users.map(u => (
-                                <TableRow data={u} />
+                                <TableRow data={u} setMessage={setMessage} />
                             ))}
                         </tbody>
                     </table>

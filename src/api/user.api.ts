@@ -17,7 +17,8 @@ export type TUser = {
     education?: string,
     occupation?: string,
     imageData?: string,
-    resetPass?: boolean
+    resetPass?: boolean,
+    role?: string
 }
 
 export const register = async (values: TUser) => {

@@ -142,9 +142,9 @@ export default function Sidebar() {
                 {/* Navigation */}
 
                 <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/Home" name="Admin" />
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/Users" name="Users" />
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/Trafic" name="Trafic" />
+                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/home" name="Admin" />
+                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/users" name="Users" />
+                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/trafic" name="Trafic" />
                   <ItemBar setCollapseShow={setCollapseShow} path="/admin/dashboard" name="Dashboard" />
                   <li className="items-center">
                     <Link
