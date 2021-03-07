@@ -94,7 +94,7 @@ export default function Users() {
     useEffect(() => {
         const getUsers = async () => {
             managerUserGetAll()
-                .then(a => setUsers(a.data))
+                .then(a => setUsers(a.data.sort()))
                 .catch(e => setMessage(e))
         }
         getUsers()

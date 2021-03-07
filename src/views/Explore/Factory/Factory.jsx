@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { useHistory } from "react-router";
 import { useTranslation } from 'react-i18next'
+import { Helmet } from "react-helmet";
 
 import DefaultContext from 'constants/data/DefaultContext'
 import StoreContext from 'constants/data/StoreContext'
@@ -75,6 +76,10 @@ export default function Factory() {
         <>
             {/*<StepMenu defaultStepNum={0} />*/}
             <div className="flex  " style={{ justifyContent: "center" }}>
+                <Helmet>
+                    <title>Factory - Forgetion Explore</title>
+                    <meta name="Explore topics by others users or publish your topics" content="Allows you to explore forgetion themes" />
+                </Helmet>
                 <div className=" mb-6"  >
                     {/*---------BUTTON ADD TOPIC*/}
                     {/*<ItemDialog addItemHandler={addTopicHandler}
