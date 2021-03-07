@@ -12,7 +12,6 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 import AdminHome from "views/admin/Admin";
 import Users from "views/admin/Users";
 import Trafic from "views/admin/Trafic";
-import Dashboard from "views/admin/Dashboard.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 
@@ -29,7 +28,6 @@ export default function Admin() {
             <Route path="/admin/home" component={AdminHome} />
             <Route path="/admin/users" component={Users} />
             <Route path="/admin/trafic" exact component={Trafic} />
-            <Route path="/admin/dashboard" exact component={Dashboard} />
             <Route path="/admin/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
             <Redirect from="/admin" to="/admin/home" />
