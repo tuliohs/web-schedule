@@ -5,8 +5,8 @@ import { facebookAuth } from 'api/user.api';
 import DefaultContext from 'constants/data/DefaultContext';
 import StoreContext from 'constants/data/StoreContext';
 import { useHistory } from 'react-router';
+import baseRouter from 'constants/config/baseRouter';
 //import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-
 
 export const Header = ({ title }) => {
 
@@ -25,7 +25,7 @@ export const Header = ({ title }) => {
             setUser(a.data?.user)
             setToken(a?.data?.token)
             //alterando a foto do facebook
-            return history.push('/myschedule/schedule')
+            return history.push(`${baseRouter}/myschedule/schedule`)
         }).catch(er => { setMessage({ type: 'danger', text: er?.toString() }) })
     }
     return (

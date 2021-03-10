@@ -45,7 +45,7 @@ export default function Register() {
       setUser(a.data?.user)
       setToken(a?.data?.token)
       //if(a.completRegistre)  return history.push('/auth/register/complet')
-      return history.push('/myschedule/schedule')
+      return history.push(`${baseRouter}/myschedule/schedule`)
     }).catch(error => {
       setError(error.error)
       setMessage({ type: 'danger', text: error })

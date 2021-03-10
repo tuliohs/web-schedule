@@ -35,7 +35,7 @@ export default function Login() {
     await login(values).then(a => {
       setUser(a.data?.user)
       setToken(a?.data?.token)
-      return history.push('/myschedule/schedule')
+      return history.push(`${baseRouter}/myschedule/schedule`)
     }).catch(er => {
       //console.log(er.message)
       setError(er?.toString())

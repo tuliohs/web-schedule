@@ -38,12 +38,13 @@ export default function Sidebar() {
             Forgetion
           </a>*/}
 
-          <Link className=" md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 " to="/">
+          <a className=" md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 "
+            href="/">
             <img
               style={{ width: 40, margin: 'auto', marginBottom: 2 }}
               alt="" src={require('assets/logo/logo_size_invert_red.jpg')} />
             {/*<img alt="" src={require('assets/logo/text-red.png')} />*/}
-          </Link>
+          </a>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">
@@ -103,8 +104,8 @@ export default function Sidebar() {
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/myschedule/schedule`} name={t("slidebar.Schedule")} />
-              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/next" name={t("slidebar.Next")} faIcon="stopwatch" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/revision" name={t("slidebar.Revision")} faIcon="history" />
+              <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/myschedule/next`} name={t("slidebar.Next")} faIcon="stopwatch" />
+              <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/myschedule/revision`} name={t("slidebar.Revision")} faIcon="history" />
             </ul>
 
             {/*---------------------------------CUSTOMIZE-------------------------------------*/}
@@ -143,12 +144,11 @@ export default function Sidebar() {
                 {/* Navigation */}
 
                 <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/home" name="Admin" />
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/users" name="Users" />
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/trafic" name="Trafic" />
+                  <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/admin/home`} name="Admin" />
+                  <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/admin/users`} name="Users" />
+                  <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/admin/trafic`} name="Trafic" />
                   <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/admin/dashboard`} name="Dashboard" />
-
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/tables" name="Tables" />
+                  <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/admin/tables`} name="Tables" />
                 </ul>
 
                 {/* Divider */}
@@ -190,24 +190,6 @@ export default function Sidebar() {
                 {/* Navigation */}
 
                 <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                  <li className="items-center">
-                    <Link
-                      className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
-                      to={`${baseRouter}/landing`}                >
-                      <i className="fas fa-newspaper text-gray-500 mr-2 text-sm"></i>{" "}
-                  Landing Page
-                </Link>
-                  </li>
-
-                  <li className="items-center">
-                    <Link
-                      className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
-                      to="/landingold"
-                    >
-                      <i className="fas fa-newspaper text-gray-500 mr-2 text-sm"></i>{" "}
-                Old Landing Page
-                </Link>
-                  </li>
 
                   <li className="items-center">
                     <Link

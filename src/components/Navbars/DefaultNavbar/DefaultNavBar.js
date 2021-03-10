@@ -47,7 +47,7 @@ export default function DefaultNavbar({ showAcessBtn = true }) {
                         href="/">
                         {t("navAdm.title")}
                     </a>*/}
-                    <a href="/app">
+                    <a href="/">
                         <img style={{ width: 40 }} alt="" src={require('assets/logo/logo_size_invert_red.jpg')} />
                     </a>
                     < ul className="flex flex-row lg:ml-auto">

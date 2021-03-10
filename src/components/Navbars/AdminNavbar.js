@@ -13,7 +13,7 @@ import UserDropdown from "components/Dropdowns/UserDropdown";
 export const logoutHandler = e => {
   e.preventDefault()
   storage.remove('token')
-  history.push('/')
+  window.location.href = "/"
 }
 export const editProfileHandler = e => {
   e.preventDefault()

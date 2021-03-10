@@ -1,3 +1,4 @@
+import baseRouter from 'constants/config/baseRouter';
 import React, { FunctionComponent, SetStateAction } from 'react'
 
 import { Link, useLocation } from "react-router-dom";
@@ -12,11 +13,12 @@ interface MyProps {
 const ItemBar: FunctionComponent<MyProps> = ({ name, path, faIcon = "tv", setCollapseShow }) => {
     const location = useLocation()
 
-    const relativePath = function (str: string, minSeparator: number = 3) {
+    //number é igual ao número da hierarquia de barras
+    const relativePath = function (str: string, minSeparator: number = 4) {
         if (path.split('/').length <= minSeparator) return str
         return str.substr(1, str.lastIndexOf('/'))
     }
-
+    console.log(location?.pathname, 'e', relativePath(path))
     return (
         <li className="items-center">
             <Link

@@ -1,7 +1,7 @@
 let base = ""
 if (process.env.NODE_ENV === "development") {
-    base = "http://localhost:9090/api"
-    //base = 'https://forgetion.com/api'
+    //base = "http://localhost:9090/api"
+    base = 'https://forgetion.com/api'
     //base = 'http://45.90.108.173:9090/api'
     //base = 'http://45.90.108.173:9096/api'
 }

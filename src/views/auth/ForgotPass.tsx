@@ -32,7 +32,7 @@ const ForgotPass: FunctionComponent = () => {
       return setError('The typed emails are not the same');
     await recoveryPass(values).then(a => {
       setMessage({ type: 'sucess', text: a.data.message, timeExpire: 20 })
-      //return history.push('/myschedule/schedule')
+      //return history.push(`${baseRouter}/myschedule/schedule`)
     }).catch(er => {
       //console.log(er.message)
       setError(er?.toString())
