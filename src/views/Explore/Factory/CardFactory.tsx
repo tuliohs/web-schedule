@@ -30,7 +30,6 @@ interface ICardFactory {
 const layoutColumn = false;
 
 const CardContent: FunctionComponent<ICardFactory> = ({ topic, categories }) => {
-    console.log('cats', categories)
 
 
     return (

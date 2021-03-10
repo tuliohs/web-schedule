@@ -56,8 +56,8 @@ const PagesDropdown = () => {
         >
           Auth Layout
         </span>
-        <LinkItem path="/auth/login" text="Login" />
-        <LinkItem path="/auth/register" text="Registration" />
+        <LinkItem path={`${baseRouter}/auth/login`} text="Login" />
+        <LinkItem path={`${baseRouter}/auth/register`} text="Registration" />
       </div>
     </>
   );

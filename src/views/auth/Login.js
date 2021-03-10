@@ -9,6 +9,7 @@ import StoreContext from 'constants/data/StoreContext'
 import DefaultContext from 'constants/data/DefaultContext'
 import { inputStreamRouter } from "api/schedule.api";
 import { EPagePath } from "routes";
+import baseRouter from "constants/config/baseRouter";
 
 function initialState() {
   return { email: '', password: '' };
@@ -95,12 +96,12 @@ export default function Login() {
             </div>
             <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
-                <Link to="/auth/forgotpass" className="text-gray-300">
+                <Link to={`${baseRouter}/auth/forgotpass`} className="text-gray-300">
                   <small>Forgot password?</small>
                 </Link>
               </div>
               <div className="w-1/2 text-right">
-                <Link to="/auth/register" className="text-gray-300">
+                <Link to={`${baseRouter}/auth/register`} className="text-gray-300">
                   <small>Create new account</small>
                 </Link>
               </div>

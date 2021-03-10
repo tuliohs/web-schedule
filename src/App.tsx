@@ -32,6 +32,7 @@ import RoutesPrivate from 'utils/Private/RoutesPrivate'
 import NotFound from 'utils/NotFound'
 import Public from 'views/Public'
 import history from "utils/history";
+import baseRouter from "constants/config/baseRouter";
 
 const defaultMessage: TMessage = { type: 'sucess', text: 'sucess', timeExpire: 5 }
 const App = () => {
@@ -57,38 +58,38 @@ const App = () => {
             {/*The tag Suspense was add because is required in i18*/}
             <DefaultContext.Provider value={{ showAlert, setShowAlert, message, setMessage, empType, setEmpType }}>
                 {/*inicio das rotas*/}
-                <BrowserRouter>
+                <BrowserRouter basename="/webapp">
                     {/*Router and history was add to usage fo the history outside functions*/}
                     <Router history={history} >
                         <StoreProvider>
                             <Switch>
                                 {/* add routes with layouts */}
-                                <RoutesPrivate path="/customize"  >
+                                <RoutesPrivate path={`${baseRouter}/customize`}  >
                                     <Customize />
                                 </RoutesPrivate>
-                                <RoutesPrivate path="/myschedule"  >
+                                <RoutesPrivate path={`${baseRouter}/myschedule`}  >
                                     <Schedule />
                                 </RoutesPrivate>
-                                <RoutesPrivate path="/explore"  >
+                                <RoutesPrivate path={`${baseRouter}/explore`}  >
                                     <Explore />
                                 </RoutesPrivate>
-                                <RoutesPrivate roles={["admin"]} path="/admin"  >
+                                <RoutesPrivate roles={["admin"]} path={`${baseRouter}/admin`}  >
                                     <Admin />
                                 </RoutesPrivate>
                                 {/* add routes without layouts */}
-                                <RoutesPrivate roles={["admin"]} path="/landingold" exact  >
+                                <RoutesPrivate roles={["admin"]} path={`${baseRouter}/landingol`} exact  >
                                     <LandingOld />
                                 </RoutesPrivate>
-                                <RoutesPrivate roles={["admin"]} path="/profile" exact  >
+                                <RoutesPrivate roles={["admin"]} path={`${baseRouter}/profile`} exact  >
                                     <Profile />
                                 </RoutesPrivate>
-                                <Route path="/auth" component={Auth} />
-                                <Route path="/public" exact component={Public} />
-                                <Route path="/policy" exact component={Policy} />
-                                <Route path="/terms" exact component={Terms} />
-                                <Route path="/" exact component={Landing} />
+                                <Route path={`${baseRouter}/auth`} component={Auth} />
+                                <Route path={`${baseRouter}/public`} exact component={Public} />
+                                <Route path={`${baseRouter}/policy`} exact component={Policy} />
+                                <Route path={`${baseRouter}/terms`} exact component={Terms} />
+                                <Route path={`${baseRouter}/`} exact component={Landing} />
                                 {/* add redirect for first page */}
-                                <Route path="*">
+                                <Route path={`${baseRouter}/*`}>
                                     <NotFound />
                                 </Route>
                                 {/*<Redirect from="*" tyo="/" />*/}

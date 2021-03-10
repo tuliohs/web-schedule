@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import baseRouter from "constants/config/baseRouter";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -54,7 +55,7 @@ export default function Navbar(props) {
                 {/*<PagesDropdown />*/}
                 <a
                   className="lg:text-white lg:hover:text-gray-300 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="/myschedule/schedule"
+                  href={`${baseRouter}/myschedule/schedule`}
                 >
                   Acess
       </a>

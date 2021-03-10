@@ -19,7 +19,6 @@ export const Header = ({ title }) => {
         console.log(response);
     }
     const responseFacebook = async (response) => {
-        console.log(response);
         if (response?.status === "unknown") return
         await facebookAuth(response).then(a => {
             a.data.user.imageData = response?.picture?.data?.url

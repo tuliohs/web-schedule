@@ -1,4 +1,5 @@
 import axios from 'axios'
+import baseRouter from 'constants/config/baseRouter'
 import storage from 'utils/storage'
 //import https from 'https'
 //const axRejUnauth = axios.create({
@@ -52,7 +53,7 @@ api.interceptors.response.use(
 
       // O token JWT expirou
       storage.remove('token')
-      window.location.href = "/auth/login"
+      window.location.href = `${baseRouter}/auth/login`
 
       return Promise.reject("Sessão expirada, faça login novamente")
 

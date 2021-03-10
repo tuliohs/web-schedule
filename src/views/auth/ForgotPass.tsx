@@ -7,6 +7,7 @@ import { Header, UserInput } from './auth.utils'
 import DefaultContext from 'constants/data/DefaultContext'
 import { inputStreamRouter } from "api/schedule.api";
 import { EPagePath } from "routes";
+import baseRouter from "constants/config/baseRouter";
 
 function initialState() {
   return { email: '', emailRepeat: '' };
@@ -85,13 +86,13 @@ const ForgotPass: FunctionComponent = () => {
                   //onClick={(e) => e.preventDefault()}
                   className="text-gray-300"
                 >
-                  <Link to="/auth/login" className="text-gray-300">
+                  <Link to={`${baseRouter}/auth/login`} className="text-gray-300">
                     <small>Sign In</small>
                   </Link>
                 </a>
               </div>
               <div className="w-1/2 text-right">
-                <Link to="/auth/register" className="text-gray-300">
+                <Link to={`${baseRouter}/auth/register`} className="text-gray-300">
                   <small>Create new account</small>
                 </Link>
               </div>

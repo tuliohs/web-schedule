@@ -63,8 +63,6 @@ max-width: 680px;
 
 
 const CardPost: FunctionComponent<ICardFactory> = ({ topic, categories, ToggleForkTopic, editHandler }) => {
-    console.log(topic._id, 'i')
-    console.log(topic)
     const handleFork = async () => {
         await ToggleForkTopic({ topicId: topic._id, title: topic.title })
     }

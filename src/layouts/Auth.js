@@ -13,6 +13,7 @@ import ForgotPass from "views/auth/ForgotPass";
 import Register from "views/auth/Register.js";
 import RegisterComplet from "views/auth/RegisterComplet";
 import DefaultNavbar from "components/Navbars/DefaultNavbar/DefaultNavBar";
+import baseRouter from "constants/config/baseRouter";
 
 export default function Auth() {
   return (
@@ -28,11 +29,11 @@ export default function Auth() {
             }}
           ></div>
           <Switch>
-            <Route path="/auth/login" exact component={Login} />
-            <Route path="/auth/register" exact component={Register} />
-            <Route path="/auth/register/complet" exact component={RegisterComplet} />
-            <Route path="/auth/forgotpass" exact component={ForgotPass} />
-            <Redirect from="/auth" to="/auth/login" />
+            <Route path={`${baseRouter}/auth/login`} exact component={Login} />
+            <Route path={`${baseRouter}/auth/register`} exact component={Register} />
+            <Route path={`${baseRouter}/auth/register/complet`} exact component={RegisterComplet} />
+            <Route path={`${baseRouter}/auth/forgotpass`} exact component={ForgotPass} />
+            <Redirect from="/auth" to={`${baseRouter}/auth/login`} />
           </Switch>
           <FooterSmall absolute />
         </section>

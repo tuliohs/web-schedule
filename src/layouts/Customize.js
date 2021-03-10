@@ -10,6 +10,7 @@ import Topic from 'views/customize/Topic/Topic'
 import ItemsScreen from 'views/customize/Item/ItemsScreen'
 import Category from 'views/customize/Category/Category'
 import Profile from 'views/customize/Profile/Profile'
+import baseRouter from "constants/config/baseRouter";
 //import Route from 'utils/Private/Route'
 
 export default function Customize() {
@@ -22,16 +23,16 @@ export default function Customize() {
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
-                        <Route path="/customize/lab/topic" exact >
+                        <Route path={`${baseRouter}/customize/lab/topic`} exact >
                             <Topic />
                         </Route>
-                        <Route path="/customize/lab/item" exact >
+                        <Route path={`${baseRouter}/customize/lab/item`} exact >
                             <ItemsScreen />
                         </Route>
-                        <Route path="/customize/lab/category" exact >
+                        <Route path={`${baseRouter}/customize/lab/category`} exact >
                             <Category />
                         </Route>
-                        <Route path="/customize/profile" exact >
+                        <Route path={`${baseRouter}/customize/profile`} exact >
                             <Profile />
                         </Route>
                         {/*Excluido  porque  não estava peritindo o rediecionamento*/}

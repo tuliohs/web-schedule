@@ -20,7 +20,6 @@ export default function Admin() {
     const getAllCategories = async () => {
         await obterScheduleItems()
             .then(c => {
-                console.log(c.data)
                 for (var cat of c.data) {
                     for (var ite of cat.items) {
                         if (ite?.revisions?.length > 0)
@@ -58,7 +57,6 @@ export default function Admin() {
     }
 
 
-    console.log('rt', allCatgs)
     const modelImport = [
         {
             "Topic Title": null,

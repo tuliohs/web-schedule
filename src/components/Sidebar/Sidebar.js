@@ -9,6 +9,7 @@ import NotificationDropdown from "components/Dropdowns/NotificationDropdown";
 import UserDropdown from "components/Dropdowns/UserDropdown";
 import ItemBar from 'components/Sidebar/LeftBar/ItemBar'
 import DefaultButton from "components/Buttons/DefaultButton";
+import baseRouter from "constants/config/baseRouter";
 
 export default function Sidebar() {
 
@@ -101,7 +102,7 @@ export default function Sidebar() {
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/schedule" name={t("slidebar.Schedule")} />
+              <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/myschedule/schedule`} name={t("slidebar.Schedule")} />
               <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/next" name={t("slidebar.Next")} faIcon="stopwatch" />
               <ItemBar setCollapseShow={setCollapseShow} path="/myschedule/revision" name={t("slidebar.Revision")} faIcon="history" />
             </ul>
@@ -115,8 +116,8 @@ export default function Sidebar() {
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <ItemBar setCollapseShow={setCollapseShow} path="/customize/lab/topic" name={t("slidebar.Laboratory")} faIcon="flask" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/customize/profile" name={t("slidebar.Profile")} faIcon="user-circle" />
+              <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/customize/lab/topic`} name={t("slidebar.Laboratory")} faIcon="flask" />
+              <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/customize/profile`} name={t("slidebar.Profile")} faIcon="user-circle" />
             </ul>
 
             {/*---------------------------------EXPLORE-------------------------------------*/}
@@ -125,8 +126,8 @@ export default function Sidebar() {
             <h6 className="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               {t("slidebar.Explore")}
             </h6>  <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <ItemBar setCollapseShow={setCollapseShow} path="/explore/factory" name={t("slidebar.Factory")} faIcon="globe" />
-              <ItemBar setCollapseShow={setCollapseShow} path="/explore/statistics" name={t("slidebar.Statistics")} faIcon="chart-bar" />
+              <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/explore/factory`} name={t("slidebar.Factory")} faIcon="globe" />
+              <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/explore/statistics`} name={t("slidebar.Statistics")} faIcon="chart-bar" />
             </ul>
 
             {/* Divider */}
@@ -145,72 +146,9 @@ export default function Sidebar() {
                   <ItemBar setCollapseShow={setCollapseShow} path="/admin/home" name="Admin" />
                   <ItemBar setCollapseShow={setCollapseShow} path="/admin/users" name="Users" />
                   <ItemBar setCollapseShow={setCollapseShow} path="/admin/trafic" name="Trafic" />
-                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/dashboard" name="Dashboard" />
-                  <li className="items-center">
-                    <Link
-                      className={
-                        "text-xs uppercase py-3 font-bold block " +
-                        (window.location.href.indexOf("/admin/settings") !== -1
-                          ? "text-blue-500 hover:text-blue-600"
-                          : "text-gray-800 hover:text-gray-600")
-                      }
-                      to="/admin/settings"
-                    >
-                      <i
-                        className={
-                          "fas fa-tools mr-2 text-sm " +
-                          (window.location.href.indexOf("/admin/settings") !== -1
-                            ? "opacity-75"
-                            : "text-gray-400")
-                        }
-                      ></i>{" "}
-                  Settings
-                </Link>
-                  </li>
+                  <ItemBar setCollapseShow={setCollapseShow} path={`${baseRouter}/admin/dashboard`} name="Dashboard" />
 
-                  <li className="items-center">
-                    <Link
-                      className={
-                        "text-xs uppercase py-3 font-bold block " +
-                        (window.location.href.indexOf("/admin/tables") !== -1
-                          ? "text-blue-500 hover:text-blue-600"
-                          : "text-gray-800 hover:text-gray-600")
-                      }
-                      to="/admin/tables"
-                    >
-                      <i
-                        className={
-                          "fas fa-table mr-2 text-sm " +
-                          (window.location.href.indexOf("/admin/tables") !== -1
-                            ? "opacity-75"
-                            : "text-gray-400")
-                        }
-                      ></i>{" "}
-                  Tables
-                </Link>
-                  </li>
-
-                  <li className="items-center">
-                    <Link
-                      className={
-                        "text-xs uppercase py-3 font-bold block " +
-                        (window.location.href.indexOf("/admin/maps") !== -1
-                          ? "text-blue-500 hover:text-blue-600"
-                          : "text-gray-800 hover:text-gray-600")
-                      }
-                      to="/admin/maps"
-                    >
-                      <i
-                        className={
-                          "fas fa-map-marked mr-2 text-sm " +
-                          (window.location.href.indexOf("/admin/maps") !== -1
-                            ? "opacity-75"
-                            : "text-gray-400")
-                        }
-                      ></i>{" "}
-                  Maps
-                </Link>
-                  </li>
+                  <ItemBar setCollapseShow={setCollapseShow} path="/admin/tables" name="Tables" />
                 </ul>
 
                 {/* Divider */}
@@ -225,7 +163,7 @@ export default function Sidebar() {
                   <li className="items-center">
                     <Link
                       className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
-                      to="/auth/login"
+                      to={`${baseRouter}/auth/login`}
                     >
                       <i className="fas fa-fingerprint text-gray-500 mr-2 text-sm"></i>{" "}
                   Login
@@ -235,7 +173,7 @@ export default function Sidebar() {
                   <li className="items-center">
                     <Link
                       className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
-                      to="/auth/register"
+                      to={`${baseRouter}/auth/register`}
                     >
                       <i className="fas fa-clipboard-list text-gray-400 mr-2 text-sm"></i>{" "}
                   Register
@@ -255,7 +193,7 @@ export default function Sidebar() {
                   <li className="items-center">
                     <Link
                       className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
-                      to="/landing"                >
+                      to={`${baseRouter}/landing`}                >
                       <i className="fas fa-newspaper text-gray-500 mr-2 text-sm"></i>{" "}
                   Landing Page
                 </Link>
@@ -274,7 +212,7 @@ export default function Sidebar() {
                   <li className="items-center">
                     <Link
                       className="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block"
-                      to="/profile"
+                      to={`${baseRouter}/profile`}
                     >
                       <i className="fas fa-user-circle text-gray-500 mr-2 text-sm"></i>{" "}
                   Profile Page
@@ -399,9 +337,9 @@ export default function Sidebar() {
                 }
               </ul>
             </div>
-          </div>
-        </div>
-      </nav>
+          </div >
+        </div >
+      </nav >
     </>
   );
 }

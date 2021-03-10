@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { getRandom } from 'components/Dropdowns/IconDropdown'
 import { inputStreamRouter } from "api/schedule.api";
 import { EPagePath } from "routes";
+import baseRouter from "constants/config/baseRouter";
 
 const Styles = styled.div`
 
@@ -361,7 +362,7 @@ export default function Landing() {
                   A related concept is the strength of memory that refers to the durability
                   that memory traces in the brain.
                 </p>
-                <Link to="/myschedule/schedule" className="font-bold text-gray-800 mt-8">
+                <Link to={`${baseRouter}/myschedule/schedule`} className="font-bold text-gray-800 mt-8">
                   Start Now!
                 </Link>
               </div>

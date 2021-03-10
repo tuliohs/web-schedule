@@ -14,6 +14,7 @@ import Empty from 'utils/Empty'
 import { submitDialog } from "views/customize/Topic/Topic";
 import CardPost from "views/Explore/Factory/CardPost";
 import { EPagePath } from "routes";
+import baseRouter from "constants/config/baseRouter";
 
 export default function Factory() {
 
@@ -27,7 +28,7 @@ export default function Factory() {
 
     const ToggleForkTopic = async ({ topicId, title }) => {
         if (!token) {
-            history.push("/auth/login")
+            history.push(`${baseRouter}/auth/login`)
             return setMessage({ type: 'info', text: t("explore.loginMsg"), timeExpire: 8 })
         }
         submitDialog({
@@ -49,7 +50,6 @@ export default function Factory() {
                 }, [])
                 setLoading(false)
                 setCatgs(c.data)
-                console.log(uniqueArray)
                 setTopic(uniqueArray)
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }, [setMessage])
@@ -88,7 +88,6 @@ export default function Factory() {
                         btnLabel="Add Topic"
                     />*/}
                 </div>
-                {console.log(topic)}
                 <div className=" bg-transparent justify-center items-center text-center">
                     {
                         topic?.length === 0 && catgs?.length === 0

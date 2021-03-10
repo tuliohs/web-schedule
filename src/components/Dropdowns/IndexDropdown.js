@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPopper } from "@popperjs/core";
+import baseRouter from "constants/config/baseRouter";
 
 const IndexDropdown = () => {
   // dropdown props
@@ -44,19 +45,19 @@ const IndexDropdown = () => {
           Admin Layout
         </span>
         <Link
-          to="/admin/dashboard"
+          to={`${baseRouter}/admin/dashboard`}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
         >
           Dashboard
         </Link>
         <Link
-          to="/admin/settings"
+          to={`${baseRouter}/admin/settings`}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
         >
           Settings
         </Link>
         <Link
-          to="/admin/tables"
+          to={`${baseRouter}/admin/tables`}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
         >
           Tables
@@ -76,13 +77,13 @@ const IndexDropdown = () => {
           Auth Layout
         </span>
         <Link
-          to="/auth/login"
+          to={`${baseRouter}/auth/login`}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
         >
           Login
         </Link>
         <Link
-          to="/auth/register"
+          to={`${baseRouter}/auth/register`}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
         >
           Register
@@ -96,13 +97,13 @@ const IndexDropdown = () => {
           No Layout
         </span>
         <Link
-          to="/landing"
+          to={`${baseRouter}/landing`}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
         >
           Lading
         </Link>
         <Link
-          to="/profile"
+          to={`${baseRouter}/profile`}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
         >
           Profile

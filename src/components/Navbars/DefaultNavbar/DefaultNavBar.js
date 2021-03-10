@@ -2,6 +2,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next'
+import baseRouter from "constants/config/baseRouter";
 
 export default function DefaultNavbar({ showAcessBtn = true }) {
 
@@ -46,7 +47,7 @@ export default function DefaultNavbar({ showAcessBtn = true }) {
                         href="/">
                         {t("navAdm.title")}
                     </a>*/}
-                    <a href="/">
+                    <a href="/app">
                         <img style={{ width: 40 }} alt="" src={require('assets/logo/logo_size_invert_red.jpg')} />
                     </a>
                     < ul className="flex flex-row lg:ml-auto">
@@ -66,7 +67,7 @@ export default function DefaultNavbar({ showAcessBtn = true }) {
                                 focus:outline-none 
                                 lg:mr-1 lg:mb-0 ml-16 ease-linear transition-all 
                                 duration-150"
-                                    to="/myschedule/schedule"
+                                    to={`${baseRouter}/myschedule/schedule`}
                                 > {t("bt.access")}</Link>
                             </li>
                         }

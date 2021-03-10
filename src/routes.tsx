@@ -1,22 +1,22 @@
 
 //Caminho das páginas
 export enum EPagePath {
-    Topic = "/customize/lab/topic",
-    Explore = "/explore/factory",
-    PublicFactory = "/public",
-    Category = "/customize/lab/category",
-    Item = "/customize/lab/item",
-    Review = "/myschedule/revision",
-    Next = "/myschedule/next",
-    Schedule = "/myschedule/schedule",
-    Profile = "/customize/profile",
-    Statistics = "/explore/statistics",
-    Landing = "/",
-    Login = "/auth/login",
-    Register = "/auth/register",
-    CompletRegister = "/auth/register/complet",
-    ForgetPass = "/auth/forgotpass",
-    Policy = "/policy",
+    Topic = "webapp/customize/lab/topic",
+    Explore = "webapp/explore/factory",
+    PublicFactory = "webapp/public",
+    Category = "webapp/customize/lab/category",
+    Item = "webapp/customize/lab/item",
+    Review = "webapp/myschedule/revision",
+    Next = "webapp/myschedule/next",
+    Schedule = "webapp/myschedule/schedule",
+    Profile = "webapp/customize/profile",
+    Statistics = "webapp/explore/statistics",
+    Landing = "webapp/",
+    Login = "webapp/auth/login",
+    Register = "webapp/auth/register",
+    CompletRegister = "webapp/auth/register/complet",
+    ForgetPass = "webapp/auth/forgotpass",
+    Policy = "webapp/policy",
 }
 
 

@@ -10,6 +10,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 // views
 import Statistics from 'views/Explore/Statistics/Statistics'
 import Factory from 'views/Explore/Factory/Factory'
+import baseRouter from "constants/config/baseRouter";
 
 export default function Explore() {
     return (
@@ -21,9 +22,9 @@ export default function Explore() {
                 <HeaderDefault />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <Switch>
-                        <Route path="/explore/factory" exact component={Factory} />
-                        <Route path="/explore/statistics" exact component={Statistics} />
-                        <Redirect from="/explore" to="/explore/factory" />
+                        <Route path={`${baseRouter}/explore/factory`} exact component={Factory} />
+                        <Route path={`${baseRouter}/explore/statistics`} exact component={Statistics} />
+                        <Redirect from={`${baseRouter}/explore`} to={`${baseRouter}/explore/factory`} />
                     </Switch>
                     <FooterAdmin />
                 </div>
