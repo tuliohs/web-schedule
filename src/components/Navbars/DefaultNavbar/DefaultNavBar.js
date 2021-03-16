@@ -53,10 +53,10 @@ export default function DefaultNavbar({ showAcessBtn = true }) {
                     < ul className="flex flex-row lg:ml-auto">
                         {location?.pathname !== "/public" &&
                             <li className="flex items-center mr-4">
-                                <Link className="btn hover:text-gray-600  px-4 py-2 lg:py-4 flex
+                                <a className="btn hover:text-gray-600  px-4 py-2 lg:py-4 flex
                                  items-center text-xs uppercase font-bold z-40"
-                                    to="/public">
-                                    {t("bt.explore")}</Link>
+                                    href="/public">
+                                    {t("bt.explore")}</a>
                             </li>
                         }
                         {!location?.pathname.includes("auth") &&

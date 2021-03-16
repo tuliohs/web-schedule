@@ -37,7 +37,7 @@ const UserDropdown = ({ items = [], content = null }) => {
         {
           items.map((element: any) => (
             <a
-              href="#/"
+              //href="#/"
               className={
                 "flex flex-row justify-between text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
               }

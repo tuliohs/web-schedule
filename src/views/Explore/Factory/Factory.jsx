@@ -48,9 +48,9 @@ export default function Factory() {
                     }
                     return a;
                 }, [])
-                setLoading(false)
                 setCatgs(c.data)
                 setTopic(uniqueArray)
+                setLoading(false)
             }).catch(e => setMessage({ type: 'danger', text: e?.toString() }))
     }, [setMessage])
 

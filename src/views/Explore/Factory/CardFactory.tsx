@@ -8,7 +8,6 @@ import DefaultContext, { EEmpty } from 'constants/data/DefaultContext'
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css 
 import { TItem } from "constants/Types";
 
-
 type TCategory = {
     description: string,
     title: string,
@@ -31,7 +30,6 @@ const layoutColumn = false;
 
 const CardContent: FunctionComponent<ICardFactory> = ({ topic, categories }) => {
 
-
     return (
         <div className="w-full  px-4 text-center">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -46,8 +44,6 @@ const CardContent: FunctionComponent<ICardFactory> = ({ topic, categories }) => 
                                 </div>
                             </div>
                         </div>
-
-
                         <div className=" max-w-3-px  ">
                             {categories ?
                                 categories.slice(0, 4).map((w: any) => (

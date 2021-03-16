@@ -18,7 +18,6 @@ const ItemBar: FunctionComponent<MyProps> = ({ name, path, faIcon = "tv", setCol
         if (path.split('/').length <= minSeparator) return str
         return str.substr(1, str.lastIndexOf('/'))
     }
-    console.log(location?.pathname, 'e', relativePath(path))
     return (
         <li className="items-center">
             <Link

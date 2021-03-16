@@ -9,6 +9,7 @@ import history from 'utils/history'
 import storage from 'utils/storage'
 import CardLetter from 'components/Cards/CardLetter'
 import UserDropdown from "components/Dropdowns/UserDropdown";
+import { EPagePath } from "routes";
 
 export const logoutHandler = e => {
   e.preventDefault()
@@ -17,7 +18,7 @@ export const logoutHandler = e => {
 }
 export const editProfileHandler = e => {
   e.preventDefault()
-  history.push('/customize/profile')
+  history.push(EPagePath.Profile)
 }
 export const itemsDropUser = [
   { label: " Edit Profile", action: editProfileHandler, showSlideBar: false },

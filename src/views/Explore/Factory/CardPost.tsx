@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import React, { FunctionComponent } from "react";
 
-import 'components/Buttons/buttonHover.css'
+//import 'components/Buttons/buttonHover.css'
 // components
 //import ItemDialog from '../ItemDialog'
 //import StepMenu from '../StepMenu' 
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+//import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { TItem } from "constants/Types";
 
 type TCategory = {

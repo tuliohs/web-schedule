@@ -42,12 +42,13 @@ export default function Next() {
         await obterNextSchedule()
             .then(c => {
                 //Order to next review
-                function compare(a, b) {
-                    if (a.detail?.nextReview > b.detail?.nextReview) return 1;
-                    if (b.detail?.nextReview > a.detail?.nextReview) return -1;
-                    return 0;
-                }
-                setData(c.data.sort(compare))
+                //function compare(a, b) {
+                //    if (a.detail?.nextReview > b.detail?.nextReview) return 1;
+                //    if (b.detail?.nextReview > a.detail?.nextReview) return -1;
+                //    return 0;
+                //}
+                //setData(c.data.sort(compare))
+                setData(c.data)
                 setLoading(false)
                 setShowAnimation(false)
                 setShowCard(true)
