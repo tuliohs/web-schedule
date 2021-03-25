@@ -16,7 +16,9 @@ import { EPagePath } from "routes";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-export default function Next() {
+export default React.memo(Next)
+
+const Next = () => {
 
     const { setMessage, } = useContext(DefaultContext);
     const focusTextArea = useRef(null)
