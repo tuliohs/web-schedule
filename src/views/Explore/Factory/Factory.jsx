@@ -16,7 +16,7 @@ import CardPost from "views/Explore/Factory/CardPost";
 import { EPagePath } from "routes";
 import baseRouter from "constants/config/baseRouter";
 
-export default React.memo(Factory)
+
 const Factory = () => {
 
     const history = useHistory()
@@ -107,3 +107,4 @@ const Factory = () => {
         </>
     );
 }
+export default React.memo(Factory)

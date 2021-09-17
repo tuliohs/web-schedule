@@ -16,7 +16,7 @@ import { EPagePath } from "routes";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-export default React.memo(Next)
+
 
 const Next = () => {
 
@@ -114,3 +114,4 @@ const Next = () => {
         </>
     );
 }
+export default React.memo(Next)
